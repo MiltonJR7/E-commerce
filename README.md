@@ -20,17 +20,19 @@ No momento, apenas parte do sistema está funcional.
 
 ### Autenticação
 - Login de usuários ✅
-- Registro de usuários (em desenvolvimento – aproximadamente 75%)
+- Registro de usuários ✅
+- Criptografia com Bcrypt ✅
+- Autenticador com JWT ✅
+- Dashboard (Em desenvolvimento realizado somente front-end)
 
 ### Gerenciamento de Usuários (planejado)
 - Listagem de usuários
 - Atualização de dados do usuário
 - Exclusão de usuários
-- Dashboard protegido por autenticação
+- Definição de perfil para controle
 
 ### Funcionalidades Futuras
 - Validações completas de formulário
-- Criptografia e segurança aprimorada
 - Controle de acesso
 - Interface aprimorada
 
