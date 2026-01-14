@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Projeto Full Stack em desenvolvimento, criado com o objetivo de praticar e demonstrar conhecimentos em desenvolvimento web, arquitetura de aplicações e persistência de dados utilizando Node.js e MySQL.
+Projeto Full Stack em desenvolvimento, criado com o objetivo de praticar e demonstrar conhecimentos em desenvolvimento web, arquitetura de aplicações e persistência de dados utilizando Node.js e PostgreSQL.
 
 Atualmente, o projeto possui apenas as funcionalidades iniciais de autenticação implementadas, estando em constante evolução.
 
@@ -43,12 +43,12 @@ No momento, apenas parte do sistema está funcional.
 ### Back-end
 - Node.js
 - Express
-- MySQL
+- PostgreSQL
 - JWT
 - Bcrypt
 
 ### Front-end
-- HTML
+- EJS
 - CSS
 - JavaScript
 
