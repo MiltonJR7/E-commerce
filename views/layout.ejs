@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce</title>
+    <link rel="stylesheet" href="/css/homeStyle.css">
+</head>
+<body>
+    <header class="nav">
+        <div class="container">
+        <div class="nav-inner">
+            <a class="brand" href="/" aria-label="Ir para home">
+            <div class="logo" aria-hidden="true"></div>
+            <span>E-commerce</span>
+            </a>
+            <nav class="nav-links" aria-label="Navegação principal">
+            <a href="#">Sobre</a>
+            <a href="#">Loja</a>
+
+            <div class="dropdown hover-open" aria-label="Categorias">
+                <button type="button" aria-haspopup="true" aria-expanded="false">
+                Categoria ▾
+                </button>
+                <div class="drop-panel" role="menu">
+                <div class="drop-title">Categorias</div>
+                <a href="#categoria-1" role="menuitem">Categoria 1</a>
+                <a href="#categoria-2" role="menuitem">Categoria 2</a>
+                <a href="#categoria-3" role="menuitem">Categoria 3</a>
+                <a href="#categoria-4" role="menuitem">Categoria 4</a>
+                </div>
+            </div>
+
+            <a href="#">Contato</a>
+            </nav>
+
+            <div class="nav-actions">
+            <button class="icon-btn" type="button" aria-label="Carrinho">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 7h14l-2 8H9L7 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M7 7 6 4H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+                <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+                </svg>
+                <span class="badge" aria-label="Itens no carrinho">2</span>
+            </button>
+
+            <div class="dropdown" id="profileDropdown">
+                <button class="icon-btn" type="button" id="profileBtn" aria-label="Perfil" aria-haspopup="true" aria-expanded="false">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 21a8 8 0 1 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                </button>
+
+                <div class="drop-panel" id="profilePanel" role="menu" aria-label="Opções de perfil">
+                <div class="drop-title">Conta</div>
+                <a href="/login" role="menuitem">Login</a>
+                <a href="/register" role="menuitem">Register</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </header>
+
+    <div>
+        <%- body %>
+    </div>
+
+    <footer>
+        <div class="container">
+        <div class="footer-grid">
+            <div>
+            <strong>E-commerce</strong><br/>
+            <span>Front end base para integrar no seu back end.</span>
+            </div>
+            <div>
+            <strong>Links</strong><br/>
+            <a href="#sobre">Sobre</a> ·
+            <a href="#loja">Loja</a> ·
+            <a href="#contato">Contato</a>
+            </div>
+            <div>
+            <strong>Social</strong><br/>
+            <span>@sua_loja · atendimento@email.com</span>
+            </div>
+        </div>
+        </div>
+    </footer>
+</body>
+  <script>
+    const dropdown = document.getElementById("profileDropdown");
+    const btn = document.getElementById("profileBtn");
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.toggle("open");
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    document.addEventListener("click", () => {
+      dropdown.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    });
+
+    const slides = document.getElementById("slides");
+    const total = slides.children.length;
+
+    const dotsWrap = document.getElementById("dots");
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+
+    let index = 0;
+    let timer = null;
+
+    function renderDots(){
+      dotsWrap.innerHTML = "";
+      for(let i=0;i<total;i++){
+        const d = document.createElement("button");
+        d.className = "dot" + (i === index ? " active" : "");
+        d.type = "button";
+        d.setAttribute("aria-label", "Ir para o slide " + (i+1));
+        d.addEventListener("click", () => goTo(i, true));
+        dotsWrap.appendChild(d);
+      }
+    }
+
+    function goTo(i, userAction=false){
+      index = (i + total) % total;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      renderDots();
+      if(userAction) restartAuto();
+    }
+
+    function nextSlide(userAction=false){ goTo(index + 1, userAction); }
+    function prevSlide(userAction=false){ goTo(index - 1, userAction); }
+
+    function startAuto(){
+      timer = setInterval(() => nextSlide(false), 5000);
+    }
+
+    function stopAuto(){
+      if(timer) clearInterval(timer);
+      timer = null;
+    }
+
+    function restartAuto(){
+      stopAuto();
+      startAuto();
+    }
+
+    next.addEventListener("click", () => nextSlide(true));
+    prev.addEventListener("click", () => prevSlide(true));
+
+    const carousel = document.querySelector(".carousel");
+    carousel.addEventListener("mouseenter", stopAuto);
+    carousel.addEventListener("mouseleave", startAuto);
+
+    renderDots();
+    goTo(0);
+    startAuto();
+  </script>
+</html>

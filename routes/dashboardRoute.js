@@ -6,5 +6,5 @@ import auth from "../middleware/middlewareRoutes.js";
 const controller = new DashboardController;
 const route = express.Router();
 
-route.get('/dashboard', auth, controller.dashboardView);
+route.get('/', auth, controller.dashboardView);
 export default route;

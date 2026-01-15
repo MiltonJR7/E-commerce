@@ -4,6 +4,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --bg:#0b0f19;
+  --text:#000000;
 }
 
 h1 {
@@ -16,8 +18,10 @@ body {
   display: grid;
   place-items: center;
   padding: 24px;
-  background: radial-gradient(circle at top, rgba(181, 195, 233, 0.9), rgba(67, 102, 199, 0.95)),
-              linear-gradient(135deg, #5d5fd6, #5030f3c2, #3270f5);
+  background: radial-gradient(1200px 700px at 20% -10%, rgba(167, 186, 223, 0.18), transparent 50%),
+                radial-gradient(900px 600px at 90% 0%, rgba(165, 143, 255, 0.16), transparent 55%),
+                var(--bg);
+    color:var(--text);
 }
 
 .formLogin {
@@ -137,6 +141,14 @@ body {
 .buttonsForm a:hover {
   color: #1d4ed8;
   border-color: rgba(29, 78, 216, 0.45);
+}
+
+.linkEspaco {
+  margin-left: 5px;
+}
+
+.spanEspaco {
+  margin-top: 8px;
 }
 
 @media (max-width: 420px) {

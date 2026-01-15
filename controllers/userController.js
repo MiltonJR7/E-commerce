@@ -4,7 +4,7 @@ import JWT from  'jsonwebtoken';
 
 export default class UserController {
     loginView(req, res) {
-        res.render('Login/loginPage');
+        res.render('Login/loginPage', { layout: false });
     }
 
     async login(req, res) {
@@ -38,7 +38,7 @@ export default class UserController {
     }
 
     registerView(req, res) {
-        res.render('Register/registerPage');
+        res.render('Register/registerPage', { layout: false });
     }
 
     async register(req, res) {
