@@ -349,3 +349,144 @@
         border-bottom: 1px solid var(--border);
       }
     }
+
+    /* TABELA dentro do .list-slot */
+    .list-slot{
+      padding: 14px;            /* já cria “respiro” */
+      overflow: hidden;         /* borda arredondada sem vazar */
+    }
+
+    .list-slot .sf-table{
+      width: 100%;
+      border-collapse: separate; /* permite spacing */
+      border-spacing: 0 10px;    /* espaço entre linhas (não fica grudado) */
+    }
+
+    /* Cabeçalho */
+    .list-slot .sf-table thead th{
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: .4px;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Linhas estilo “cartão” */
+    .list-slot .sf-table tbody tr{
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+    }
+
+    html[data-theme="light"] .list-slot .sf-table tbody tr{
+      background: rgba(13,18,32,0.03);
+    }
+
+    /* Células */
+    .list-slot .sf-table tbody td{
+      padding: 12px 12px;
+      color: var(--text);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Bordas arredondadas por linha */
+    .list-slot .sf-table tbody tr td:first-child{
+      border-left: 1px solid var(--border);
+      border-top-left-radius: 14px;
+      border-bottom-left-radius: 14px;
+    }
+    .list-slot .sf-table tbody tr td:last-child{
+      border-right: 1px solid var(--border);
+      border-top-right-radius: 14px;
+      border-bottom-right-radius: 14px;
+    }
+
+    /* Hover */
+    .list-slot .sf-table tbody tr:hover{
+      background: rgba(122,162,255,0.08);
+    }
+
+    /* Utilitários (usados no HTML que te passei) */
+    .list-slot .mono{ font-variant-numeric: tabular-nums; }
+    .list-slot .strong{ font-weight: 650; }
+    .list-slot .muted{ color: var(--muted); }
+
+    /* Badge ATIVO/INATIVO */
+    .list-slot .badge{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      letter-spacing: .3px;
+    }
+    .list-slot .badge-ok{
+      background: rgba(83,214,199,0.12);
+      border-color: rgba(83,214,199,0.35);
+    }
+    .list-slot .badge-off{
+      background: rgba(255,99,132,0.10);
+      border-color: rgba(255,99,132,0.30);
+    }
+
+    /* Pill PERFIL */
+    .list-slot .pill{
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--text);
+      background: rgba(122,162,255,0.10);
+      border: 1px solid rgba(122,162,255,0.28);
+    }
+
+    /* Responsivo: “quebra” com scroll horizontal */
+    .list-slot{
+      overflow-x: auto;
+    }
+    .list-slot .sf-table{
+      min-width: 760px; /* evita quebrar tudo em telas menores */
+    }
+
+
+    .buttonsTable button {
+      border: none;
+      background: transparent;
+      padding: 6px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .buttonsTable button i {
+      font-size: 16px;
+    }
+
+    /* Editar */
+    .buttonsTable button:first-child i {
+      color: #0d6efd;
+    }
+
+    .buttonsTable button:first-child:hover {
+      background: rgba(13, 110, 253, 0.1);
+    }
+
+    /* Excluir */
+    .buttonsTable button:last-child i {
+      color: #dc3545;
+    }
+
+    .buttonsTable button:last-child:hover {
+      background: rgba(220, 53, 69, 0.1);
+    }
+
+    /* Efeito clique */
+    .buttonsTable button:active {
+      transform: scale(0.95);
+    }
+

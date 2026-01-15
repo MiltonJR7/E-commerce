@@ -33,7 +33,12 @@ document.addEventListener('DOMContentLoaded', ()=> {
             })
             .then((corpo)=> {
                 if(corpo.ok) {
-                    window.location.href = "/dashboard";
+                    if(corpo.id == 1) {
+
+                        window.location.href = "/dashboard";
+                    } else {
+                        window.location.href = "/";
+                    }
                 } else {
                     email.value = "";
                     senha.value = "";

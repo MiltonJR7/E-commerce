@@ -54,7 +54,6 @@ export default class UserModel {
       if (!ok) return null;
 
       delete user.usu_hash_senha;
-
       return user;
     } finally {
       client.release();
@@ -114,24 +113,39 @@ export default class UserModel {
     const client = await pool.connect();
 
     try {
+      const sql = `
+        select
+          tb_usuario.usu_id,
+          tb_usuario.usu_nome,
+          tb_usuario.usu_email,
+          tb_usuario.usu_ativo,
+          tb_usuario.usu_criacao,
+          tb_perfil.per_tipo
+        from tb_usuario
+        inner join tb_perfil on tb_usuario.per_id = tb_perfil.per_id
+      `;
 
-      const sql = "select usu_id, usu_nome, usu_email, usu_ativo, usu_criacao, per_id from tb_usuario";
-      const rows = await client.query(sql);
+      const result = await client.query(sql);
+      const rows = result.rows;
 
       let listaUsuario = [];
-      for(let i = 0; i < rows.length; i++) {
-        let usuarios = new UserModel();
-        usuarios.usuID = rows[i]['usu_id'];
-        usuarios.usuNome = rows[i]['usu_id'];
-        usuarios.usuEmail = rows[i]['usu_id'];
-        usuarios.usuDate = rows[i]['usu_id'];
-        usuarios.usuID = rows[i]['usu_id'];
+
+      for (let i = 0; i < rows.length; i++) {
+        let usuario = new UserModel();
+        usuario.usuID = rows[i].usu_id;
+        usuario.usuNome = rows[i].usu_nome;
+        usuario.usuEmail = rows[i].usu_email;
+        usuario.usuAtivo = rows[i].usu_ativo;
+        usuario.usuCriacao = rows[i].usu_criacao;
+        usuario.perTipo = rows[i].per_tipo;
+
+        listaUsuario.push(usuario);
       }
 
-      return null;
-
+      return listaUsuario;
     } finally {
       client.release();
     }
   }
+
 }

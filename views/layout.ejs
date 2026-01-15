@@ -55,8 +55,17 @@
 
                 <div class="drop-panel" id="profilePanel" role="menu" aria-label="Opções de perfil">
                 <div class="drop-title">Conta</div>
-                <a href="/login" role="menuitem">Login</a>
-                <a href="/register" role="menuitem">Register</a>
+                  <% if(!user) { %>
+                    <a href="/login" role="menuitem">Login</a>
+                    <a href="/register" role="menuitem">Register</a>
+                  <% } else if(perfil === 1) { %>
+                    <a href="/perfil" role="menuitem">Perfil</a>
+                    <a href="/dashboard" role="menuitem">Dashboard</a>
+                    <a href="/logout" role="menuitem">Logout</a>
+                  <% } else { %>
+                    <a href="/perfil" role="menuitem">Perfil</a>
+                    <a href="/logout" role="menuitem">Logout</a>
+                  <% } %>
                 </div>
             </div>
             </div>

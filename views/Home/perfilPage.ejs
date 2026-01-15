@@ -1,0 +1,106 @@
+    <link rel="stylesheet" href="/css/perfilStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<div class="profile-shell">
+  
+  <section class="profile-card">
+    <div class="profile-band"></div>
+
+    <div class="profile-inner">
+      <div class="profile-head">
+        <div class="ph-left">
+          <div class="ph-avatar">
+            <img src="<%= (user && user.foto) ? user.foto : 'https://via.placeholder.com/80' %>" alt="Foto do usuário" />
+          </div>
+
+          <div class="ph-id">
+            <div class="ph-name"></div>
+            <div class="ph-email"></div>
+          </div>
+        </div>
+      </div>
+
+      <form class="profile-form" action="/perfil" method="POST">
+        <div class="profile-grid">
+          <div class="pf-field">
+            <label>Full Name</label>
+            <input type="text" name="fullName" placeholder="Your First Name"
+                   value="<%= (user && user.nomeCompleto) ? user.nomeCompleto : '' %>">
+          </div>
+
+          <div class="pf-field">
+            <label>Nick Name</label>
+            <input type="text" name="nickName" placeholder="Your First Name"
+                   value="<%= (user && user.nickName) ? user.nickName : '' %>">
+          </div>
+
+          <div class="pf-field">
+            <label>Gender</label>
+            <div class="pf-select">
+              <select name="gender">
+                <option value="">Your First Name</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+
+          <div class="pf-field">
+            <label>Country</label>
+            <div class="pf-select">
+              <select name="country">
+                <option value="">Your First Name</option>
+                <option value="br">Brazil</option>
+                <option value="us">USA</option>
+              </select>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+
+          <div class="pf-field">
+            <label>Language</label>
+            <div class="pf-select">
+              <select name="language">
+                <option value="">Your First Name</option>
+                <option value="pt">Português</option>
+                <option value="en">English</option>
+              </select>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+
+          <div class="pf-field">
+            <label>Time Zone</label>
+            <div class="pf-select">
+              <select name="timezone">
+                <option value="">Your First Name</option>
+                <option value="america/sao_paulo">America/Sao_Paulo</option>
+                <option value="utc">UTC</option>
+              </select>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="pf-section-title">My Address</div>
+
+        <div class="pf-email-row">
+          <div class="pf-email-ico">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+
+          <div class="pf-email-info">
+            <div class="pf-email-main"></div>
+            <div class="pf-email-sub">1 month ago</div>
+          </div>
+        </div>
+
+        <div class="pf-actions">
+          <a class="sf-btn sf-btn-ghost" href="/">Back</a>
+          <button class="sf-btn sf-btn-primary" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

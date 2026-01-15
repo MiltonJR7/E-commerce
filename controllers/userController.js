@@ -18,7 +18,7 @@ export default class UserController {
 
             if (!user) return res.status(400).json({ ok: false });
 
-            const payload = ({ id: user.usu_id })
+            const payload = ({ id: user.usu_id, perID: user.per_id })
             const token = JWT.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
             res.cookie("token", token, {
@@ -29,7 +29,7 @@ export default class UserController {
                 maxAge: 1000 * 60 * 60
             });
 
-            if(user) return res.json({ ok: true });
+            if(user) return res.json({ ok: true, id: user.usu_id, perID: user.per_id });
             return res.status(400).json({ ok: false });
         } catch(err) {
             console.log(err);
@@ -56,5 +56,14 @@ export default class UserController {
             console.log(err);
             return res.status(500).json({ ok: false });
         }
+    }
+
+    logout(req, res) {
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/"
+        }).redirect('/');
     }
 }

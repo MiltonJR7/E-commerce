@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Dashboard</title>
   <link rel="stylesheet" href="/css/dashStyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -44,6 +45,10 @@
           </svg>
           Produtos
         </button>
+        <button class="navlink">
+          <i class="fa fa-home" aria-hidden="true"></i>
+          <a href="/" style="text-decoration: none; color: white; margin-left: 2px;">Home Page</a>
+        </button>
       </nav>
     </aside>
 
@@ -67,34 +72,20 @@
             <div class="card-header">
               <div>
                 <h3 class="card-title">Usuários cadastrados</h3>
-                <p class="card-subtitle">Área reservada para gráfico e contador (integrar via EJS e seu script de gráfico).</p>
+                <p class="card-subtitle">Área reservada para gráfico e contador.</p>
               </div>
 
               <div class="metric" aria-label="Contador de usuários cadastrados">
-                <strong id="usersCount">
-                  <p>Em progresso...</p>
-                </strong>
+                <p><%= lista.length %></p>
                 <span>Total</span>
               </div>
             </div>
-
-            <div class="chart-shell" aria-label="Container do gráfico de usuários">
-              <div class="hint">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 19V5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M4 19h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M8 15l3-4 3 2 5-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Renderize seu gráfico aqui (sem dados estáticos)
-              </div>
-            </div>
-          </div>
 
           <div class="card">
             <div class="card-header">
               <div>
                 <h3 class="card-title">Buscar usuários</h3>
-                <p class="card-subtitle">A busca aqui é apenas UI. Você conecta a lógica no seu backend quando quiser.</p>
+                <p class="card-subtitle">Realize a busca afim de filtrar de forma funcional.</p>
               </div>
             </div>
 
@@ -115,9 +106,51 @@
                 </button>
               </div>
             </div>
-
             <div class="list-slot">
-              Slot reservado para listagem via EJS.
+              <table class="sf-table">
+                <thead>
+                  <tr>
+                    <th class="col-id">ID</th>
+                    <th>NOME</th>
+                    <th>EMAIL</th>
+                    <th class="col-ativo">ATIVO</th>
+                    <th class="col-perfil">PERFIL</th>
+                    <th class="col-perfil">AÇÕES</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for (let i = 0; i < lista.length; i++) { %>
+                    <tr>
+                      <td class="mono"><%= lista[i].usuID %></td>
+                      <td class="strong"><%= lista[i].usuNome %></td>
+                      <td class="muted"><%= lista[i].usuEmail %></td>
+
+                      <td>
+                        <% const ativo = (lista[i].usuAtivo === 'S' || lista[i].usuAtivo === 1 || String(lista[i].usuAtivo).toLowerCase() === 'true'); %>
+                        <span class="badge <%= ativo ? 'badge-ok' : 'badge-off' %>">
+                          <%= ativo ? 'ATIVO' : 'INATIVO' %>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="pill"><%= lista[i].perTipo %></span>
+                      </td>
+                      <td class="buttonsTable">
+                        <button title="Editar">
+                          <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button title="Excluir">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  <% } %>
+                  <% if (!lista || lista.length === 0) { %>
+                    <tr>
+                      <td colspan="6" class="empty">Nenhum usuário encontrado.</td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
