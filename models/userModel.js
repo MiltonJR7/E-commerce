@@ -89,9 +89,9 @@ export default class UserModel {
       const sql = `
       SELECT usu_id, usu_nome, usu_email, usu_hash_senha, usu_ativo
       FROM tb_usuario
-      WHERE usu_id = ?
+      WHERE usu_id = $1
     `
-    const rows = await client.query(sql);
+    const rows = await client.query(sql, [id]);
 
     if(rows.length > 0) {
       let row = rows[0];
@@ -148,4 +148,15 @@ export default class UserModel {
     }
   }
 
+  async deleteUser(id) {
+    const client = await pool.connect();
+
+    try {
+      const sql = "delete from tb_usuario where usu_id = $1";
+      const result = await client.query(sql, [id]);
+      return result;
+    } finally {
+      client.release();
+    }
+  }
 }

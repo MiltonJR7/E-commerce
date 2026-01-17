@@ -9,6 +9,8 @@ export default function auth(req, res, next) {
     try {   
         const payload = JWT.verify(token, process.env.JWT_SECRET);
         req.user = payload;
+        
+        if(req.user.perID !== 1) return res.status(400).redirect('/');
 
         return next();
     } catch(err) {

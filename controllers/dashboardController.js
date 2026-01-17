@@ -13,7 +13,29 @@ export default class DashboardController {
             res.render('Dashboard/dashboardPage', { layout: false, lista: lista });
         } catch(err) {
             console.log(err);
-            res.status(500).json({ mensage: "Erro em try lista" });
+            res.status(500).json({ menssage: "Erro em try lista" });
+        }
+    }
+
+    async delete(req, res) {
+
+        try {
+            let idUsuario = req.body.obj;
+
+            if(!idUsuario) return res.status(400).json({ message: "Erro: id não encontrado", ok: false });
+
+            const banco = new UserModel();
+            const result = await banco.deleteUser(idUsuario);
+
+            if(result) {
+                res.status(200).json({ ok: true });
+            } else {
+                res.status(500).json({ ok: false });
+            }
+
+        } catch(err) {
+            console.log(err);
+            res.status(500).json({ menssage: "Erro: em try delete", ok: false });
         }
     }
 }
