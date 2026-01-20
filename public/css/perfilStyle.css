@@ -260,3 +260,7 @@ body{
     border-bottom: 1px solid var(--line);
   }
 }
+
+a {
+  text-decoration: none;
+}
