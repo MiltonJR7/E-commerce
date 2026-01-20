@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         const senha = document.getElementById('senha');
         const confSenha = document.getElementById('confSenha');
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const genero = document.getElementById('genero');
         let listaValidar = [];
 
         if(nome.value === "") { listaValidar.push(nome) } else { nome.style.borderColor = "rgba(15, 23, 42, 0.15)"; }
@@ -20,12 +21,15 @@ document.addEventListener('DOMContentLoaded', ()=> {
             confSenha.style.borderColor = "rgba(15, 23, 42, 0.15)";
         }
 
+        if(genero.value === "") { listaValidar.push(genero); } else { genero.style.border = "rgba(15, 23, 42, 0.15)"; }
+
         if(listaValidar.length == 0) {
 
             let obj = {
                 nome: nome.value,
                 email: email.value,
-                senha: senha.value
+                senha: senha.value,
+                genero: genero.value
             }
 
             fetch('/register', {

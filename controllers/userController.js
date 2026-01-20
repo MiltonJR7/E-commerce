@@ -43,12 +43,16 @@ export default class UserController {
 
     async register(req, res) {
         try {
-            const {nome, email, senha} = req.body;
+            const {nome, email, senha, genero} = req.body;
+            if(!nome || !email || !senha || !genero) return res.status(400).json({ ok: false });
 
-            if(!nome || !email || !senha) return res.status(400).json({ ok: false });
+            const user = new UserModel();
+            user.usuNome = nome;
+            user.usuEmail = email;
+            user.usuSenha = senha;
+            user.usuGenero = genero;
 
-            const banco = new UserModel(null, nome, email, senha);
-            const result = await banco.registarUsuario();
+            const result = await user.registarUsuario();
 
             if(result) return res.json({ ok: true });
             return res.status(400).json({ ok: false })

@@ -1,106 +1,165 @@
-    <link rel="stylesheet" href="/css/perfilStyle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<div class="profile-shell">
-  
-  <section class="profile-card">
-    <div class="profile-band"></div>
 
-    <div class="profile-inner">
-      <div class="profile-head">
-        <div class="ph-left">
-          <div class="ph-avatar">
-            <img src="<%= (user && user.foto) ? user.foto : 'https://via.placeholder.com/80' %>" alt="Foto do usuário" />
-          </div>
-
-          <div class="ph-id">
-            <div class="ph-name"></div>
-            <div class="ph-email"></div>
-          </div>
-        </div>
-      </div>
-
-      <form class="profile-form" action="/perfil" method="POST">
-        <div class="profile-grid">
-          <div class="pf-field">
-            <label>Full Name</label>
-            <input type="text" name="fullName" placeholder="Your First Name"
-                   value="<%= (user && user.nomeCompleto) ? user.nomeCompleto : '' %>">
-          </div>
-
-          <div class="pf-field">
-            <label>Nick Name</label>
-            <input type="text" name="nickName" placeholder="Your First Name"
-                   value="<%= (user && user.nickName) ? user.nickName : '' %>">
-          </div>
-
-          <div class="pf-field">
-            <label>Gender</label>
-            <div class="pf-select">
-              <select name="gender">
-                <option value="">Your First Name</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-              <i class="fa-solid fa-chevron-down"></i>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/perfilStyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<div class="container perfil-wrap my-5">
+  <div class="perfil-card">
+    <div class="row g-0">
+      <aside class="col-lg-4 perfil-aside">
+        <div class="perfil-aside-inner">
+          <div class="perfil-avatar">
+            <img id="avatarPreview" class="perfil-avatar-img" alt="Profile imagem" src="/img/default.jpg">
+            <div class="perfil-avatar-actions">
+              <label class="btn btn-soft" for="avatarInput">
+                <i class="fa-solid fa-camera"></i>
+                Trocar foto
+              </label>
+              <input id="avatarInput" name="urlImagem" type="file" accept="image/*" class="d-none">
             </div>
           </div>
 
-          <div class="pf-field">
-            <label>Country</label>
-            <div class="pf-select">
-              <select name="country">
-                <option value="">Your First Name</option>
-                <option value="br">Brazil</option>
-                <option value="us">USA</option>
-              </select>
-              <i class="fa-solid fa-chevron-down"></i>
+          <div class="perfil-resumo mt-4">
+            <div class="perfil-resumo-item">
+              <span class="perfil-resumo-label">Nome</span>
+              <span id="previewNome" class="perfil-resumo-value"><%= lista.usu_nome %></span>
+            </div>
+            <div class="perfil-resumo-item">
+              <span class="perfil-resumo-label">E mail</span>
+              <span id="previewEmail" class="perfil-resumo-value"><%= lista.usu_email %></span>
+            </div>
+            <div class="perfil-resumo-item">
+              <span class="perfil-resumo-label">Gênero</span>
+              <span id="previewGenero" class="perfil-resumo-value"><%= lista.usu_genero %></span>
             </div>
           </div>
 
-          <div class="pf-field">
-            <label>Language</label>
-            <div class="pf-select">
-              <select name="language">
-                <option value="">Your First Name</option>
-                <option value="pt">Português</option>
-                <option value="en">English</option>
-              </select>
-              <i class="fa-solid fa-chevron-down"></i>
+          <div class="perfil-aside-footer mt-4">
+            <a class="btn btn-outline-soft w-100" href="#">
+              <i class="fa-solid fa-arrow-left"></i>
+              Voltar
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <main class="col-lg-8 perfil-main">
+        <section class="perfil-section">
+          <div class="perfil-section-header">
+            <div>
+              <h4 class="perfil-title">Dados do usuário</h4>
+              <p class="perfil-subtitle">Atualize as informações vinculadas ao seu cadastro</p>
             </div>
           </div>
 
-          <div class="pf-field">
-            <label>Time Zone</label>
-            <div class="pf-select">
-              <select name="timezone">
-                <option value="">Your First Name</option>
-                <option value="america/sao_paulo">America/Sao_Paulo</option>
-                <option value="utc">UTC</option>
-              </select>
-              <i class="fa-solid fa-chevron-down"></i>
+          <form id="formUsuario" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="nomeInput">Nome</label>
+              <input id="nomeInput" name="nome" type="text" class="form-control soft-control" placeholder="Seu nome completo" autocomplete="name" value="<%= lista.usu_nome %>">
             </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="emailInput">E mail</label>
+              <input id="emailInput" name="email" type="email" class="form-control soft-control" placeholder="seuemail@dominio.com" autocomplete="email" value="<%= lista.usu_email %>">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="generoSelect">Gênero</label>
+              <select id="generoSelect" name="genero" class="form-control soft-select" required>
+                <% if(lista.usu_genero === "masculino") { %>
+                  <option value="masculino">Masculino</option>
+                  <option value="feminino">Feminino</option>
+                <% } else { %>
+                  <option value="feminino">Feminino</option>
+                  <option value="masculino">Masculino</option>
+                <% } %>
+
+              </select>
+            </div>
+
+            <div class="col-12">
+              <div class="perfil-actions">
+                <button type="button" class="btn btn-primary-soft">
+                  <i class="fa-solid fa-floppy-disk"></i>
+                  Salvar dados
+                </button>
+                <button type="button" class="btn btn-ghost">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <section class="perfil-section mt-4">
+          <div class="perfil-section-header">
+            <div>
+              <h4 class="perfil-title">Endereço</h4>
+              <p class="perfil-subtitle">Cadastre, edite ou adicione depois, esta parte é separada</p>
+            </div>
+            <button class="btn btn-outline-soft" type="button" data-bs-toggle="collapse" data-bs-target="#enderecoCollapse" aria-expanded="false" aria-controls="enderecoCollapse">
+              <i class="fa-solid fa-location-dot"></i>
+              Gerenciar endereço
+            </button>
           </div>
-        </div>
 
-        <div class="pf-section-title">My Address</div>
+          <div class="collapse" id="enderecoCollapse">
+            <form id="formEndereco" class="row g-3 mt-1">
+              <div class="col-md-4">
+                <label class="form-label" for="cepInput">CEP</label>
+                <input id="cepInput" name="cep" type="text" class="form-control soft-control" placeholder="Somente números, 8 dígitos" inputmode="numeric" maxlength="8">
+              </div>
 
-        <div class="pf-email-row">
-          <div class="pf-email-ico">
-            <i class="fa-regular fa-envelope"></i>
+              <div class="col-md-8">
+                <label class="form-label" for="logradouroInput">Logradouro</label>
+                <input id="logradouroInput" name="logradouro" type="text" class="form-control soft-control" placeholder="Rua, avenida, etc">
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label" for="numeroInput">Número</label>
+                <input id="numeroInput" name="numero" type="text" class="form-control soft-control" placeholder="Ex, 123, 12A">
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label" for="complementoInput">Complemento</label>
+                <input id="complementoInput" name="complemento" type="text" class="form-control soft-control" placeholder="Apto, bloco, casa, etc">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label" for="bairroInput">Bairro</label>
+                <input id="bairroInput" name="bairro" type="text" class="form-control soft-control" placeholder="Seu bairro">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label" for="cidadeInput">Cidade</label>
+                <input id="cidadeInput" name="cidade" type="text" class="form-control soft-control" placeholder="Sua cidade">
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label" for="estadoInput">UF</label>
+                <input id="estadoInput" name="estado" type="text" class="form-control soft-control text-uppercase" placeholder="SP" maxlength="2">
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label" for="paisInput">País</label>
+                <input id="paisInput" name="pais" type="text" class="form-control soft-control" placeholder="Brasil">
+              </div>
+
+              <div class="col-12">
+                <div class="perfil-actions">
+                  <button type="button" class="btn btn-primary-soft">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Salvar endereço
+                  </button>
+                  <button type="button" class="btn btn-outline-danger-soft">
+                    <i class="fa-solid fa-trash"></i>
+                    Remover endereço
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
-
-          <div class="pf-email-info">
-            <div class="pf-email-main"></div>
-            <div class="pf-email-sub">1 month ago</div>
-          </div>
-        </div>
-
-        <div class="pf-actions">
-          <a class="sf-btn sf-btn-ghost" href="/">Back</a>
-          <button class="sf-btn sf-btn-primary" type="submit">Save</button>
-        </div>
-      </form>
+        </section>
+      </main>
     </div>
-  </section>
+  </div>
 </div>
