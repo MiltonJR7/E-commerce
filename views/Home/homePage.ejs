@@ -1,206 +1,149 @@
-<body>
-  <section class="hero">
-    <div class="container">
-      <div class="carousel" aria-label="Carrossel principal">
-        <div class="slides" id="slides">
-          <div class="slide">
-            <img alt="Banner 1" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1600&q=80">
-            <div class="slide-content">
-              <h1>Experiência limpa, rápida e moderna</h1>
-              <p>Navegação simples com categorias e destaque para produtos, tudo pronto para conectar no seu back end.</p>
-            </div>
-          </div>
 
-          <div class="slide">
-            <img alt="Banner 2" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1600&q=80">
-            <div class="slide-content">
-              <h1>Carrossel automático a cada 5 segundos</h1>
-              <p>Transições suaves e controles discretos para não poluir a tela.</p>
-            </div>
-          </div>
+<div>
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-carousel">
+                <button class="carousel-btn prev" id="heroPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
 
-          <div class="slide">
-            <img alt="Banner 3" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80">
-            <div class="slide-content">
-              <h1>Cards horizontais para vitrine</h1>
-              <p>Listagem em linha, ideal para “destaques”, “mais vendidos” ou “promoções”.</p>
+                <div class="hero-slides" id="heroSlides"></div>
+
+                <button class="carousel-btn next" id="heroNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <div class="hero-dots" id="heroDots"></div>
             </div>
-          </div>
         </div>
+    </section>
 
-        <div class="carousel-controls">
-          <div class="dots" id="dots" aria-label="Indicadores do carrossel"></div>
-          <div class="arrows">
-            <button class="arrow" type="button" id="prev" aria-label="Slide anterior">‹</button>
-            <button class="arrow" type="button" id="next" aria-label="Próximo slide">›</button>
-          </div>
+    <section class="categories-section">
+        <div class="container">
+            <div class="categories-grid">
+                <div class="category-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Smartphones</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-tablet-alt"></i>
+                    <span>Tablets</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-laptop"></i>
+                    <span>Notebooks</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-desktop"></i>
+                    <span>Desktops</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-tv"></i>
+                    <span>Monitores</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-headphones"></i>
+                    <span>Acessórios</span>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="loja">
-    <div class="container">
-      <div class="section-header">
-        <h2>Produtos em destaque</h2>
-        <p>Cards prontos para você plugar dados reais depois. Sem integração, sem back end, só front.</p>
-      </div>
+    <section class="start-tech-section" id="start-tech">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-rocket"></i>
+                    Start Tech
+                </h2>
+                <div class="carousel-controls">
+                    <button class="control-btn" id="startTechPrev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="control-btn" id="startTechNext">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
 
-      <div class="products-row" aria-label="Lista horizontal de produtos">
-        <article class="product-card">
-          <div class="product-img">
-            <img alt="Produto 1" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80">
-          </div>
-          <div class="product-body">
-            <div>
-              <div class="product-title">Produto exemplo 01</div>
-              <div class="product-desc">Descrição curta, objetiva e limpa para o layout.</div>
+            <div class="products-carousel">
+                <div class="products-track" id="startTechTrack"></div>
             </div>
-            <div class="product-meta">
-              <div class="price">R$ 0,00</div>
-              <button class="btn" type="button">Ver mais</button>
-            </div>
-          </div>
-        </article>
 
-        <article class="product-card">
-          <div class="product-img">
-            <img alt="Produto 2" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80">
-          </div>
-          <div class="product-body">
-            <div>
-              <div class="product-title">Produto exemplo 02</div>
-              <div class="product-desc">Layout pensado para não ficar poluído na home.</div>
-            </div>
-            <div class="product-meta">
-              <div class="price">R$ 0,00</div>
-              <button class="btn" type="button">Ver mais</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-img">
-            <img alt="Produto 3" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80">
-          </div>
-          <div class="product-body">
-            <div>
-              <div class="product-title">Produto exemplo 03</div>
-              <div class="product-desc">Use este card para “novidades” ou “mais vendidos”.</div>
-            </div>
-            <div class="product-meta">
-              <div class="price">R$ 0,00</div>
-              <button class="btn" type="button">Ver mais</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-img">
-            <img alt="Produto 4" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80">
-          </div>
-          <div class="product-body">
-            <div>
-              <div class="product-title">Produto exemplo 04</div>
-              <div class="product-desc">Depois você troca por dados reais via back end.</div>
-            </div>
-            <div class="product-meta">
-              <div class="price">R$ 0,00</div>
-              <button class="btn" type="button">Ver mais</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-img">
-            <img alt="Produto 5" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80">
-          </div>
-          <div class="product-body">
-            <div>
-              <div class="product-title">Produto exemplo 05</div>
-              <div class="product-desc">Depois você troca por dados reais via back end.</div>
-            </div>
-            <div class="product-meta">
-              <div class="price">R$ 0,00</div>
-              <button class="btn" type="button">Ver mais</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-img">
-            <img alt="Produto 6" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80">
-          </div>
-          <div class="product-body">
-            <div>
-              <div class="product-title">Produto exemplo 06</div>
-              <div class="product-desc">Depois você troca por dados reais via back end.</div>
-            </div>
-            <div class="product-meta">
-              <div class="price">R$ 0,00</div>
-              <button class="btn" type="button">Ver mais</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-img">
-            <img alt="Produto 7" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80">
-          </div>
-          <div class="product-body">
-            <div>
-              <div class="product-title">Produto exemplo 07</div>
-              <div class="product-desc">Depois você troca por dados reais via back end.</div>
-            </div>
-            <div class="product-meta">
-              <div class="price">R$ 0,00</div>
-              <button class="btn" type="button">Ver mais</button>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="sobre">
-    <div class="container">
-      <div class="brand-banner">
-        <div class="banner-inner">
-          <div>
-            <h3>Bem-vindo ao E-commerce</h3>
-            <p>Uma home page pensada para performance e clareza. Elementos compactos no nav, animações suaves e seções bem separadas.</p>
-          </div>
-          <a class="btn primary" href="#">Falar com a loja</a>
+            <div class="carousel-dots" id="startTechDots"></div>
         </div>
-      </div>
+    </section>
 
-      <div class="about">
-        <div class="panel">
-          <h4>Sobre a empresa</h4>
-          <p>
-            Aqui você pode apresentar a proposta do seu e-commerce de forma objetiva,
-            destacando diferenciais como qualidade, entrega, atendimento e variedade.
-            O foco é manter uma estrutura leve e pronta para receber seu back end.
-          </p>
+    <section class="offers-section">
+        <div class="container">
+            <h2>Ofertas Dezembro</h2>
 
-          <div class="about-actions">
-            <a class="btn primary" href="#">Saiba mais</a>
-            <a class="btn" href="#">Ver produtos</a>
-          </div>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="notebook">Notebook</button>
+                <button class="tab-btn" data-tab="smartphones">Smartphones</button>
+                <button class="tab-btn" data-tab="computador">Computador</button>
+            </div>
+
+            <div class="products-grid" id="offersGrid"></div>
         </div>
+    </section>
 
-        <div class="panel" id="contato">
-          <h4>Atalhos</h4>
-          <p>
-            Coloque links úteis aqui, como políticas, rastreio, suporte, ou FAQ.
-            Mantém a home organizada sem excesso de informação.
-          </p>
-          <div class="about-actions">
-            <a class="btn" href="#">Categorias</a>
-            <a class="btn" href="#">Destaques</a>
-          </div>
+    <section class="brands-section">
+        <div class="container">
+            <h3>As melhores marcas</h3>
+            <div class="brands-grid">
+                <div class="brand-item">
+                    <i class="fab fa-apple"></i>
+                    <span>Apple</span>
+                </div>
+                <div class="brand-item">
+                    <i class="fab fa-microsoft"></i>
+                    <span>Microsoft</span>
+                </div>
+                <div class="brand-item">
+                    <i class="fas fa-laptop"></i>
+                    <span>Dell</span>
+                </div>
+                <div class="brand-item">
+                    <i class="fas fa-mobile"></i>
+                    <span>Samsung</span>
+                </div>
+                <div class="brand-item">
+                    <i class="fas fa-tablet"></i>
+                    <span>Motorola</span>
+                </div>
+                <div class="brand-item">
+                    <i class="fas fa-desktop"></i>
+                    <span>Lenovo</span>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-</body>
+    </section>
+
+    <section class="seminovo-section">
+        <div class="container">
+            <div class="seminovo-banner">
+                <div class="seminovo-pattern"></div>
+                <div class="seminovo-content">
+                    <h3>Já pensou em comprar um seminovo?</h3>
+                    <p>Produtos testados, revisados e com garantia. Economia inteligente sem abrir mão da qualidade.</p>
+                    <button class="cta-btn-secondary">Conhecer Seminovos</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h3>Junte-se à nossa newsletter</h3>
+                <p>Receba ofertas exclusivas e novidades em primeira mão</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="text" placeholder="Seu nome" required>
+                    <input type="email" placeholder="Seu e-mail" required>
+                    <button type="submit">Inscreva-se</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

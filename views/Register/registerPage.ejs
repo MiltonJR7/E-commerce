@@ -1,42 +1,65 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Page</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Cadastro - Voky</title>
+    <link rel="stylesheet" href="/css/formStyle.css">
 </head>
 <body>
-    <div class="formLogin" id="form">
-        <h1>Register</h1>
-        <div class="userData">
-            <label for="name">Nome</label>
-            <input type="name" name="name" id="name" placeholder="João">
+    <div class="auth-container">
+        <div class="decorative-block"></div>
 
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="exemplo00@gmail.com">
+        <div class="auth-card">
+            <a href="/" class="back-link">← Voltar para a <span>Home</span></a>
 
-            <label for="senha">Senha</label>
-            <input type="password" name="senha" id="senha" placeholder="**************">
+            <div class="auth-header">
+                <span class="logo">voky</span>
+                <h1>Crie sua conta</h1>
+                <p>Preencha os dados abaixo para começar</p>
+            </div>
 
-            <label for="confSenha">Confirme sua senha</label>
-            <input type="password" name="confSenha" id="confSenha" placeholder="**************">
+            <div class="auth-form">
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" name="name" placeholder="Seu nome completo">
+                </div>
 
-            <label for="genero">Gênero</label>
-            <select name="genero" id="genero" required>
-                <option value="">Escolha seu gênero</option>
-                <option value="masculino">Masculino</option>
-                <option value="feminino">Feminino</option>
-            </select>
-        </div>
-        <div class="buttonsForm">
-            <span id="msgError"></span>
-            <button id="btnRegister">Register</button>
-            <span>Já possui uma conta realize o <a href="/login">login</a></span>
-            <span class="spanEspaco">retorne ao menu <a href="/" class="linkEspaco">aqui</a></span>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">Confirmar senha</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••">
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gênero</label>
+                    <select id="gender" name="gender">
+                        <option value="">Selecione</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <button class="btn-primary" id="btnRegister">Criar conta</button>
+            </div>
+
+            <div class="form-footer">
+                Já tem conta? <a href="/login">Entrar</a>
+            </div>
         </div>
     </div>
 </body>
-<script src="/js/register.js"></script>
 </html>
+
+<script src="/js/register.js"></script>

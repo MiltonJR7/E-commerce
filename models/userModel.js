@@ -97,6 +97,7 @@ export default class UserModel {
         try {
             const sql = `
                 select
+                tb_usuario.usu_id,
                 tb_usuario.usu_nome,
                 tb_usuario.usu_email,
                 tb_usuario.usu_ativo,

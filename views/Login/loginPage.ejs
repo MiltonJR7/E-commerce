@@ -1,29 +1,45 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Login - Voky</title>
+    <link rel="stylesheet" href="/css/formStyle.css">
 </head>
-<body>
-    <div class="formLogin" id="form">
-        <h1>Login</h1>
-        <div class="userData">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="exemplo00@gmail.com">
 
-            <label for="senha">Senha</label>
-            <input type="password" name="senha" id="senha" placeholder="**************">
-        </div>
-        <div class="buttonsForm">
-            <span id="msgError"></span>
-            <button id="btnLogar">Login</button>
-            <span>Não tem conta realize o <a href="/register">cadastro</a></span>
-            <span class="spanEspaco">retorne ao menu <a href="/" class="linkEspaco">aqui</a></span>
+<body>
+    <div class="auth-container">
+        <div class="decorative-block"></div>
+
+        <div class="auth-card">
+            <a href="/" class="back-link">← Voltar para a <span>Home</span></a>
+
+            <div class="auth-header">
+                <span class="logo">voky</span>
+                <h1>Bem-vindo de volta</h1>
+                <p>Acesse sua conta para continuar</p>
+            </div>
+
+            <div class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••">
+                </div>
+
+                <button class="btn-primary" id="btnLogar">Entrar</button>
+            </div>
+
+            <div class="form-footer">
+                Não tem conta? <a href="/register">Cadastre-se</a>
+            </div>
         </div>
     </div>
 </body>
-<script src="/js/login.js"></script>
 </html>
+
+<script src="/js/login.js"></script>

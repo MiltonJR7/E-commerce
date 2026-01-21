@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
     function registerSystem() {
         const nome = document.getElementById('name');
         const email = document.getElementById('email');
-        const senha = document.getElementById('senha');
-        const confSenha = document.getElementById('confSenha');
+        const senha = document.getElementById('password');
+        const confSenha = document.getElementById('confirm-password');
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        const genero = document.getElementById('genero');
+        const genero = document.getElementById('gender');
         let listaValidar = [];
 
         if(nome.value === "") { listaValidar.push(nome) } else { nome.style.borderColor = "rgba(15, 23, 42, 0.15)"; }

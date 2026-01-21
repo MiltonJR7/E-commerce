@@ -5,10 +5,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     function logarSystem() {
         const email = document.getElementById('email');
-        const senha = document.getElementById('senha');
+        const senha = document.getElementById('password');
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        const formData = document.getElementById('form');
-        const msgError = document.getElementById('msgError');
         let listaValidar = [];
 
         if(email.value === "" || !emailPattern.test(email.value)) { listaValidar.push(email) } else { email.style.borderColor = "rgba(15, 23, 42, 0.15)"; }
@@ -34,17 +32,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
             .then((corpo)=> {
                 if(corpo.ok) {
                     if(corpo.id == 1) {
-
-                        window.location.href = "/dashboard";
+                        window.location.href = "/"; //Apos criacao da dashboard sera implementado para rota de dashboard o usuario com id 1 de administrador.
                     } else {
                         window.location.href = "/";
                     }
-                } else {
-                    email.value = "";
-                    senha.value = "";
-                    msgError.innerHTML = "Login invalido!";
-                    msgError.style.color = "red"
-                    formData.style.borderColor = "red";
                 }
             })
 

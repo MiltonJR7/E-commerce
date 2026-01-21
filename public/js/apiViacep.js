@@ -45,5 +45,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
         document.getElementById('bairroInput').value=("");
         document.getElementById('cidadeInput').value=("");
         document.getElementById('estadoInput').value=("");
+        document.getElementById('numeroInput').value=("");
+        document.getElementById('complementoInput').value=("");
+        document.getElementById('paisInput').value=("");
     }
 })

@@ -1,281 +1,137 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="/css/dashStyle.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Usuários</title>
+    <link rel="stylesheet" href="/css/dashStyle.css">
 </head>
+<body data-theme="light">
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="top-bar-content">
+                <span class="top-bar-text">Área administrativa</span>
+            </div>
+        </div>
 
-<body>
-  <div class="app">
+        <div class="header-main">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-text">Dashboard</span>
+                </div>
+
+                <div class="header-actions">
+
+                    <div class="header-icons">
+                        <button class="icon-btn" aria-label="Perfil">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.667 17.5v-1.667a3.333 3.333 0 0 0-3.334-3.333H6.667a3.333 3.333 0 0 0-3.334 3.333V17.5M10 9.167A3.333 3.333 0 1 0 10 2.5a3.333 3.333 0 0 0 0 6.667z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button class="icon-btn" aria-label="Configurações">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16.167 12.5a1.367 1.367 0 0 0 .273 1.508l.05.05a1.658 1.658 0 1 1-2.345 2.345l-.05-.05a1.367 1.367 0 0 0-1.508-.273 1.367 1.367 0 0 0-.829 1.253v.142a1.667 1.667 0 0 1-3.333 0v-.075a1.367 1.367 0 0 0-.895-1.253 1.367 1.367 0 0 0-1.508.273l-.05.05a1.658 1.658 0 1 1-2.345-2.345l.05-.05a1.367 1.367 0 0 0 .273-1.508 1.367 1.367 0 0 0-1.253-.829h-.142a1.667 1.667 0 0 1 0-3.333h.075a1.367 1.367 0 0 0 1.253-.895 1.367 1.367 0 0 0-.273-1.508l-.05-.05a1.658 1.658 0 1 1 2.345-2.345l.05.05a1.367 1.367 0 0 0 1.508.273h.067a1.367 1.367 0 0 0 .828-1.253v-.142a1.667 1.667 0 0 1 3.334 0v.075a1.367 1.367 0 0 0 .828 1.253 1.367 1.367 0 0 0 1.509-.273l.05-.05a1.658 1.658 0 1 1 2.344 2.345l-.05.05a1.367 1.367 0 0 0-.272 1.508v.067a1.367 1.367 0 0 0 1.253.828h.141a1.667 1.667 0 0 1 0 3.334h-.075a1.367 1.367 0 0 0-1.253.828z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button class="icon-btn" aria-label="Sair">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.5 17.5h-2.5A1.667 1.667 0 0 1 3.333 15.833V4.167A1.667 1.667 0 0 1 5 2.5h2.5M13.333 14.167L17.5 10m0 0l-4.167-4.167M17.5 10h-10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <!-- Shield icon -->
-          <svg class="icon" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2l8 4v6c0 5-3.2 9.4-8 10-4.8-.6-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M9.6 12.1l1.6 1.7 3.5-3.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div>
-          <h1>Dashboard</h1>
-          <p>Admin</p>
-        </div>
-      </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item active">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M16.667 17.5v-1.667a3.333 3.333 0 0 0-3.334-3.333H6.667a3.333 3.333 0 0 0-3.334 3.333V17.5M10 9.167A3.333 3.333 0 1 0 10 2.5a3.333 3.333 0 0 0 0 6.667z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Usuários</span>
+            </a>
+        </nav>
 
-      <nav class="nav" aria-label="Navegação">
-        <button type="button" class="navlink" data-target="page-users" aria-current="page">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M16 20c0-2.2-1.8-4-4-4s-4 1.8-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M12 12a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M20 20c0-2-1.3-3.6-3.1-3.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M16.7 6.2a3.2 3.2 0 0 1 0 6.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          Usuários
-        </button>
-
-        <button type="button" class="navlink" data-target="page-products" aria-current="false">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M21 8.5l-9 4-9-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M3 8.5V17a2 2 0 0 0 1.2 1.8l7.8 3.2 7.8-3.2A2 2 0 0 0 21 17V8.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-            <path d="M12 12.5v9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M21 7l-9-4-9 4 9 4 9-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-          </svg>
-          Produtos
-        </button>
-        <button class="navlink">
-          <i class="fa fa-home" aria-hidden="true"></i>
-          <a href="/" style="text-decoration: none; color: white; margin-left: 2px;">Home Page</a>
-        </button>
-      </nav>
+        <div class="theme-toggle">
+            <label class="toggle-label">
+                <input type="checkbox" id="theme-checkbox">
+                <span class="toggle-slider"></span>
+                <span class="toggle-text">Tema Escuro</span>
+            </label>
+        </div>
     </aside>
 
-    <main class="content">
-      <header class="topbar">
-        <h2 id="pageTitle">Usuários</h2>
-
-        <div class="actions">
-          <button type="button" class="btn" id="themeToggle" aria-label="Alternar tema">
-            <svg class="icon" id="themeIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M21 13.2A7.7 7.7 0 0 1 10.8 3 8.6 8.6 0 1 0 21 13.2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-            </svg>
-            Tema
-          </button>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-header">
+            <div>
+                <h1 class="page-title">Usuários</h1>
+                <p class="page-subtitle">Gerencie os usuários da plataforma</p>
+            </div>
         </div>
-      </header>
 
-      <section class="page" id="page-users">
-        <div class="grid">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h3 class="card-title">Usuários cadastrados</h3>
-                <p class="card-subtitle">Área reservada para gráfico e contador.</p>
-              </div>
-
-              <div class="metric" aria-label="Contador de usuários cadastrados">
-                <p><%= lista.length %></p>
-                <span>Total</span>
-              </div>
-            </div>
-
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h3 class="card-title">Buscar usuários</h3>
-                <p class="card-subtitle">Realize a busca afim de filtrar de forma funcional.</p>
-              </div>
-            </div>
-
-            <div class="search-row">
-              <div class="search" role="search">
-                <input
-                  type="search"
-                  id="usersSearch"
-                  name="usersSearch"
-                  placeholder="Pesquisar usuário..."
-                  autocomplete="off"
-                />
-                <button type="button" aria-label="Procurar">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/>
-                    <path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="list-slot">
-              <table class="sf-table">
-                <thead>
-                  <tr>
-                    <th class="col-id">ID</th>
-                    <th>NOME</th>
-                    <th>EMAIL</th>
-                    <th class="col-ativo">ATIVO</th>
-                    <th class="col-perfil">PERFIL</th>
-                    <th class="col-perfil">AÇÕES</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% for (let i = 0; i < lista.length; i++) { %>
-                    <tr>
-                      <td class="mono"><%= lista[i].usuID %></td>
-                      <td class="strong"><%= lista[i].usuNome %></td>
-                      <td class="muted"><%= lista[i].usuEmail %></td>
-
-                      <td>
-                        <% const ativo = (lista[i].usuAtivo === 'S' || lista[i].usuAtivo === 1 || String(lista[i].usuAtivo).toLowerCase() === 'true'); %>
-                        <span class="badge <%= ativo ? 'badge-ok' : 'badge-off' %>">
-                          <%= ativo ? 'ATIVO' : 'INATIVO' %>
-                        </span>
-                      </td>
-                      <td>
-                        <span class="pill"><%= lista[i].perTipo %></span>
-                      </td>
-                      <td class="buttonsTable">
-                        <button title="Editar" class="btnEditar">
-                          <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                        <button title="Excluir" class="btnDeletar" data-id-delete="<%= lista[i].usuID %>">
-                          <i class="fa-solid fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  <% } %>
-                  <% if (!lista || lista.length === 0) { %>
-                    <tr>
-                      <td colspan="6" class="empty">Nenhum usuário encontrado.</td>
-                    </tr>
-                  <% } %>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div class="banner-decorative">
+            <div class="banner-pattern"></div>
         </div>
-      </section>
 
-      <section class="page" id="page-products" hidden>
-        <div class="grid">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h3 class="card-title">Produtos cadastrados</h3>
-                <p class="card-subtitle">Área reservada para gráfico e contador (integrar via EJS e seu script de gráfico).</p>
-              </div>
-
-              <div class="metric" aria-label="Contador de produtos cadastrados">
-                <strong id="productsCount">
-                  <p>Em progresso</p>
-                </strong>
-                <span>Total</span>
-              </div>
+        <div class="content-section">
+            <div class="section-filters">
+                <div class="filter-chips">
+                    <button class="chip active">Todos</button>
+                    <button class="chip">Ativos</button>
+                    <button class="chip">Inativos</button>
+                </div>
+                <div class="search-container-inline">
+                    <input type="text" class="search-input" placeholder="Buscar usuários...">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
             </div>
 
-            <div class="chart-shell" aria-label="Container do gráfico de produtos">
-              <div class="hint">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 19V5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M4 19h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M8 14v-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M12 14V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M16 14v-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                </svg>
-                Renderize seu gráfico aqui (sem dados estáticos)
-              </div>
-            </div>
-          </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-top">
+                        <h2 class="card-title">Lista de Usuários</h2>
+                        <a href="/register" class="btn-primary">Novo usuário</a>
+                    </div>
+                </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h3 class="card-title">Buscar produtos</h3>
-                <p class="card-subtitle">A busca aqui é apenas UI. Você conecta a lógica no seu backend quando quiser.</p>
-              </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Gênero</th>
+                                <th>Status</th>
+                                <th class="actions-col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" class="empty-state">
+                                    <div class="empty-content">
+                                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <p>Nenhum usuário cadastrado</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-            <div class="search-row">
-              <div class="search" role="search">
-                <input
-                  type="search"
-                  id="productsSearch"
-                  name="productsSearch"
-                  placeholder="Pesquisar produto..."
-                  autocomplete="off"
-                />
-                <button type="button" aria-label="Procurar">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/>
-                    <path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="list-slot">
-              Slot reservado para listagem via EJS.
-            </div>
-          </div>
         </div>
-      </section>
     </main>
-  </div>
 
-  <script>
-    (function () {
-      const navLinks = document.querySelectorAll(".navlink");
-      const pages = document.querySelectorAll(".page");
-      const pageTitle = document.getElementById("pageTitle");
-
-      function setActivePage(targetId) {
-        pages.forEach(p => p.hidden = (p.id !== targetId));
-
-        navLinks.forEach(btn => {
-          const isActive = btn.dataset.target === targetId;
-          btn.setAttribute("aria-current", isActive ? "page" : "false");
-        });
-
-        if (targetId === "page-users") pageTitle.textContent = "Usuários";
-        if (targetId === "page-products") pageTitle.textContent = "Produtos";
-      }
-
-      navLinks.forEach(btn => {
-        btn.addEventListener("click", () => setActivePage(btn.dataset.target));
-      });
-
-      const html = document.documentElement;
-      const themeToggle = document.getElementById("themeToggle");
-      const themeIcon = document.getElementById("themeIcon");
-
-      function setTheme(theme) {
-        html.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme);
-
-        if (theme === "dark") {
-          themeIcon.innerHTML = '<path d="M21 13.2A7.7 7.7 0 0 1 10.8 3 8.6 8.6 0 1 0 21 13.2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>';
-        } else {
-          themeIcon.innerHTML = '' +
-            '<path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" stroke="currentColor" stroke-width="1.6"/>' +
-            '<path d="M12 2v2.2M12 19.8V22M2 12h2.2M19.8 12H22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M19.8 4.2l-1.6 1.6M5.8 18.2l-1.6 1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>';
-        }
-      }
-
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "light" || savedTheme === "dark") {
-        setTheme(savedTheme);
-      } else {
-        setTheme("dark");
-      }
-
-      themeToggle.addEventListener("click", () => {
-        const current = html.getAttribute("data-theme");
-        setTheme(current === "dark" ? "light" : "dark");
-      });
-
-      setActivePage("page-users");
-    })();
-  </script>
-  <script src="/js/deletar.js"></script>
+    <script src="/js/theme.js"></script>~
+    <script src="/js/delete.js"></script>
 </body>
 </html>

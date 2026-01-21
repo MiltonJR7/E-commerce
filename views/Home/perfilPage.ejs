@@ -1,166 +1,203 @@
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/css/perfilStyle.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<div class="container perfil-wrap my-5">
-  <div class="perfil-card">
-    <div class="row g-0">
-      <aside class="col-lg-4 perfil-aside">
-        <div class="perfil-aside-inner">
-          <div class="perfil-avatar">
-            <img id="avatarPreview" class="perfil-avatar-img" alt="Profile imagem" src="/img/default.jpg">
-            <div class="perfil-avatar-actions">
-              <label class="btn btn-soft" for="avatarInput">
-                <i class="fa-solid fa-camera"></i>
-                Trocar foto
-              </label>
-              <input id="avatarInput" name="urlImagem" type="file" accept="image/*" class="d-none">
-            </div>
-          </div>
+<link rel="stylesheet" href="/css/perfilStyle.css"/>
+<div class="perfil-page">
+    <div class="perfil-decorative-banner"></div>
 
-          <div class="perfil-resumo mt-4">
-            <div class="perfil-resumo-item">
-              <span class="perfil-resumo-label">Nome</span>
-              <span id="previewNome" class="perfil-resumo-value"><%= lista.usu_nome %></span>
-            </div>
-            <div class="perfil-resumo-item">
-              <span class="perfil-resumo-label">E mail</span>
-              <span id="previewEmail" class="perfil-resumo-value"><%= lista.usu_email %></span>
-            </div>
-            <div class="perfil-resumo-item">
-              <span class="perfil-resumo-label">Gênero</span>
-              <span id="previewGenero" class="perfil-resumo-value"><%= lista.usu_genero %></span>
-            </div>
-          </div>
+    <div class="perfil-container">
+        <div class="perfil-grid">
+            <aside class="perfil-sidebar">
+                <div class="perfil-card">
+                    <div class="perfil-avatar-section">
+                        <div class="perfil-avatar">
+                            <img src="https://img.freepik.com/vetores-premium/icone-de-perfil-de-avatar-padrao-imagem-de-usuario-de-midia-social-icone-de-avatar-cinza-silhueta-de-perfil-em-branco-ilustracao-vetorial_561158-3407.jpg?semt=ais_hybrid&w=740&q=80"
+                                alt="Foto do usuário" />
+                        </div>
+                        <button class="perfil-change-photo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z">
+                                </path>
+                                <circle cx="12" cy="13" r="3"></circle>
+                            </svg>
+                            Trocar foto
+                        </button>
+                    </div>
 
-          <div class="perfil-aside-footer mt-4">
-            <a class="btn btn-outline-soft w-100" href="/">
-              <i class="fa-solid fa-arrow-left"></i>
-              Voltar
-            </a>
-          </div>
-        </div>
-      </aside>
+                    <div class="perfil-info-list">
+                        <div class="perfil-info-item">
+                            <span class="perfil-info-label">Nome</span>
+                            <span class="perfil-info-value">—</span>
+                        </div>
+                        <div class="perfil-info-item">
+                            <span class="perfil-info-label">E-mail</span>
+                            <span class="perfil-info-value">—</span>
+                        </div>
+                        <div class="perfil-info-item">
+                            <span class="perfil-info-label">Gênero</span>
+                            <span class="perfil-info-value">—</span>
+                        </div>
+                    </div>
 
-      <main class="col-lg-8 perfil-main">
-        <section class="perfil-section">
-          <div class="perfil-section-header">
-            <div>
-              <h4 class="perfil-title">Dados do usuário</h4>
-              <p class="perfil-subtitle">Atualize as informações vinculadas ao seu cadastro</p>
-            </div>
-          </div>
-
-          <form id="formUsuario" class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label" for="nomeInput">Nome</label>
-              <input id="nomeInput" name="nome" type="text" class="form-control soft-control" placeholder="Seu nome completo" autocomplete="name" value="<%= lista.usu_nome %>">
-            </div>
-
-            <div class="col-md-6">
-              <label class="form-label" for="emailInput">E mail</label>
-              <input id="emailInput" name="email" type="email" class="form-control soft-control" placeholder="seuemail@dominio.com" autocomplete="email" value="<%= lista.usu_email %>">
-            </div>
-
-            <div class="col-md-6">
-              <label class="form-label" for="generoSelect">Gênero</label>
-              <select id="generoSelect" name="genero" class="form-control soft-select" required>
-                <% if(lista.usu_genero === "masculino") { %>
-                  <option value="masculino">Masculino</option>
-                  <option value="feminino">Feminino</option>
-                <% } else { %>
-                  <option value="feminino">Feminino</option>
-                  <option value="masculino">Masculino</option>
-                <% } %>
-
-              </select>
-            </div>
-
-            <div class="col-12">
-              <div class="perfil-actions">
-                <button type="button" class="btn btn-primary-soft">
-                  <i class="fa-solid fa-floppy-disk"></i>
-                  Salvar dados
-                </button>
-                <button type="button" class="btn btn-ghost">
-                  Cancelar
-                </button>
-              </div>
-            </div>
-          </form>
-        </section>
-
-        <section class="perfil-section mt-4">
-          <div class="perfil-section-header">
-            <div>
-              <h4 class="perfil-title">Endereço</h4>
-              <p class="perfil-subtitle">Cadastre, edite ou adicione depois, esta parte é separada</p>
-            </div>
-            <button class="btn btn-outline-soft" type="button" data-bs-toggle="collapse" data-bs-target="#enderecoCollapse" aria-expanded="false" aria-controls="enderecoCollapse">
-              <i class="fa-solid fa-location-dot"></i>
-              Gerenciar endereço
-            </button>
-          </div>
-
-          <div class="collapse" id="enderecoCollapse">
-            <form id="formEndereco" class="row g-3 mt-1">
-              <div class="col-md-4">
-                <label class="form-label" for="cepInput">CEP</label>
-                <input id="cepInput" name="cep" type="text" class="form-control soft-control" placeholder="Somente números, 8 dígitos" inputmode="numeric" maxlength="8">
-              </div>
-
-              <div class="col-md-8">
-                <label class="form-label" for="logradouroInput">Logradouro</label>
-                <input id="logradouroInput" name="logradouro" type="text" class="form-control soft-control" placeholder="Rua, avenida, etc">
-              </div>
-
-              <div class="col-md-4">
-                <label class="form-label" for="numeroInput">Número</label>
-                <input id="numeroInput" name="numero" type="text" class="form-control soft-control" placeholder="Ex, 123, 12A">
-              </div>
-
-              <div class="col-md-8">
-                <label class="form-label" for="complementoInput">Complemento</label>
-                <input id="complementoInput" name="complemento" type="text" class="form-control soft-control" placeholder="Apto, bloco, casa, etc">
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label" for="bairroInput">Bairro</label>
-                <input id="bairroInput" name="bairro" type="text" class="form-control soft-control" placeholder="Seu bairro">
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label" for="cidadeInput">Cidade</label>
-                <input id="cidadeInput" name="cidade" type="text" class="form-control soft-control" placeholder="Sua cidade">
-              </div>
-
-              <div class="col-md-4">
-                <label class="form-label" for="estadoInput">UF</label>
-                <input id="estadoInput" name="estado" type="text" class="form-control soft-control text-uppercase" placeholder="SP" maxlength="2">
-              </div>
-
-              <div class="col-md-8">
-                <label class="form-label" for="paisInput">País</label>
-                <input id="paisInput" name="pais" type="text" class="form-control soft-control" placeholder="Brasil">
-              </div>
-
-              <div class="col-12">
-                <div class="perfil-actions">
-                  <button type="button" class="btn btn-primary-soft">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    Salvar endereço
-                  </button>
-                  <button type="button" class="btn btn-outline-danger-soft" id="btnLimparCampo">
-                    <i class="fa-solid fa-trash"></i>
-                    Remover endereço
-                  </button>
+                    <button class="perfil-back-button" onclick="window.history.back()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        Voltar
+                    </button>
                 </div>
-              </div>
-            </form>
-          </div>
-        </section>
-      </main>
+            </aside>
+
+            <main class="perfil-main">
+                <div class="perfil-card">
+                    <div class="perfil-header">
+                        <h2 class="perfil-title">Dados do usuário</h2>
+                        <p class="perfil-subtitle">Atualize as informações vinculadas ao seu cadastro</p>
+                    </div>
+
+                    <form class="perfil-form">
+                        <div class="perfil-form-group">
+                            <label for="nome" class="perfil-form-label">Nome</label>
+                            <input type="text" id="nome" class="perfil-form-control" placeholder="Seu nome completo" />
+                        </div>
+
+                        <div class="perfil-form-group">
+                            <label for="email" class="perfil-form-label">E-mail</label>
+                            <input type="email" id="email" class="perfil-form-control" placeholder="seu@email.com" />
+                        </div>
+
+                        <div class="perfil-form-group">
+                            <label for="genero" class="perfil-form-label">Gênero</label>
+                            <select id="genero" class="perfil-form-control">
+                                <option value="">Selecione</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="perfil-actions">
+                            <button type="button" class="btn btn-primary-soft">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                    <polyline points="7 3 7 8 15 8"></polyline>
+                                </svg>
+                                Salvar dados
+                            </button>
+                            <button type="button" class="btn btn-outline-soft">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <section class="perfil-section mt-4">
+                    <div class="perfil-section-header">
+                        <div>
+                            <h4 class="perfil-title">Endereço</h4>
+                            <p class="perfil-subtitle">Cadastre, edite ou adicione depois, esta parte é separada</p>
+                        </div>
+                        <button class="btn btn-outline-soft" type="button"
+                            onclick="document.getElementById('enderecoCollapse').classList.toggle('show')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Gerenciar endereço
+                        </button>
+                    </div>
+
+                    <div class="collapse" id="enderecoCollapse">
+                        <form id="formEndereco" class="row g-3 mt-1">
+                            <div class="col-md-4">
+                                <label class="form-label" for="cepInput">CEP</label>
+                                <input id="cepInput" name="cep" type="text" class="form-control soft-control"
+                                    placeholder="Somente números, 8 dígitos" inputmode="numeric" maxlength="8" />
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="form-label" for="logradouroInput">Logradouro</label>
+                                <input id="logradouroInput" name="logradouro" type="text"
+                                    class="form-control soft-control" placeholder="Rua, avenida, etc" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label" for="numeroInput">Número</label>
+                                <input id="numeroInput" name="numero" type="text" class="form-control soft-control"
+                                    placeholder="Ex, 123, 12A" />
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="form-label" for="complementoInput">Complemento</label>
+                                <input id="complementoInput" name="complemento" type="text"
+                                    class="form-control soft-control" placeholder="Apto, bloco, casa, etc" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label" for="bairroInput">Bairro</label>
+                                <input id="bairroInput" name="bairro" type="text" class="form-control soft-control"
+                                    placeholder="Seu bairro" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label" for="cidadeInput">Cidade</label>
+                                <input id="cidadeInput" name="cidade" type="text" class="form-control soft-control"
+                                    placeholder="Sua cidade" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label" for="estadoInput">UF</label>
+                                <input id="estadoInput" name="estado" type="text"
+                                    class="form-control soft-control text-uppercase" placeholder="SP" maxlength="2"
+                                    style="text-transform: uppercase;" />
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="form-label" for="paisInput">País</label>
+                                <input id="paisInput" name="pais" type="text" class="form-control soft-control"
+                                    placeholder="Brasil" />
+                            </div>
+
+                            <div class="col-12">
+                                <div class="perfil-actions">
+                                    <button type="button" class="btn btn-primary-soft">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z">
+                                            </path>
+                                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                            <polyline points="7 3 7 8 15 8"></polyline>
+                                        </svg>
+                                        Salvar endereço
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger-soft" id="btnLimparCampo">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path
+                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                            </path>
+                                        </svg>
+                                        Remover endereço
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </main>
+        </div>
     </div>
-  </div>
 </div>
+
 <script src="/js/apiViacep.js"></script>
