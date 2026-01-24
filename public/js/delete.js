@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     const btn = document.querySelectorAll('.btnDeletar');
     for(let i = 0; i < btn.length; i++) {
         btn[i].addEventListener('click', (e)=> {
-            const id = e.currentTarget.dataset.iddelete;
+            const id = e.currentTarget.dataset.delete;
             deletar(id);
         });
     }
