@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     const btnEndereco = document.getElementById('btnRegistrarEndereco');
     if(btnEndereco) { btnEndereco.addEventListener('click', registerAddress); }
+    let isSubmitting = false;
 
     function registerSystem() {
         const nome = document.getElementById('name');
@@ -68,16 +69,39 @@ document.addEventListener('DOMContentLoaded', ()=> {
         const cidade = document.getElementById('cidadeInput');
         const uf = document.getElementById('estadoInput');
         const pais = document.getElementById('paisInput');
+
+        const regexEndereco = /^(?!\s*$)(?!.*([.,-])\1)(?![.,-])(?!.*[.,-]$)[A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+(?:[ .,-][A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+)*$/;
+        const regexNumero = /^[0-9]+$/
+        const regexLetras = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/
+
+        if (isSubmitting) return;
+        isSubmitting = true;
         let listaValidar = [];
 
-        if(cep.value === "") { listaValidar.push(cep) } else { cep.style.borderColor = "#f9fafb"; }
-        if(logradouro.value === "") { listaValidar.push(logradouro) } else { logradouro.style.borderColor = "#f9fafb"; }
-        if(numero.value === "") { numero.value = "n/a"; }
-        if(complemento.value === "") { complemento.value = "n/a"; }
-        if(bairro.value === "") { listaValidar.push(bairro) } else { bairro.style.borderColor = "#f9fafb"; }
-        if(cidade.value === "") { listaValidar.push(cidade) } else { cidade.style.borderColor = "#f9fafb"; }
-        if(uf.value === "") { listaValidar.push(uf) } else { uf.style.borderColor = "#f9fafb"; }
-        if(pais.value === "") { listaValidar.push(pais) } else { pais.style.borderColor = "#f9fafb"; }
+        if(cep.value === "" || !regexNumero.test(cep.value)) { listaValidar.push(cep) } else { cep.style.borderColor = "#f9fafb"; }
+        if(logradouro.value === "" || !regexLetras.test(logradouro.value)) { listaValidar.push(logradouro) } else { logradouro.style.borderColor = "#f9fafb"; }
+
+        if(numero.value === "") { 
+            numero.value = "n/a";
+            numero.style.borderColor = "#f9fafb";
+        } else if (!regexNumero.test(numero.value) && numero.value !== "n/a") {
+            listaValidar.push(numero)
+        } else {
+            numero.style.borderColor = "#f9fafb";
+        }
+
+        if(complemento.value === "") { 
+            complemento.value = "n/a"; 
+        } else if (!regexEndereco.test(complemento.value) && complemento.value !== "n/a") {
+            listaValidar.push(complemento)
+        } else {
+            complemento.style.borderColor = "#f9fafb";
+        }
+
+        if(bairro.value === "" || !regexLetras.test(bairro.value)) { listaValidar.push(bairro) } else { bairro.style.borderColor = "#f9fafb"; }
+        if(cidade.value === "" || !regexLetras.test(cidade.value)) { listaValidar.push(cidade) } else { cidade.style.borderColor = "#f9fafb"; }
+        if(uf.value === "" || !regexLetras.test(uf.value) || uf.value.length !== 2) { listaValidar.push(uf) } else { uf.style.borderColor = "#f9fafb"; }
+        if(pais.value === "" || !regexLetras.test(pais.value)) { listaValidar.push(pais) } else { pais.style.borderColor = "#f9fafb"; }
 
         if(listaValidar.length === 0) {
 
@@ -109,6 +133,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
                     return alert('ERRO IN RETURN BODY IS NOT -- OK --');
                 }
             })
+            .finally(() => {
+                isSubmitting = false;
+            });
 
         } else {
             for(let i = 0; i < listaValidar.length; i++) {

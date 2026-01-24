@@ -137,7 +137,7 @@
                                         <td><%= lista[i].usuNome %></td>
                                         <td><%= lista[i].usuEmail %></td>
                                         <td>
-                                            <% if(lista[i].usuAtivo === "S") { %>
+                                            <% if(lista[i].usuAtivo === "ativo") { %>
                                                 <span class="usuarioAtivo">ATIVO</span>
                                             <% } else { %>
                                                 <span class="usuarioInativo">INATIVO</span>
@@ -147,7 +147,7 @@
                                             <button class="btnEditar">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </button>
-                                            <button class="btnDeletar">
+                                            <button class="btnDeletar" data-id-delete="<%= lista[i].usuID %>">
                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                             </button>
                                         </td>
@@ -161,7 +161,7 @@
         </div>
     </main>
 
-    <script src="/js/theme.js"></script>~
+    <script src="/js/theme.js"></script>
     <script src="/js/delete.js"></script>
 </body>
 </html>

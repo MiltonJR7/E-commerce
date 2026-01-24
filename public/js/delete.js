@@ -4,19 +4,17 @@ document.addEventListener('DOMContentLoaded', ()=> {
     const btn = document.querySelectorAll('.btnDeletar');
     for(let i = 0; i < btn.length; i++) {
         btn[i].addEventListener('click', (e)=> {
-            const id = e.currentTarget.dataset.idDelete;
+            const id = e.currentTarget.dataset.iddelete;
             deletar(id);
         });
     }
 
     function deletar(id) {
-        
-        
+
         try {
             if(!id) return;
 
             let obj = id;
-
             if(confirm("Os dados seram deletados apos a confirmação, deseja confirmar?")) {
                 fetch('/dashboard/delete', {
                     method: "POST",

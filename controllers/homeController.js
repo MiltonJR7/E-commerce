@@ -20,7 +20,10 @@ export default class HomeController {
 
         const banco = new UserModel();
         const lista = await banco.listarUsuarioPeloID(id);
-        res.render('Home/perfilPage', { user: id, perfil: perID, lista: lista });
+        const bancoEndereco = new AddressModel();
+        const listaEndereco = await bancoEndereco.listarEnderecos(id);
+
+        res.render('Home/perfilPage', { user: id, perfil: perID, lista: lista, listaEndereco: listaEndereco });
     }
 
     async perfilAddress(req, res) {
@@ -46,6 +49,7 @@ export default class HomeController {
             dbAddress.endCidade = cidade;
             dbAddress.endEstado = uf;
             dbAddress.endPais = pais;
+            dbAddress.usuID = id;
 
             const result = await dbAddress.registrarEndereco();
             if(result) return res.json({ ok: true, lista: lista });

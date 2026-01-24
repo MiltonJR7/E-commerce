@@ -1,0 +1,116 @@
+/* ===== Endereços Registrados ===== */
+
+.address-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Card base */
+.address-card {
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    background: #fff;
+    margin-top: 10px;
+}
+
+.address-card:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+/* Resumo (sempre visível) */
+.address-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    cursor: pointer;
+    min-height: 80px;
+}
+
+.address-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.address-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-gray-900);
+}
+
+.address-mini {
+    font-size: 0.85rem;
+    color: var(--color-gray-600);
+}
+
+/* Botão seta */
+.address-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: var(--color-gray-500);
+    transition: transform 0.3s ease;
+}
+
+/* Conteúdo oculto */
+.address-details {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1rem;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: var(--color-gray-50);
+}
+
+/* Estado aberto */
+.address-card.open .address-details {
+    max-height: 400px;
+    padding: 1rem;
+}
+
+.address-card.open .address-toggle {
+    transform: rotate(180deg);
+}
+
+/* Texto interno */
+.address-details p {
+    font-size: 0.9rem;
+    margin: 0.25rem 0;
+    color: var(--color-gray-700);
+}
+
+/* Ações */
+.address-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Botão menor */
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .address-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .address-toggle {
+        align-self: flex-end;
+    }
+
+    .address-actions {
+        flex-direction: column;
+    }
+}

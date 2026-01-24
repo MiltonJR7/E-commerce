@@ -17,7 +17,6 @@ export default class UserModel {
     #usuGenero;
     #usuUrlImagem;
     #perID;
-    #endID;
 
     get usuID() { return this.#usuID; } set usuID(value) { this.#usuID = value; }
     get usuNome() { return this.#usuNome; } set usuNome(value) { this.#usuNome = value; }
@@ -28,9 +27,8 @@ export default class UserModel {
     get usuGenero() { return this.#usuGenero; } set usuGenero(value) { this.#usuGenero = value; }
     get usuUrlImagem() { return this.#usuUrlImagem; } set usuUrlImagem(value) { this.#usuUrlImagem = value; }
     get perID() { return this.#perID; } set perID(value) { this.#perID = value; }
-    get endID() { return this.#endID; } set endID(value) { this.#endID = value; }
 
-    constructor(usuID, usuNome, usuEmail, usuSenha, usuAtivo, usuDate, usuGenero, usuUrlImagem, perID, endID) {
+    constructor(usuID, usuNome, usuEmail, usuSenha, usuAtivo, usuDate, usuGenero, usuUrlImagem, perID) {
         this.#usuID = usuID;
         this.#usuNome = usuNome;
         this.#usuEmail = usuEmail;
@@ -40,7 +38,6 @@ export default class UserModel {
         this.#usuGenero = usuGenero;
         this.#usuUrlImagem = usuUrlImagem;
         this.#perID = perID;
-        this.#endID = endID;
     }
 
     async logar(email, senhaDigitada) {

@@ -1,5 +1,6 @@
 
 <link rel="stylesheet" href="/css/perfilStyle.css"/>
+<link rel="stylesheet" href="/css/enderecoPadrao.css">
 <div class="perfil-page">
     <div class="perfil-decorative-banner"></div>
 
@@ -194,6 +195,64 @@
                             </div>
                         </form>
                     </div>
+                </section>
+
+                <section class="perfil-section mt-4">
+                    <div class="perfil-section-header">
+                        <div>
+                            <h4 class="perfil-title">Endereços registrados</h4>
+                            <p class="perfil-subtitle">Veja os seus endereços aqui, e altere entre eles.</p>
+                        </div>
+                    </div>
+
+                    <% listaEndereco.forEach((endereco, index) => { %>
+                        <% if(endereco.usuID === "") { %>
+                            <div class="address-card">
+                                <div class="address-summary">
+                                    <div class="address-main">
+                                        <h5 class="address-title">Nenhum endereço cadastrado ainda.</h5>
+                                        <span class="address-mini">
+                                            -------- • -------- • --------
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <% } else { %>
+                            <div class="address-card">
+                                <div class="address-summary" onclick="this.parentElement.classList.toggle('open')">
+                                    <div class="address-main">
+                                        <h5 class="address-title">Endereço</h5>
+                                        <span class="address-mini">
+                                            <%= listaEndereco[index].endEstado %> • <%= listaEndereco[index].endCep %> • Nº <%= listaEndereco[index].endNumero %>
+                                        </span>
+                                    </div>
+
+                                    <button type="button" class="address-toggle">
+                                        ▼
+                                    </button>
+                                </div>
+
+                                <div class="address-details">
+                                    <p><strong>Logradouro:</strong> <%= listaEndereco[index].endLogradouro %></p>
+                                    <p><strong>Bairro:</strong> <%= listaEndereco[index].endBairro %></p>
+                                    <p><strong>Cidade:</strong> <%= listaEndereco[index].endCidade %> - <%= listaEndereco[index].endEstado %></p>
+                                    <p><strong>País:</strong> <%= listaEndereco[index].endPais %></p>
+
+                                    <div class="address-actions">
+                                        <button class="btn btn-primary-soft btn-small">
+                                            Ativar como padrão
+                                        </button>
+
+                                        <button class="btn btn-outline-danger-soft btn-small">
+                                            Remover
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% }) %>
+                    
                 </section>
             </main>
         </div>

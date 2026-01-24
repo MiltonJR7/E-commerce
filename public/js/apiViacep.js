@@ -4,35 +4,34 @@ document.addEventListener('DOMContentLoaded', ()=> {
     const cepInput = document.getElementById('cepInput');
     btnLimpar.addEventListener('click', limpa_formulário_cep);
 
-    cepInput.addEventListener('keyup', (event)=> {
+    cepInput.addEventListener('blur', (event)=> {
         const valor = document.getElementById('cepInput').value;
         var cep = valor.replace(/\D/g, '');
 
         if(cep !== "") {
             var validacep = /^[0-9]{8}$/;
-            if(event.key === 'Enter') {
-                if(validacep.test(cep)) {
-                    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                    .then((res)=> {
-                        return res.json();
-                    })
-                    .then((corpo)=> {
-                        if(!corpo.erro) {
-                            document.getElementById('logradouroInput').value=(corpo.logradouro);
-                            document.getElementById('bairroInput').value=(corpo.bairro);
-                            document.getElementById('cidadeInput').value=(corpo.localidade);
-                            document.getElementById('estadoInput').value=(corpo.uf);
-                        } else {
-                            limpa_formulário_cep();
-                            alert("CEP não encontrado.");
-                        }
-                    })
-                    .catch((err)=> {
-                        return alert('Error interno, tente novamente mais tarde.');
-                    })
-                } else {
-                    return alert('ERRO: CEP INVALIDO');
-                }
+            if(validacep.test(cep)) {
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then((res)=> {
+                    return res.json();
+                })
+                .then((corpo)=> {
+                    if(!corpo.erro) {
+                        document.getElementById('logradouroInput').value=(corpo.logradouro);
+                        document.getElementById('bairroInput').value=(corpo.bairro);
+                        document.getElementById('cidadeInput').value=(corpo.localidade);
+                        document.getElementById('estadoInput').value=(corpo.uf);
+                    } else {
+                        limpa_formulário_cep();
+                        alert("CEP não encontrado.");
+                    }
+                })
+                .catch((err)=> {
+                    return alert('Error interno, tente novamente mais tarde.');
+                })
+            } else {
+                limpa_formulário_cep();
+                return alert('ERRO: CEP INVALIDO');
             }
         }
     })
