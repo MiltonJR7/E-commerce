@@ -10,4 +10,6 @@ route.get('/', authAdmin, controller.dashboardView);
 route.get('/endereco', authAdmin, controller.dashboardEnderecoView);
 route.post('/delete', authAdmin, controller.deleteUsers);
 route.post('/endereco/delete', authAdmin, controller.deleteAddress);
+
+route.get('/update/:id', authAdmin, controller.dashboardUserUpdateView);
 export default route;

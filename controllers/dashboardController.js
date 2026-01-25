@@ -54,12 +54,26 @@ export default class DashboardController {
     async dashboardEnderecoView(req, res) {
 
         try {
-
             const banco = new AddressModel();
             const lista = await banco.listarEnderecosDashboard();
             
             if(lista === null) return res.status(400).json({ mensage: "Erro na lista retornada!" });
             res.render('Dashboard/enderecoPage', { layout: false, lista: lista });
+        } catch(err) {
+            console.log(err);
+            return res.status(400).json({ err: "Error in try. /controllers/dashboardControler.js" });
+        }
+    }
+
+    async dashboardUserUpdateView(req, res) {
+        
+        try {
+
+            const banco = new UserModel();
+            const lista = await banco.listarUsuarioPeloID(req.params.id);
+
+            if(lista === null) return res.status(400).json({ mensage: "Erro na lista retornada!" });
+            res.render('Dashboard/updatePage.ejs', { layout: false, lista: lista });
         } catch(err) {
             console.log(err);
             return res.status(400).json({ err: "Error in try. /controllers/dashboardControler.js" });

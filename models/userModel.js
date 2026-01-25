@@ -148,6 +148,7 @@ export default class UserModel {
 
             const result = await client.query(sql, [id]);
             const row = result.rows[0];
+            console.log(row)
             if (!row) return null;
             return row;
         } finally {

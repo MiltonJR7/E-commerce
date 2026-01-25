@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil</title>
+    <link rel="stylesheet" href="/css/perfilDash.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="perfil-page">
+        <div class="perfil-decorative-banner"></div>
+        <div class="perfil-container">
+            <div class="perfil-grid">
+                <aside class="perfil-card">
+                    <div class="perfil-avatar-section">
+                        <div class="perfil-avatar">
+                            <div class="perfil-avatar-placeholder"><img src="/img/default_perfil.jpg" alt="default"></div>
+                        </div>
+                        <label for="profile-photo" class="perfil-change-photo">
+                           <i class="fa fa-camera" aria-hidden="true"></i>
+                            Alterar Foto
+                        </label>
+                        <input type="file" id="profile-photo" class="perfil-file-input" accept="image/*">
+                    </div>
+
+                    <div class="perfil-info-list">
+                        <div class="perfil-info-item">
+                            <span class="perfil-info-label">Nome Completo</span>
+                            <div class="perfil-info-value"><%= lista.usu_nome %></div>
+                        </div>
+
+                        <div class="perfil-info-item">
+                            <span class="perfil-info-label">E-mail</span>
+                            <div class="perfil-info-value"><%= lista.usu_email %></div>
+                        </div>
+
+                        <div class="perfil-info-item">
+                            <span class="perfil-info-label">Telefone</span>
+                            <div class="perfil-info-value">(00) 00000-0000</div>
+                        </div>
+
+                        <div class="perfil-info-item">
+                            <span class="perfil-info-label">Gênero</span>
+                            <div class="perfil-info-value"><%= lista.usu_genero %></div>
+                        </div>
+                    </div>
+
+                    <a href="/dashboard" class="perfil-back-button">
+                        ← Voltar a Dashboard
+                    </a>
+                </aside>
+
+                <main class="perfil-card">
+                    <div class="perfil-header">
+                        <h1 class="perfil-title">Editar Perfil</h1>
+                        <p class="perfil-subtitle">Atualize suas informações pessoais e mantenha seu perfil sempre atualizado.</p>
+                    </div>
+
+                    <div class="perfil-form">
+                        <div class="perfil-form-row">
+                            <div class="perfil-form-group">
+                                <label for="nome" class="perfil-form-label">Nome Completo</label>
+                                <input
+                                    type="text"
+                                    id="nome"
+                                    name="nome"
+                                    class="perfil-form-control"
+                                    placeholder="Digite seu nome completo"
+                                    value="<%= lista.usu_nome %>"
+                                >
+                            </div>
+
+                            <div class="perfil-form-group">
+                                <label for="email" class="perfil-form-label">E-mail</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="perfil-form-control"
+                                    placeholder="seuemail@exemplo.com"
+                                    value="<%= lista.usu_email %>"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="perfil-form-row">
+                            <div class="perfil-form-group">
+                                <label for="telefone" class="perfil-form-label">Número de Telefone</label>
+                                <input
+                                    type="tel"
+                                    id="telefone"
+                                    name="telefone"
+                                    class="perfil-form-control"
+                                    placeholder="(00) 00000-0000"
+                                    pattern="[\(\)\s\-0-9]+"
+                                >
+                            </div>
+
+                            <div class="perfil-form-group">
+                                <label for="genero" class="perfil-form-label">Gênero</label>
+                                <select id="genero" name="genero" class="perfil-form-control">
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="feminino">Feminino</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="perfil-form-row">
+                            <div class="perfil-form-group">
+                                <label for="senha" class="perfil-form-label">Nova Senha</label>
+                                <input
+                                    type="password"
+                                    id="senha"
+                                    name="senha"
+                                    class="perfil-form-control"
+                                    placeholder="Digite uma nova senha (opcional)"
+                                    minlength="6"
+                                >
+                            </div>
+
+                            <div class="perfil-form-group">
+                                <label for="confirmar-senha" class="perfil-form-label">Confirmar Senha</label>
+                                <input
+                                    type="password"
+                                    id="confirmar-senha"
+                                    name="confirmar-senha"
+                                    class="perfil-form-control"
+                                    placeholder="Confirme a nova senha"
+                                    minlength="6"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- IDEIA FUTURA PARA IMPLEMENTAR IMAGEM PRO PUBLIC E ROTA DA IMAGEM PRO BANCO USANDO MULTER.
+                        <div class="perfil-form-group full-width">
+                            <label for="foto-perfil" class="perfil-form-label">Foto de Perfil</label>
+                            <input
+                                type="file"
+                                id="foto-perfil"
+                                name="foto-perfil"
+                                class="perfil-form-control"
+                                accept="image/png, image/jpeg, image/jpg, image/gif"
+                            >
+                        </div>
+                        -->
+
+                        <div class="perfil-actions">
+                            <button class="btn btn-primary-soft" id="salvarAlteracao">
+                                Salvar Alterações
+                            </button>
+                            <button class="btn btn-outline-soft">
+                                Cancelar
+                            </button>
+                            <button class="btn btn-outline-danger-soft">
+                                Excluir Conta
+                            </button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="/js/alterarDash.js"></script>

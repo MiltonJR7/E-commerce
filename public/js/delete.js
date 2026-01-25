@@ -4,19 +4,33 @@ document.addEventListener('DOMContentLoaded', ()=> {
     const btn = document.querySelectorAll('.btnDeletar');
     for(let i = 0; i < btn.length; i++) {
         btn[i].addEventListener('click', (e)=> {
-            const id = e.currentTarget.dataset.delete;
-            deletar(id);
+            const idUsers = e.currentTarget.dataset.deleteusers;
+            const idAddress = e.currentTarget.dataset.deleteaddress;
+            let router = "";
+            let id = "";
+
+            console.log(idUsers);
+            console.log(idAddress);
+
+            if(idUsers) {
+                router = "delete";
+                id = idUsers;
+            } else {
+                router = "endereco/delete";
+                id = idAddress;
+            }
+
+            deletar(id, router);
         });
     }
 
-    function deletar(id) {
+    function deletar(id, router) {
 
         try {
-            if(!id) return;
+            let obj = id;
 
-            let obj = id
             if(confirm("Os dados seram deletados apos a confirmação, deseja confirmar?")) {
-                fetch('/dashboard/delete', {
+                fetch(`/dashboard/${router}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
