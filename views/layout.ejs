@@ -38,8 +38,8 @@
 
                     <div class="dropdown" role="menu" aria-label="Menu do perfil">
                         <% if(!user || user === "") { %>
-                            <a href="/login" role="menuitem">Login</a>
-                            <a href="/register" role="menuitem">Criar conta</a>
+                            <a href="/connect/login" role="menuitem">Login</a>
+                            <a href="/connect/register" role="menuitem">Criar conta</a>
                         <% } else if(perfil === 1) { %>
                             <a href="/profile" role="menuitem">Perfil</a>
                             <a href="/dashboard" role="menuitem">Dashboard</a><hr>
