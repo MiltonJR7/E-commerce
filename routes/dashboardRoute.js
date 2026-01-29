@@ -12,5 +12,6 @@ route.delete('/user/delete', authAdmin, controller.deleteUsers);
 route.delete('/address/delete', authAdmin, controller.deleteAddress);
 
 route.get('/user/:id', authAdmin, controller.dashboardUserServiceView);
+route.put('/user/:id', authAdmin, controller.dashboardUserServiceAlter);
 route.delete('/user/delete/:id', authAdmin, controller.dashboardUserServiceDelete);
 export default route;

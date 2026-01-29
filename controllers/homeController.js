@@ -65,13 +65,14 @@ export default class HomeController {
         if(req.user) id = req.user.id;
         
         try {
-            const { nome, email, genero } = req.body;
-            if(!nome && !email && !genero) return res.status(400).json({ ok: false });
+            const { nome, email, genero, numero } = req.body;
+            if(!nome && !email && !genero && !numero) return res.status(400).json({ ok: false });
 
             const banco = new UserModel();
             banco.usuNome = nome;
             banco.usuEmail = email;
             banco.usuGenero = genero;
+            banco.usuNumero = numero;
 
             const result = await banco.alterarUser(id);
 

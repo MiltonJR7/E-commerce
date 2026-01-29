@@ -16,6 +16,7 @@ export default class UserModel {
     #usuDate;
     #usuGenero;
     #usuUrlImagem;
+    #usuNumero;
     #perID;
 
     get usuID() { return this.#usuID; } set usuID(value) { this.#usuID = value; }
@@ -26,9 +27,10 @@ export default class UserModel {
     get usuDate() { return this.#usuDate; } set usuDate(value) { this.#usuDate = value; }
     get usuGenero() { return this.#usuGenero; } set usuGenero(value) { this.#usuGenero = value; }
     get usuUrlImagem() { return this.#usuUrlImagem; } set usuUrlImagem(value) { this.#usuUrlImagem = value; }
+    get usuNumero() { return this.#usuNumero; } set usuNumero(value) { this.#usuNumero = value; }
     get perID() { return this.#perID; } set perID(value) { this.#perID = value; }
 
-    constructor(usuID, usuNome, usuEmail, usuSenha, usuAtivo, usuDate, usuGenero, usuUrlImagem, perID) {
+    constructor(usuID, usuNome, usuEmail, usuSenha, usuAtivo, usuDate, usuGenero, usuUrlImagem, usuNumero, perID) {
         this.#usuID = usuID;
         this.#usuNome = usuNome;
         this.#usuEmail = usuEmail;
@@ -37,6 +39,7 @@ export default class UserModel {
         this.#usuDate = usuDate;
         this.#usuGenero = usuGenero;
         this.#usuUrlImagem = usuUrlImagem;
+        this.#usuNumero = usuNumero;
         this.#perID = perID;
     }
 
@@ -139,6 +142,7 @@ export default class UserModel {
                 tb_usuario.usu_ativo,
                 tb_usuario.usu_criacao,
                 tb_usuario.usu_genero,
+                tb_usuario.usu_numero,
                 tb_perfil.per_tipo
                 from tb_usuario
                 inner join tb_perfil on tb_usuario.per_id = tb_perfil.per_id
@@ -171,12 +175,13 @@ export default class UserModel {
         const client = await pool.connect();
 
         try {
-            const sql = "update tb_usuario set usu_nome = $1, usu_email = $2, usu_genero = $3 where usu_id = $4";
-            const values = [ this.#usuNome, this.#usuEmail, this.#usuGenero, id ];
+            const sql = "update tb_usuario set usu_nome = $1, usu_email = $2, usu_genero = $3, usu_numero = $4 where usu_id = $5";
+            const values = [ this.#usuNome, this.#usuEmail, this.#usuGenero,  this.#usuNumero, id ];
             const result = await client.query(sql, values);
             return result;
         } finally {
             client.release();
         }
     }
+    
 }

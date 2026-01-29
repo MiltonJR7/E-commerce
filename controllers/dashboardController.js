@@ -95,7 +95,30 @@ export default class DashboardController {
             return res.status(500).json({ ok: false });
         } catch(err) {
             console.log(err);
-            return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardUserUpdateDelete ---" })
+            return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardUserServiceDelete ---" })
+        }
+    }
+
+    async dashboardUserServiceAlter(req, res) {
+        
+        try {
+            let idUserServices = req.params.id;
+            const {nome, email, genero, numero} = req.body;
+            if(!idUserServices) return res.status(500).json({ mensage: "Erro params inexistente ou invalido!", ok: false }); 
+
+            const banco = new UserModel();
+            banco.usuNome = nome;
+            banco.usuEmail = email;
+            banco.usuGenero = genero;
+            banco.usuNumero = numero;
+
+            const result = await banco.alterarUser(idUserServices);
+
+            if(result) res.status(200).json({ ok: true });
+            return res.status(500).json({ ok: false });
+        } catch(err) {
+            console.log(err);
+            return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardUserServiceAlter ---" })
         }
     }
 }

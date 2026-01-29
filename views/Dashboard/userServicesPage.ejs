@@ -37,7 +37,13 @@
 
                         <div class="perfil-info-item">
                             <span class="perfil-info-label">Telefone</span>
-                            <div class="perfil-info-value">(00) 00000-0000</div>
+                            <div class="perfil-info-value">
+                                <% if(lista.usu_numero) { %>
+                                    (<%= lista.usu_numero.slice(0,2) %>) <%= lista.usu_numero.slice(2,7) %>-<%= lista.usu_numero.slice(7,11) %>
+                                <% } else { %>
+                                    (00) 00000-000
+                                <% } %>
+                            </div>
                         </div>
 
                         <div class="perfil-info-item">
@@ -93,7 +99,8 @@
                                     name="telefone"
                                     class="perfil-form-control"
                                     placeholder="(00) 00000-0000"
-                                    pattern="[\(\)\s\-0-9]+"
+                                    value="(<%= lista.usu_numero.slice(0,2) %>) <%= lista.usu_numero.slice(2,7) %>-<%= lista.usu_numero.slice(7,11) %>" 
+                                    maxlength="15"
                                 >
                             </div>
 
