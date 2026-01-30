@@ -1,16 +1,12 @@
-/* ============================================
-   CSS VARIABLES - TEMA CLARO E ESCURO
-   ============================================ */
 
 :root {
-    /* Tema Claro */
     --bg-primary: #F6F3EE;
     --bg-secondary: #FFFFFF;
     --bg-card: #FFFFFF;
     --bg-hover: #F0EDE8;
 
     --color-yellow: #F2C14E;
-    --color-pink: #F7A1C4;
+    --color-purple: #591a7e;
     --color-blue: #0B5ED7;
     --color-green: #1AA34A;
 
@@ -32,7 +28,7 @@
     --bg-hover: #2A2A2A;
 
     --color-yellow: #F2C14E;
-    --color-pink: #F7A1C4;
+    --color-purple: #F7A1C4;
     --color-blue: #3B82F6;
     --color-green: #22C55E;
 
@@ -91,7 +87,7 @@ button {
 }
 
 .top-bar {
-    background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-pink) 100%);
+    background: linear-gradient(135deg, var(--color-purple) 0%, var(--color-purple) 100%);
     padding: 8px 0;
 }
 
