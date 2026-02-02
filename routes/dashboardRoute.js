@@ -8,6 +8,8 @@ const route = express.Router();
 
 route.get('/', authAdmin, controller.dashboardView);
 route.get('/address', authAdmin, controller.dashboardEnderecoView);
+route.get('/products', authAdmin, controller.dashboardProductsView);
+
 route.delete('/user/delete', authAdmin, controller.deleteUsers);
 route.delete('/address/delete', authAdmin, controller.deleteAddress);
 

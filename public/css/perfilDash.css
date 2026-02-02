@@ -1,9 +1,10 @@
+/* perfil.css - Estilos da Página de Perfil do Usuário */
 
 :root {
     --color-primary: #3b82f6;
     --color-primary-light: #60a5fa;
     --color-primary-dark: #2563eb;
-    --color-pink: #ec4899;
+    --color-blue: #6492f3;
     --color-blue-light: #6492f3;
     --color-yellow: #fbbf24;
     --color-yellow-light: #fde68a;
@@ -26,20 +27,12 @@
     --radius-xl: 1rem;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-}
-
 .perfil-page {
     min-height: 100vh;
     background: linear-gradient(to bottom, var(--color-gray-50) 0%, #ffffff 100%);
     padding-bottom: 4rem;
+    margin-left: 308px;
+    margin-top: 140px;
 }
 
 .perfil-decorative-banner {
@@ -99,11 +92,6 @@ body {
     border: 4px solid var(--color-blue-light);
     margin-bottom: 1rem;
     transition: transform 0.3s ease, border-color 0.3s ease;
-    background: var(--color-gray-100);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
 }
 
 .perfil-avatar:hover {
@@ -115,17 +103,6 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-.perfil-avatar-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    color: var(--color-gray-400);
-    background: linear-gradient(135deg, var(--color-gray-100), var(--color-gray-200));
 }
 
 .perfil-change-photo {
@@ -146,10 +123,6 @@ body {
 .perfil-change-photo:hover {
     background: var(--color-gray-50);
     color: var(--color-primary-dark);
-}
-
-.perfil-file-input {
-    display: none;
 }
 
 .perfil-info-list {
@@ -197,7 +170,6 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
     justify-content: center;
-    text-decoration: none;
 }
 
 .perfil-back-button:hover {
@@ -232,26 +204,10 @@ body {
     gap: 1.5rem;
 }
 
-.perfil-form-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-    .perfil-form-row {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
 .perfil-form-group {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-}
-
-.perfil-form-group.full-width {
-    grid-column: 1 / -1;
 }
 
 .perfil-form-label {
@@ -269,8 +225,6 @@ body {
     color: var(--color-gray-900);
     transition: all 0.2s ease;
     outline: none;
-    width: 100%;
-    font-family: inherit;
 }
 
 .perfil-form-control:focus {
@@ -282,13 +236,8 @@ body {
     color: var(--color-gray-400);
 }
 
-.perfil-form-control[type="file"] {
-    padding: 0.5rem 1rem;
-}
-
 .perfil-actions {
     display: flex;
-    margin-top: auto;
     gap: 1rem;
     margin-top: 1rem;
     flex-wrap: wrap;
@@ -307,7 +256,6 @@ body {
     border: none;
     outline: none;
     text-decoration: none;
-    font-family: inherit;
 }
 
 .btn-primary-soft {
@@ -330,8 +278,8 @@ body {
 
 .btn-outline-soft:hover {
     background: var(--color-gray-50);
-    border-color: var(--color-pink);
-    color: var(--color-pink);
+    border-color: var(--color-blue);
+    color: var(--color-blue);
 }
 
 .btn-outline-danger-soft {
@@ -345,31 +293,186 @@ body {
     border-color: var(--color-danger);
 }
 
-textarea.perfil-form-control {
-    min-height: 100px;
-    resize: vertical;
-    font-family: inherit;
+.perfil-section {
+    background: #ffffff;
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-gray-100);
+    transition: box-shadow 0.3s ease;
 }
 
-select.perfil-form-control {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234b5563' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
+.perfil-section:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.perfil-section.mt-4 {
+    margin-top: 2rem;
+}
+
+.btn-outline-soft {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--color-gray-300);
+    outline: none;
+    background: transparent;
+    color: var(--color-gray-700);
+    text-decoration: none;
+}
+
+.btn-outline-soft:hover {
+    background: var(--color-gray-50);
+    border-color: var(--color-blue);
+    color: var(--color-blue);
+}
+
+.perfil-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--color-gray-100);
+    flex-wrap: wrap;
+}
+
+.collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.collapse.show {
+    max-height: 2000px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.row.g-3 {
+    gap: 1rem;
+}
+
+.row.mt-1 {
+    margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+    .col-md-4 {
+        grid-column: span 4;
+    }
+
+    .col-md-6 {
+        grid-column: span 6;
+    }
+
+    .col-md-8 {
+        grid-column: span 8;
+    }
+
+    .row {
+        grid-template-columns: repeat(12, 1fr);
+    }
+}
+
+.col-12 {
+    grid-column: 1 / -1;
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gray-700);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    color: var(--color-gray-900);
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.form-control.soft-control {
+    border-color: var(--color-gray-200);
+    background: var(--color-gray-50);
+}
+
+.form-control:focus,
+.form-control.soft-control:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    background: #ffffff;
+}
+
+.form-control::placeholder {
+    color: var(--color-gray-400);
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+    .perfil-page {
+        margin-left: 0;
+    }
 }
 
 @media (max-width: 767px) {
-    .perfil-container {
-        padding: 1rem;
+    .perfil-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        margin-left: 0;
+        margin-top: 116px;
+        padding-top: 1rem;
     }
 
-    .perfil-card {
+    .perfil-container {
+        padding: 1rem;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .perfil-grid {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .perfil-card,
+    .perfil-section {
         padding: 1.5rem;
+        width: 100%;
+        max-width: 100%;
     }
 
     .perfil-actions {
         flex-direction: column;
+        align-items: stretch;
+        width: 100%;
     }
 
     .btn {
@@ -377,12 +480,55 @@ select.perfil-form-control {
         justify-content: center;
     }
 
+    .perfil-section-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
     .perfil-title {
         font-size: 1.25rem;
+        text-align: center;
+    }
+
+    .perfil-subtitle {
+        text-align: center;
+    }
+
+    .perfil-header {
+        text-align: center;
+    }
+
+    .perfil-form-row {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .perfil-form-group {
+        width: 100%;
+    }
+
+    .perfil-form-control {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .perfil-form {
+        width: 100%;
     }
 }
 
 @media (max-width: 480px) {
+    .perfil-container {
+        padding: 0.75rem;
+        max-width: 100%;
+    }
+
+    .perfil-card,
+    .perfil-section {
+        padding: 1rem;
+        border-radius: 0.75rem;
+    }
+
     .perfil-avatar {
         width: 100px;
         height: 100px;
@@ -390,5 +536,39 @@ select.perfil-form-control {
 
     .perfil-decorative-banner {
         height: 6px;
+    }
+
+    .perfil-title {
+        font-size: 1.1rem;
+    }
+
+    .perfil-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .perfil-form-control {
+        font-size: 0.9rem;
+        padding: 0.65rem 0.85rem;
+    }
+
+    .btn {
+        padding: 0.65rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}
+
+.perfil-file-input {
+    display: none;
+}
+
+.perfil-form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .perfil-form-row {
+        grid-template-columns: 1fr 1fr;
     }
 }

@@ -8,7 +8,7 @@ export default class HomeController {
 
         if(req.user) id = req.user.id;
         if(req.user) perID = req.user.perID;
-        res.render('Home/homePage', { user: id, perfil: perID });
+        res.render('Home/homePage', { user: id, perfil: perID, layoutDashboard: false });
     }
 
     async perfilView(req, res) {

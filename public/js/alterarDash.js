@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
         const email = document.getElementById('email');
         const genero = document.getElementById('genero');
         const numero = document.getElementById('telefone');
+        const senha = document.getElementById('senha');
+        const confSenha = document.getElementById('confSenha');
+
         const cleanNumber = numero.value.replace(/\D/g, "");
         const regexLetras = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/;
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -45,6 +48,12 @@ document.addEventListener('DOMContentLoaded', ()=> {
         if(nome.value === "" || !regexLetras.test(nome.value)) { validar.push(nome) } else { nome.style.borderColor = "#f9fafb"; }
         if(email.value === "" || !emailPattern.test(email.value)) { validar.push(email) } else { email.style.borderColor = "#f9fafb"; }
         if(genero.value === "" || !regexLetras.test(genero.value)) { validar.push(genero) } else { genero.style.borderColor = "#f9fafb"; }
+        if(senha.value === "" || senha.value !== confSenha.value || senha.value.length < 6) { 
+            validar.push(senha, confSenha); 
+        } else { 
+            senha.style.borderColor = "#f9fafb";
+            confSenha.style.borderColor = "#f9fafb";
+         }
         if(cleanNumber === "" || !regex.test(cleanNumber)) { validar.push(numero); } else { numero.style.borderColor = "#f9fafb"; }
 
         if(validar.length === 0) {
@@ -53,6 +62,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 nome: nome.value,
                 email: email.value,
                 genero: genero.value,
+                senha: senha.value,
                 numero: cleanNumber
             }
 

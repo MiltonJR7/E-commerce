@@ -1,152 +1,91 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Usuários</title>
-    <link rel="stylesheet" href="/css/dashStyle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body data-theme="light">
-    <header class="header">
-        <div class="top-bar">
-            <div class="top-bar-content">
-                <span class="top-bar-text">Área administrativa</span>
+<main class="main-content">
+    <div class="content-header">
+        <div>
+            <h1 class="page-title">Usuários</h1>
+            <p class="page-subtitle">Gerencie os usuários da plataforma</p>
+        </div>
+    </div>
+
+    <div class="banner-decorative">
+        <div class="banner-pattern"></div>
+    </div>
+
+    <div class="content-section">
+        <div class="section-filters">
+            <div class="search-container-inline">
+                <input type="text" class="search-input" placeholder="Buscar usuários...">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </div>
         </div>
 
-        <div class="header-main">
-            <div class="header-content">
-                <div class="logo">
-                    <span class="logo-text">Dashboard</span>
-                </div>
-
-                <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Menu">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <aside class="sidebar">
-        <nav class="sidebar-nav">
-            <a href="#" class="nav-item active">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <span>Usuários</span>
-            </a>
-            <a href="/dashboard/address" class="nav-item">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>Endereços</span>
-            </a>
-            <a href="/" class="nav-item">
-                <i class="fa fa-home" aria-hidden="true"></i>
-                <span>Home</span>
-            </a>
-        </nav>
-
-        <div class="theme-toggle">
-            <label class="toggle-label">
-                <input type="checkbox" id="theme-checkbox">
-                <span class="toggle-slider"></span>
-                <span class="toggle-text">Tema Escuro</span>
-            </label>
-        </div>
-    </aside>
-
-    <main class="main-content">
-        <div class="content-header">
-            <div>
-                <h1 class="page-title">Usuários</h1>
-                <p class="page-subtitle">Gerencie os usuários da plataforma</p>
-            </div>
-        </div>
-
-        <div class="banner-decorative">
-            <div class="banner-pattern"></div>
-        </div>
-
-        <div class="content-section">
-            <div class="section-filters">
-                <div class="search-container-inline">
-                    <input type="text" class="search-input" placeholder="Buscar usuários...">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+        <div class="card">
+            <div class="card-header">
+                <div class="card-header-top">
+                    <h2 class="card-title">Lista de Usuários</h2>
+                    <a href="/connect/register" class="btn-primary">Novo usuário</a>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-header-top">
-                        <h2 class="card-title">Lista de Usuários</h2>
-                        <a href="/connect/register" class="btn-primary">Novo usuário</a>
-                    </div>
-                </div>
-
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Numero</th>
-                                <th>Status</th>
-                                <th class="actions-col" colspan="2">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% for(let i = 0; i < lista.length; i++) { %>
-                                <% if(lista[i].length === 0) { %>
-                                    <tr>
-                                        <td colspan="6" class="empty-state">
-                                            <div class="empty-content">
-                                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                <p>Nenhum usuário cadastrado</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <% } else { %>
-                                    <tr>
-                                        <td data-label="ID"><%= lista[i].usuID %></td>
-                                        <td data-label="Nome"><%= lista[i].usuNome %></td>
-                                        <td data-label="Email"><%= lista[i].usuEmail %></td>
-                                        <td data-label="Numero">
-                                            <% if(lista[i].usuNumero) { %>
-                                                (<%= lista[i].usuNumero.slice(0,2) %>) <%= lista[i].usuNumero.slice(2,7) %>-<%= lista[i].usuNumero.slice(7,11) %>
-                                            <% } else { %>
-                                                (00) 00000-000
-                                            <% } %>
-                                        </td>
-                                        <td data-label="Status">
-                                            <% if(lista[i].usuAtivo === "ativo") { %>
-                                                <span class="usuarioAtivo">ATIVO</span>
-                                            <% } else { %>
-                                                <span class="usuarioInativo">INATIVO</span>
-                                            <% } %>
-                                        </td>
-                                        <td data-label="Ações">
-                                            <button class="btnEditar">
-                                                <a href="/dashboard/user/<%= lista[i].usuID %>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            </button>
-                                            <button class="btnDeletar" data-delete-user="<%= lista[i].usuID %>">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                <% } %>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Numero</th>
+                            <th>Status</th>
+                            <th class="actions-col" colspan="2">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let i = 0; i < lista.length; i++) { %>
+                            <% if(lista[i].length === 0) { %>
+                                <tr>
+                                    <td colspan="6" class="empty-state">
+                                        <div class="empty-content">
+                                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <p>Nenhum usuário cadastrado</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% } else { %>
+                                <tr>
+                                    <td data-label="ID"><%= lista[i].usuID %></td>
+                                    <td data-label="Nome"><%= lista[i].usuNome %></td>
+                                    <td data-label="Email"><%= lista[i].usuEmail %></td>
+                                    <td data-label="Numero">
+                                        <% if(lista[i].usuNumero) { %>
+                                            (<%= lista[i].usuNumero.slice(0,2) %>) <%= lista[i].usuNumero.slice(2,7) %>-<%= lista[i].usuNumero.slice(7,11) %>
+                                        <% } else { %>
+                                            (00) 00000-000
+                                        <% } %>
+                                    </td>
+                                    <td data-label="Status">
+                                        <% if(lista[i].usuAtivo === "ativo") { %>
+                                            <span class="usuarioAtivo">ATIVO</span>
+                                        <% } else { %>
+                                            <span class="usuarioInativo">INATIVO</span>
+                                        <% } %>
+                                    </td>
+                                    <td data-label="Ações">
+                                        <button class="btnEditar">
+                                            <a href="/dashboard/user/<%= lista[i].usuID %>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        </button>
+                                        <button class="btnDeletar" data-delete-user="<%= lista[i].usuID %>">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </tr>
                             <% } %>
-                        </tbody>
-                    </table>
-                </div>
+                        <% } %>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </main>
-</body>
-</html>
-<script src="/js/theme.js"></script>
-<script src="/js/delete.js"></script>
-<script src="/js/alterarDash.js"></script>
-<script src="/js/menu.js"></script>
+    </div>
+</main>

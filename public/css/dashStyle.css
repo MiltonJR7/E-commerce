@@ -304,6 +304,10 @@ button {
     animation: fadeIn 0.5s ease;
 }
 
+.section-title {
+    display: none;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

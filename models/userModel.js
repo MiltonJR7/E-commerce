@@ -177,8 +177,11 @@ export default class UserModel {
         const client = await pool.connect();
 
         try {
-            const sql = "update tb_usuario set usu_nome = $1, usu_email = $2, usu_genero = $3, usu_numero = $4 where usu_id = $5";
-            const values = [ this.#usuNome, this.#usuEmail, this.#usuGenero,  this.#usuNumero, id ];
+            const saltRounds = 10;
+            const hash = await bcrypt.hash(this.#usuSenha, saltRounds);
+
+            const sql = "update tb_usuario set usu_nome = $1, usu_email = $2, usu_genero = $3, usu_hash_senha = $4, usu_numero = $5 where usu_id = $6";
+            const values = [ this.#usuNome, this.#usuEmail, this.#usuGenero, hash,  this.#usuNumero, id ];
             const result = await client.query(sql, values);
             return result;
         } finally {
