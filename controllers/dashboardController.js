@@ -177,5 +177,24 @@ export default class DashboardController {
             return res.status(400).json({ err: "Erro na controladora com status 400 - possivelmente erro com banco de dados. --- dashboardProductServicesNewProduct ---" });
         }
     }
+
+    async dashboardProductsDelete(req, res) {
+
+        try {
+
+            const id = req.body.obj;
+
+            if(!id) return res.status(400).json({ ok: false });
+
+            const banco = new ProductModel();
+            const result = await banco.deletarProduto(id);
+
+            if(result) return res.status(200).json({ ok: true });
+            return res.status(500).jso({ ok: false });
+        } catch(err) {
+            console.log(err);
+            return res.status(400).json({ err: "Erro na controladora com status 400 - possivelmente erro com banco de dados. --- dashboardProductsDelete ---" });
+        }
+    }
 }
 

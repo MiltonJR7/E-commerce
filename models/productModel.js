@@ -103,5 +103,17 @@ export default class ProductModel {
             client.release();
         }
     }
+
+    async deletarProduto(id) {
+        const client = await pool.connect();
+
+        try {
+            const sql = `delete from tb_produto where pro_id = $1`;
+            const result = await client.query(sql, [id]);
+            return result;
+        } finally {
+            client.release();
+        }
+    }
 }
 

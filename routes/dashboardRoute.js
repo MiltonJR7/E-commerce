@@ -15,6 +15,7 @@ route.post('/products/add-new', authAdmin, controller.dashboardProductServicesNe
 
 route.delete('/user/delete', authAdmin, controller.deleteUsers);
 route.delete('/address/delete', authAdmin, controller.deleteAddress);
+route.delete('/products/delete', authAdmin, controller.dashboardProductsDelete);
 
 route.get('/user/:id', authAdmin, controller.dashboardUserServiceView);
 route.put('/user/:id', authAdmin, controller.dashboardUserServiceAlter);

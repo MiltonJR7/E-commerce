@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
             const idAddress = e.currentTarget.dataset.deleteAddress;
             const idUserEdit = e.currentTarget.dataset.deleteUserEditPage;
             const idAddressProfile = e.currentTarget.dataset.deleteAddressProfile;
+            const idProduct = e.currentTarget.dataset.deleteProduct;
 
             let router = "";
             let id = "";
@@ -20,9 +21,12 @@ document.addEventListener('DOMContentLoaded', ()=> {
             } else if(idUserEdit){
                 router = `/dashboard/user/delete/${idUserEdit}`;
                 id = idUserEdit;
-            } else {
+            } else if(idAddressProfile) {
                 router = `/profile/delete`;
                 id = idAddressProfile;
+            } else{
+                router = `/dashboard/products/delete`;
+                id = idProduct;
             }
 
             deletar(id, router);
