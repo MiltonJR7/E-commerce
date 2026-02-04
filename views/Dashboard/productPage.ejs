@@ -24,7 +24,7 @@
             <div class="card-header">
                 <div class="card-header-top">
                     <h2 class="card-title">Lista de Produtos</h2>
-                    <a href="#" class="btn-primary">Novo produto</a>
+                    <a href="/dashboard/products/add-new" class="btn-primary">Novo produto</a>
                 </div>
             </div>
 
@@ -34,14 +34,14 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Estoque</th>
+                            <th>Codigo de barras</th>
                             <th>Preco</th>
                             <th>Status</th>
                             <th class="actions-col" colspan="2">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% if(lista[i].length === "") { %>
+                        <% if(lista.length === 0) { %>
                             <tr>
                                 <td colspan="6" class="empty-state">
                                     <div class="empty-content">
@@ -52,7 +52,27 @@
                             </tr>
                         <% } %>
                         <% for(let i=0; i < lista.length; i++) { %>
-
+                            <tr>
+                                <td data-label="ID"><%= lista[i].proID %></td>
+                                <td data-label="Nome"><%= lista[i].proNome %></td>
+                                <td data-label="Codigo de barras"><%= lista[i].proCodigoBarras %></td>
+                                <td data-label="Preco"><%= lista[i].proPreco %></td>
+                                <td data-label="Status">
+                                    <% if(lista[i].proStatus === true) { %>
+                                        <span class="usuarioAtivo">ATIVO</span>
+                                    <% } else { %>
+                                        <span class="usuarioInativo">INATIVO</span>
+                                    <% } %>
+                                </td>
+                                <td data-label="Ações">
+                                    <button class="btnEditar">
+                                        <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    </button>
+                                    <button class="btnDeletar">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
                         <% } %>
                     </tbody>
                 </table>

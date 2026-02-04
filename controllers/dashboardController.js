@@ -1,5 +1,7 @@
 
 import AddressModel from "../models/addressModel.js";
+import CategoriaModel from "../models/categoriaModel.js";
+import ProductModel from "../models/productModel.js";
 import UserModel from "../models/userModel.js";
 
 export default class DashboardController {
@@ -76,7 +78,7 @@ export default class DashboardController {
             const listaAddress = await bancoAddress.listarEnderecosDashboard();
 
             if(lista === null) return res.status(400).json({ mensage: "Erro na lista retornada!", ok: false });
-            return res.render('Dashboard/userServicesPage.ejs', { layout: "Dashboard/layoutDashboard", lista: lista, listaAddress: listaAddress });
+            return res.render('Dashboard/userServicesAlterPage.ejs', { layout: "Dashboard/layoutDashboard", lista: lista, listaAddress: listaAddress });
         } catch(err) {
             console.log(err);
             return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardUserServiceView ---" });
@@ -98,7 +100,7 @@ export default class DashboardController {
             return res.status(500).json({ ok: false });
         } catch(err) {
             console.log(err);
-            return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardUserServiceDelete ---" })
+            return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardUserServiceDelete ---" });
         }
     }
 
@@ -121,12 +123,59 @@ export default class DashboardController {
             return res.status(500).json({ ok: false });
         } catch(err) {
             console.log(err);
-            return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardUserServiceAlter ---" })
+            return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardUserServiceAlter ---" });
         }
     }
 
-    dashboardProductsView(req, res) {
-        res.render('Dashboard/productPage', { layout: "Dashboard/layoutDashboard" });
+    async dashboardProductsView(req, res) {
+
+        try {
+            const banco = new ProductModel();
+            const lista = await banco.listarProdutos();
+
+            res.render('Dashboard/productPage', { layout: "Dashboard/layoutDashboard", lista: lista });
+        } catch(err) {
+            console.log(err);
+            return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardProductsView ---" });
+        }
+    }
+
+    async dashboardProductServicesView(req, res) {
+
+        try {
+            const bancoCategoria = new CategoriaModel();
+            const listaCategorias = await bancoCategoria.listarCategorias();
+
+            res.render('Dashboard/productServicesAddPage', { layout: "Dashboard/layoutDashboard", lista: listaCategorias });
+        } catch(err) {
+            console.log(err);
+            return res.status(400).json({ err: "Erro de renderização: 400 - possivelmente erro de variaveis. --- dashboardProductServicesView ---" });
+        }
+    }
+
+    async dashboardProductServicesNewProduct(req, res) {
+
+        try {
+
+            const { nome, descricao, preco, codigoBarras, status, categoria } = req.body;
+            console.log(descricao)
+            if(!nome || !descricao || !preco || !codigoBarras || !status || !categoria) return res.status(400).json({ ok: false });
+
+            const banco = new ProductModel();
+            banco.proNome = nome;
+            banco.proDescricao = descricao;
+            banco.proPreco = preco;
+            banco.proCodigoBarras = codigoBarras;
+            banco.proStatus = status;
+            banco.catID = categoria;
+
+            const result = await banco.cadastrarProduto();
+            if(result) return res.status(200).json({ ok: true });
+            return res.status(500).json({ ok: false });
+        } catch(err) {
+            console.log(err);
+            return res.status(400).json({ err: "Erro na controladora com status 400 - possivelmente erro com banco de dados. --- dashboardProductServicesNewProduct ---" });
+        }
     }
 }
 

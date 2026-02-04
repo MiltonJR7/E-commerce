@@ -1,8 +1,10 @@
 
 document.addEventListener('DOMContentLoaded', ()=> {
     const rota = window.location.pathname;
+    const id = window.location.pathname.split('/').pop();
+    console.log(id)
     
-    if(rota === "/dashboard") {
+    if(rota === "/dashboard" || rota === `/dashboard/user/${id}`) {
         const users = document.querySelectorAll('.users');
         
         users.forEach(users => {

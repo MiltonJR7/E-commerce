@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', ()=> {
-    const btn = document.querySelectorAll('.btnDeletar');
+    const btn = document.querySelectorAll('.btnDeletar, .btnDeletarServices');
     for(let i = 0; i < btn.length; i++) {
         btn[i].addEventListener('click', (e)=> {
             const idUser = e.currentTarget.dataset.deleteUser;
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 })
                 .then((corpo)=> {
                     if(corpo.ok) {
-                        window.location.reload();
+                        if(window.location.pathname === `/dashboard/user/${id}`) { window.location.href = "/dashboard"; } else { window.location.reload(); }
                     } else {
                         alert("Error na confirmação do corpo.");
                     }
