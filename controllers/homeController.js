@@ -1,5 +1,6 @@
 import AddressModel from "../models/addressModel.js";
 import UserModel from "../models/userModel.js";
+import { uploadToCloudinary } from "../utils/cloudinaryUpload.js";
 
 export default class HomeController {
     async homeView(req, res) {
@@ -77,7 +78,11 @@ export default class HomeController {
             if (email) banco.usuEmail = email;
             if (genero) banco.usuGenero = genero;
             if (cleanNumber) banco.usuNumero = cleanNumber;
-            if (req.file) banco.usuUrlImagem = req.file.filename;
+
+            if (req.file) {
+                const uploaded = await uploadToCloudinary(req.file.buffer, "users");
+                banco.usuUrlImagem = uploaded.secure_url;
+            }
 
             const result = await banco.alterarUserPerfil(id);
 

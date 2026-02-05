@@ -7,11 +7,11 @@
                     <div class="perfil-avatar">
                         <% if(lista.usu_url_imagem) { %>
                             <img id="avatarPreview"
-                            src="/img/<%= lista.usu_url_imagem %>" alt="avatar">
+                            src="<%= lista.usu_url_imagem %>" alt="avatar">
                         <% } else { %>
                             <img id="avatarPreview"
                             src="/img/default_perfil.jpg"
-                            alt="Foto do usuário">"
+                            alt="Foto do usuário">
                         <% } %>
                     </div>
                     <button type="button" class="perfil-change-photo" id="btnTrocarFoto">
