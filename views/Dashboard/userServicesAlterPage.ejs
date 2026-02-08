@@ -6,9 +6,9 @@
                 <div class="perfil-avatar-section">
                     <div class="perfil-avatar">
                         <% if (typeof lista !== "undefined" && lista && lista.usu_url_imagem) { %>
-                            <img src="<%= lista.usu_url_imagem %>" alt="avatar">
+                            <img src="<%= lista.usu_url_imagem %>" alt="avatar" id="avatarPreview">
                         <% } else { %>
-                            <img src="/img/default_perfil.jpg" alt="avatar">
+                            <img src="/img/default_perfil.jpg" alt="avatar" id="avatarPreview">
                         <% } %>
                     </div>
                     <button type="button" class="perfil-change-photo" id="btnTrocarFoto">

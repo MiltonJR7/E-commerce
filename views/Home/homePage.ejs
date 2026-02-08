@@ -8,24 +8,13 @@
 
             <div class="hero-slides" id="heroSlides">
                 <div class="hero-slide active">
-                    <div class="hero-content">
-                        <h1>Tecnologia do Futuro</h1>
-                        <p>Descubra os melhores produtos eletrônicos com os melhores preços</p>
-                        <button class="cta-btn">Compre Agora</button>
-                    </div>
-                    <div class="hero-image">
-                        <i class="fas fa-mobile-alt" style="font-size: 150px; color: rgba(11, 94, 215, 0.1);"></i>
-                    </div>
+                    <img src="/img/default_banner_iphone.png" alt="Banner 1" class="hero-full-image">
                 </div>
                 <div class="hero-slide">
-                    <div class="hero-content">
-                        <h1>Ofertas Especiais</h1>
-                        <p>Até 50% de desconto em produtos selecionados</p>
-                        <button class="cta-btn">Aproveitar</button>
-                    </div>
-                    <div class="hero-image">
-                        <i class="fas fa-laptop" style="font-size: 150px; color: rgba(11, 94, 215, 0.1);"></i>
-                    </div>
+                    <img src="/img/default_banner_rtx.png" alt="Banner 2" class="hero-full-image">
+                </div>
+                <div class="hero-slide">
+                    <img src="/img/default_banner_rx.png" alt="Banner 3" class="hero-full-image">
                 </div>
             </div>
 
@@ -36,12 +25,12 @@
             <div class="hero-dots" id="heroDots">
                 <span class="dot active" data-slide="0"></span>
                 <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
             </div>
-
-            <div class="hero-badge">Hot Deal</div>
         </div>
     </div>
 </section>
+
 
 <section class="categories-section">
     <div class="container">
@@ -93,126 +82,35 @@
 
         <div class="products-carousel">
             <div class="products-track" id="startTechTrack">
-                <div class="product-card">
-                    <div class="product-header">
-                        <span class="remaining-badge">Últimas unidades</span>
-                        <div class="product-actions">
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <button class="action-btn">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
+                <% listaProduct.forEach(produto => { %>
+                    <div class="product-card">
+                        <div class="product-header">
+                            <span class="remaining-badge">Oferta</span>
+                            <div class="product-actions">
+                                <button class="action-btn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-image">
+                            <img src="<%= produto.proImagem %>" alt="Product Image">
+                        </div>
+                        <h3 class="product-categ"><%= produto.catNome %></h3>
+                        <h2 class="product-title"><%= produto.proNome %></h2>
+                        <span class="rating-badge">
+                            <i class="fas fa-star"></i>
+                            5.0
+                        </span>
+                        <div class="price-info">
+                            <div class="current-price moneyStyle" data-valor="<%= produto.proPreco %>"></div>
+                            <p class="payment-info">à vista no PIX</p>
+                            <p class="installment-info">00,00</p>
                         </div>
                     </div>
-                    <div class="product-image">
-                        <i class="fas fa-mobile-alt" style="font-size: 80px; color: #0B5ED7;"></i>
-                    </div>
-                    <h3 class="product-title">Smartphone Premium</h3>
-                    <span class="rating-badge">
-                        <i class="fas fa-star"></i>
-                        4.8
-                    </span>
-                    <div class="price-info">
-                        <div class="old-price">
-                            <span>R$ 2.999</span>
-                            <span class="discount-badge">-30%</span>
-                        </div>
-                        <div class="current-price">R$ 2.099</div>
-                        <p class="payment-info">à vista no PIX</p>
-                        <p class="installment-info">Ou em 10x de R$ 219,90</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-header">
-                        <span class="remaining-badge">Estoque baixo</span>
-                        <div class="product-actions">
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <button class="action-btn">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-image">
-                        <i class="fas fa-laptop" style="font-size: 80px; color: #0B5ED7;"></i>
-                    </div>
-                    <h3 class="product-title">Notebook Gamer</h3>
-                    <span class="rating-badge">
-                        <i class="fas fa-star"></i>
-                        4.9
-                    </span>
-                    <div class="price-info">
-                        <div class="old-price">
-                            <span>R$ 5.999</span>
-                            <span class="discount-badge">-25%</span>
-                        </div>
-                        <div class="current-price">R$ 4.499</div>
-                        <p class="payment-info">à vista no PIX</p>
-                        <p class="installment-info">Ou em 12x de R$ 374,92</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-header">
-                        <span class="remaining-badge">Stock</span>
-                        <div class="product-actions">
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <button class="action-btn">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-image">
-                        <i class="fas fa-headphones" style="font-size: 80px; color: #0B5ED7;"></i>
-                    </div>
-                    <h3 class="product-title">Fone Premium</h3>
-                    <span class="rating-badge">
-                        <i class="fas fa-star"></i>
-                        4.7
-                    </span>
-                    <div class="price-info">
-                        <div class="old-price">
-                            <span>R$ 899</span>
-                            <span class="discount-badge">-20%</span>
-                        </div>
-                        <div class="current-price">R$ 719</div>
-                        <p class="payment-info">à vista no PIX</p>
-                        <p class="installment-info">Ou em 5x de R$ 143,80</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-header">
-                        <span class="remaining-badge">Hot Deal</span>
-                        <div class="product-actions">
-                            <button class="action-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <button class="action-btn">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-image">
-                        <i class="fas fa-tv" style="font-size: 80px; color: #0B5ED7;"></i>
-                    </div>
-                    <h3 class="product-title">Monitor 4K Ultra</h3>
-                    <span class="rating-badge">
-                        <i class="fas fa-star"></i>
-                        4.8
-                    </span>
-                    <div class="price-info">
-                        <div class="old-price">
-                            <span>R$ 1.999</span>
-                            <span class="discount-badge">-35%</span>
-                        </div>
-                        <div class="current-price">R$ 1.299</div>
-                        <p class="payment-info">à vista no PIX</p>
-                        <p class="installment-info">Ou em 8x de R$ 162,38</p>
-                    </div>
-                </div>
+                <% }) %>
             </div>
         </div>
 

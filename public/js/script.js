@@ -3,6 +3,114 @@ const sidebarOverlay = document.getElementById('sidebarOverlay');
 const menuToggle = document.getElementById('menuToggle');
 const sidebarClose = document.getElementById('sidebarClose');
 
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dots .dot');
+let autoSlideInterval;
+
+function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    if (index >= slides.length) {
+        currentSlide = 0;
+    } else if (index < 0) {
+        currentSlide = slides.length - 1;
+    } else {
+        currentSlide = index;
+    }
+
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function prevSlide() {
+    showSlide(currentSlide - 1);
+}
+
+function startAutoSlide() {
+    autoSlideInterval = setInterval(nextSlide, 5000);
+}
+
+function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+}
+
+// Event Listeners
+document.getElementById('heroNext').addEventListener('click', () => {
+    nextSlide();
+    stopAutoSlide();
+    startAutoSlide();
+});
+
+document.getElementById('heroPrev').addEventListener('click', () => {
+    prevSlide();
+    stopAutoSlide();
+    startAutoSlide();
+});
+
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        showSlide(index);
+        stopAutoSlide();
+        startAutoSlide();
+    });
+});
+
+// Start auto-slide
+startAutoSlide();
+
+// Start Tech Carousel
+let startTechPosition = 0;
+const startTechTrack = document.getElementById('startTechTrack');
+const startTechCards = document.querySelectorAll('#startTechTrack .product-card');
+const startTechPrev = document.getElementById('startTechPrev');
+const startTechNext = document.getElementById('startTechNext');
+
+function getCardsPerView() {
+    if (window.innerWidth <= 480) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 4;
+}
+
+function updateStartTechCarousel() {
+    const cardsPerView = getCardsPerView();
+    const maxPosition = Math.max(0, startTechCards.length - cardsPerView);
+
+    if (startTechPosition > maxPosition) {
+        startTechPosition = maxPosition;
+    }
+
+    const cardWidth = startTechCards[0].offsetWidth;
+    const gap = 20;
+    const offset = -(startTechPosition * (cardWidth + gap));
+
+    startTechTrack.style.transform = `translateX(${offset}px)`;
+}
+
+startTechNext.addEventListener('click', () => {
+    const cardsPerView = getCardsPerView();
+    const maxPosition = Math.max(0, startTechCards.length - cardsPerView);
+
+    if (startTechPosition < maxPosition) {
+        startTechPosition++;
+        updateStartTechCarousel();
+    }
+});
+
+startTechPrev.addEventListener('click', () => {
+    if (startTechPosition > 0) {
+        startTechPosition--;
+        updateStartTechCarousel();
+    }
+});
+
+window.addEventListener('resize', updateStartTechCarousel);
+
 function openSidebar() {
     sidebar.classList.add('active');
     sidebarOverlay.classList.add('active');
@@ -193,3 +301,16 @@ if (productsTrack) {
 
     productsTrack.style.cursor = 'grab';
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".moneyStyle").forEach(div => {
+        const valor = parseFloat(div.dataset.valor);
+
+        if (!isNaN(valor)) {
+        div.textContent = valor.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+        }
+    });
+});

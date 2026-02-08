@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
         const nome = document.getElementById('nome');
         const descricao = document.getElementById('descricao');
-        const preco = document.getElementById('preco');
+        const precoInicial = document.getElementById('preco');
         const codigoBarras = document.getElementById('codigoBarras');
         const status = document.getElementById('status');
         const categoria = document.getElementById('categoria');
@@ -20,12 +20,17 @@ document.addEventListener('DOMContentLoaded', ()=> {
         const estoque = document.getElementById('estoque');
         const estoqueMin = document.getElementById('estoqueMin');
 
+        const precoLimpo = precoInicial.value;
+        const preco = precoLimpo.replace(/\./g, '').replace(',', '.');
+
+        console.log(preco);
+
         if (isSubmitting) return;
         isSubmitting = true;
         let validar = [];
 
         if(nome.value === "") { validar.push(nome); } else { nome.style.borderColor = "#D1D5DB"; }
-        if(preco.value === "") { validar.push(preco); } else { preco.style.borderColor = "#D1D5DB"; }
+        if(precoInicial.value === "") { validar.push(precoInicial); } else { precoInicial.style.borderColor = "#D1D5DB"; }
         if(codigoBarras.value === "") { validar.push(codigoBarras); } else { codigoBarras.style.borderColor = "#D1D5DB"; }
         if(status.value === "") { validar.push(status); } else { status.style.borderColor = "#D1D5DB"; }
         if(categoria.value === "") { validar.push(categoria); } else { categoria.style.borderColor = "#D1D5DB"; }
@@ -38,7 +43,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
             formData.append("nome", nome.value);
             formData.append("descricao", descricao.value);
-            formData.append("preco", preco.value);
+            formData.append("preco", preco);
             formData.append("codigoBarras", codigoBarras.value);
             formData.append("status", status.value);
             formData.append("categoria", categoria.value);

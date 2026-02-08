@@ -1,4 +1,5 @@
 import AddressModel from "../models/addressModel.js";
+import ProductModel from "../models/productModel.js";
 import UserModel from "../models/userModel.js";
 import { uploadToCloudinary } from "../utils/cloudinaryUpload.js";
 
@@ -9,11 +10,14 @@ export default class HomeController {
 
         if(req.user) id = req.user.id;
         if(req.user) perID = req.user.perID;
-        
-        const banco = new UserModel();
-        const lista = await banco.listarUsuarioPeloID(id);
 
-        res.render('Home/homePage', { user: id, perfil: perID, layoutDashboard: false, lista: lista });
+        const banco = new UserModel();
+        const bancoProduct = new ProductModel();
+
+        const lista = await banco.listarUsuarioPeloID(id);
+        const listaProduct = await bancoProduct.listarProdutos();
+
+        res.render('Home/homePage', { user: id, perfil: perID, layoutDashboard: false, lista: lista, listaProduct: listaProduct });
     }
 
     async perfilView(req, res) {

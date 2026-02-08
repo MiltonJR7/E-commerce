@@ -73,13 +73,16 @@
                         <div class="perfil-form-group">
                             <label for="proPreco" class="perfil-form-label">Preço</label>
                             <input
-                                type="number"
+                                type="text"
                                 step="0.01"
                                 id="proPreco"
                                 name="proPreco"
                                 class="perfil-form-control"
                                 placeholder="0.00"
                                 value="<%= lista.pro_preco %>"
+                                onkeyup="maskMoney(event)"
+                                autofocus 
+                                maxlength="11"
                             >
                         </div>
                     </div>
@@ -179,4 +182,19 @@
         };
         reader.readAsDataURL(file);
     });
+
+    function maskMoney(e) {
+        let input = e.target;
+        let value = input.value.replace(/\D/g, '');
+
+        if (value === '') {
+            input.value = '0,00';
+            return;
+        }
+
+        value = (parseInt(value, 10) / 100).toFixed(2);
+        value = value.replace('.', ',');
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        input.value = value;
+    }
 </script>

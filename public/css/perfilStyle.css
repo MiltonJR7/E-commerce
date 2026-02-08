@@ -10,7 +10,7 @@
     --color-yellow-light: #fde68a;
     --color-danger: #ef4444;
     --color-danger-light: #fca5a5;
-    --color-gray-50: #f9fafb;
+    --color-gray-50: #fafafa;
     --color-gray-100: #f3f4f6;
     --color-gray-200: #e5e7eb;
     --color-gray-300: #d1d5db;
@@ -25,6 +25,14 @@
     --radius-md: 0.5rem;
     --radius-lg: 0.75rem;
     --radius-xl: 1rem;
+}
+
+[data-theme="dark"] {
+    --bg-light: #2E2E2E;
+    --text-dark: #F1F1F1;
+    --text-gray: #BDBDBD;
+    --blue-primary: #0B5ED7;
+    --color-black-10: #3b3b3b;
 }
 
 .perfil-page {
@@ -448,3 +456,189 @@
         height: 6px;
     }
 }
+
+/* ================= DARK MODE — PERFIL + ENDEREÇOS ================= */
+
+body[data-theme="dark"] .perfil-decorative-banner {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    opacity: 0.9;
+}
+
+body[data-theme="dark"] .perfil-change-photo {
+    background: #4DA3FF;
+}
+
+body[data-theme="dark"] .perfil-change-photo:hover {
+    background: #1F8CFF;
+}
+
+/* ---------- ENDEREÇO (form) ---------- */
+
+body[data-theme="dark"] #formEndereco .soft-control {
+    background: #2E2E2E;
+    border-color: #555555;
+    color: #F1F1F1;
+}
+
+body[data-theme="dark"] #formEndereco .soft-control::placeholder {
+    color: #8A8A8A;
+}
+
+/* ---------- CARDS DE ENDEREÇO ---------- */
+
+body[data-theme="dark"] .address-card {
+    background: #373737;
+    border: 1px solid #444444;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    border-radius: 14px;
+}
+
+body[data-theme="dark"] .address-summary {
+    background: #373737;
+    color: #F1F1F1;
+}
+
+body[data-theme="dark"] .address-summary:hover {
+    background: #4d4d4d;
+}
+
+body[data-theme="dark"] .address-title {
+    color: #F1F1F1;
+}
+
+body[data-theme="dark"] .address-mini {
+    color: #BDBDBD;
+}
+
+body[data-theme="dark"] .address-details {
+    background: #2E2E2E;
+    color: #F1F1F1;
+    border-top: 1px solid #444444;
+}
+
+body[data-theme="dark"] .address-details strong {
+    color: #9b9b9b;
+}
+
+body[data-theme="dark"] .address-details p {
+    color: #ffffff;
+}
+
+body[data-theme="dark"] .address-toggle {
+    background: #444444;
+    color: #F1F1F1;
+}
+
+body[data-theme="dark"] .address-toggle:hover {
+    background: #4DA3FF;
+    color: white;
+}
+
+/* ---------- BOTÕES DENTRO DO ENDEREÇO ---------- */
+
+body[data-theme="dark"] .btn-primary-soft {
+    background: #4DA3FF;
+    box-shadow: 0 2px 8px rgba(77,163,255,0.3);
+}
+
+body[data-theme="dark"] .btn-primary-soft:hover {
+    background: #1F8CFF;
+}
+
+body[data-theme="dark"] .btn-outline-danger-soft:hover {
+    background: rgba(255,77,79,0.15);
+}
+
+
+/* ================= DARK MODE — PERFIL COMPLETO ================= */
+
+body[data-theme="dark"] .perfil-page {
+    background: linear-gradient(to bottom, #3C3C3C 0%, #2E2E2E 100%);
+}
+
+/* CARDS */
+body[data-theme="dark"] .perfil-card,
+body[data-theme="dark"] .perfil-section {
+    background: #373737;
+    border: 1px solid #444444;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* TÍTULOS */
+body[data-theme="dark"] .perfil-title {
+    color: #F1F1F1;
+}
+
+body[data-theme="dark"] .perfil-subtitle {
+    color: #BDBDBD;
+}
+
+/* DIVISÓRIAS */
+body[data-theme="dark"] .perfil-header,
+body[data-theme="dark"] .perfil-avatar-section,
+body[data-theme="dark"] .perfil-section-header {
+    border-color: #444444;
+}
+
+/* LABELS */
+body[data-theme="dark"] .perfil-info-label,
+body[data-theme="dark"] .perfil-form-label,
+body[data-theme="dark"] .form-label {
+    color: #BDBDBD;
+}
+
+/* VALORES DO PERFIL */
+body[data-theme="dark"] .perfil-info-value {
+    background: #2E2E2E;
+    border: 1px solid #555555;
+    color: #F1F1F1;
+}
+
+/* INPUTS */
+body[data-theme="dark"] .perfil-form-control,
+body[data-theme="dark"] .form-control {
+    background: #2E2E2E;
+    border: 1px solid #555555;
+    color: #F1F1F1;
+}
+
+body[data-theme="dark"] .perfil-form-control::placeholder,
+body[data-theme="dark"] .form-control::placeholder {
+    color: #8A8A8A;
+}
+
+body[data-theme="dark"] .perfil-form-control:focus,
+body[data-theme="dark"] .form-control:focus {
+    background: #2E2E2E;
+    border-color: #4DA3FF;
+    box-shadow: 0 0 0 3px rgba(77,163,255,0.15);
+}
+
+/* BOTÃO VOLTAR */
+body[data-theme="dark"] .perfil-back-button {
+    background: #2E2E2E;
+    border: 1px solid #555555;
+    color: #F1F1F1;
+}
+
+body[data-theme="dark"] .perfil-back-button:hover {
+    background: #444444;
+}
+
+/* BOTÕES OUTLINE */
+body[data-theme="dark"] .btn-outline-soft {
+    color: #F1F1F1;
+    border: 1px solid #555555;
+}
+
+body[data-theme="dark"] .btn-outline-soft:hover {
+    background: #444444;
+    border-color: #4DA3FF;
+    color: #4DA3FF;
+}
+
+body[data-theme="dark"] .address-card.open .address-summary {
+    background: var(--color-black-10);
+    border-bottom: 1px solid var(--color-gray-200);
+}
+

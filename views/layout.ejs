@@ -32,6 +32,10 @@
                     <button><i class="fas fa-search"></i></button>
                 </div>
 
+                <button class="theme-toggle" id="theme-checkbox" title="Alternar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+
                 <div class="profile-menu">
                     <button class="icon-btn">
                         <% if (typeof lista !== "undefined" && lista && lista.usu_url_imagem) { %>
@@ -40,8 +44,8 @@
                             <img src="/img/default_perfil.jpg" alt="avatar">
                         <% } %>
                     </button>
-
                     <div class="dropdown" role="menu" aria-label="Menu do perfil">
+
                         <% if(!user || user === "") { %>
                             <a href="/connect/login" role="menuitem">Login</a>
                             <a href="/connect/register" role="menuitem">Criar conta</a>
@@ -313,7 +317,8 @@
             </div>
         </div>
     </footer>
-    <script type="module" src="/js/script.js"></script>
 </body>
-
 </html>
+
+<script type="module" src="/js/script.js"></script>
+<script src="/js/theme.js"></script>
