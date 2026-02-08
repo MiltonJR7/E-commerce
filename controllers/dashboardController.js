@@ -224,8 +224,39 @@ export default class DashboardController {
 
         try {
             const id = req.params.id;
-            
+            let imagem = "";
+            let idCategoria = "";
 
+            if(!req.body.nome || !req.body.preco  || !req.body.codigoBarras || !req.body.status || !req.body.categoria || req.body.estoque === null) return res.status(400).json({ ok: false });
+            
+            if(req.file) {
+                const uploaded = await uploadToCloudinary(req.file.buffer, "products");
+                imagem = uploaded.secure_url;
+            } else {
+                const bancoProduto = new ProductModel();
+                const lista = await bancoProduto.listarProdutosPorID(id);
+                imagem = lista.pro_imagem;
+            }
+
+            const bancoCategoria = new CategoriaModel();
+            const lista = await bancoCategoria.listarCategorias();
+
+            if(lista) {
+                for(let i = 0; i < lista.length; i++) {
+                    if(req.body.categoria === lista[i].catNome) {
+                        idCategoria = lista[i].catID;
+                    }
+                }
+            }
+
+            req.body.categoria = idCategoria;
+            const banco = new ProductService();
+            await banco.alterTablesProductInStock(req.body, imagem, id);
+
+            res.status(201).json({
+                sucesso: true,
+                ok: true
+            });
         } catch(err) {
             console.log(err);
             return res.status(400).json({ err: "Erro na controladora com status 400 - possivelmente erro com banco de dados. --- dashboardProductsAlter ---" });

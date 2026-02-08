@@ -14,7 +14,7 @@
                     <button type="button" class="perfil-change-photo" id="btnTrocarFoto">
                         Alterar imagem
                     </button>
-                    <input type="file" id="proImagemInput" name="proImagem" accept="image/*" hidden>
+                    <input type="file" id="prodimgInput" name="proImagem" accept="image/*" hidden>
                 </div>
 
                 <div class="perfil-info-list">
@@ -62,7 +62,7 @@
                             <label for="proNome" class="perfil-form-label">Nome do Produto</label>
                             <input
                                 type="text"
-                                id="proNome"
+                                id="nome"
                                 name="proNome"
                                 class="perfil-form-control"
                                 placeholder="Nome do produto"
@@ -75,13 +75,12 @@
                             <input
                                 type="text"
                                 step="0.01"
-                                id="proPreco"
+                                id="preco"
                                 name="proPreco"
                                 class="perfil-form-control"
                                 placeholder="0.00"
-                                value="<%= lista.pro_preco %>"
+                                value="<%= Number(lista.pro_preco).toFixed(2).replace('.', ',') %>"
                                 onkeyup="maskMoney(event)"
-                                autofocus 
                                 maxlength="11"
                             >
                         </div>
@@ -92,7 +91,7 @@
                             <label for="proCodigoBarras" class="perfil-form-label">Código de Barras</label>
                             <input
                                 type="text"
-                                id="proCodigoBarras"
+                                id="codigoBarras"
                                 name="proCodigoBarras"
                                 class="perfil-form-control"
                                 placeholder="Código de barras"
@@ -113,12 +112,31 @@
                         </div>
                     </div>
 
+                    <div>
+                        <div class="perfil-form-row">
+                            <div class="perfil-form-group">
+                                <label for="estoque" class="perfil-form-label">
+                                    Estoque Minimo
+                                </label>
+                                <input
+                                    type="number"
+                                    id="estoqueMin"
+                                    name="estoqueMin"
+                                    class="perfil-form-control"
+                                    placeholder="Estoque minimo"
+                                    min="0"
+                                    value="<%= listaEstoque.est_minimo %>"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="perfil-form-row">
                         <div class="perfil-form-group">
                             <label for="proStatus" class="perfil-form-label">Status</label>
-                            <select id="proStatus" name="proStatus" class="perfil-form-control">
-                                <option value="ativo" <%= lista.pro_status === "ativo" ? "selected" : "" %>>Ativo</option>
-                                <option value="inativo" <%= lista.pro_status === "inativo" ? "selected" : "" %>>Inativo</option>
+                            <select id="status" name="proStatus" class="perfil-form-control">
+                                <option value="ativo" <%= lista.pro_status === true ? "selected" : "" %>>Ativo</option>
+                                <option value="inativo" <%= lista.pro_status === false ? "selected" : "" %>>Inativo</option>
                             </select>
                         </div>
 
@@ -131,7 +149,7 @@
                             >
                                 <option id="<%= lista.catID %>"><%= lista.cat_nome %></option>
                                 <% for(let i = 0; i < listaCat.length; i++) { %>
-                                    <option id="<%= listaCat[i].catID %>"><%= listaCat[i].catNome %></option>
+                                    <option id="<%= listaCat[i].catID %>" data-alter-cat-id=""><%= listaCat[i].catNome %></option>
                                 <% } %>
                             </select>
                         </div>
@@ -141,7 +159,7 @@
                         <div class="perfil-form-group" style="grid-column: 1 / -1;">
                             <label for="proDescricao" class="perfil-form-label">Descrição</label>
                             <textarea
-                                id="proDescricao"
+                                id="descricao"
                                 name="proDescricao"
                                 class="perfil-form-control"
                                 placeholder="Descrição do produto"
@@ -152,7 +170,7 @@
                     </div>
 
                     <div class="perfil-actions">
-                        <button class="btn btn-primary-soft" id="salvarAlteracao">
+                        <button class="btn btn-primary-soft" id="salvarAlteracaoProdutos">
                             Salvar Alterações
                         </button>
                         <button class="btn btn-outline-danger-soft btnDeletarServices" data-delete-product-edit-page="<%= lista.proID %>">
@@ -167,13 +185,13 @@
 
 <script>
     const btnTrocarFoto = document.getElementById("btnTrocarFoto");
-    const proImagemInput = document.getElementById("proImagemInput");
+    const prodimgInput = document.getElementById("prodimgInput");
     const proImagemPreview = document.getElementById("proImagemPreview");
 
-    btnTrocarFoto.addEventListener("click", () => proImagemInput.click());
+    btnTrocarFoto.addEventListener("click", () => prodimgInput.click());
 
-    proImagemInput.addEventListener("change", () => {
-        const file = proImagemInput.files[0];
+    prodimgInput.addEventListener("change", () => {
+        const file = prodimgInput.files[0];
         if (!file) return;
 
         const reader = new FileReader();
@@ -184,10 +202,12 @@
     });
 
     function maskMoney(e) {
+        if (document.activeElement !== e.target) return;
+
         let input = e.target;
         let value = input.value.replace(/\D/g, '');
 
-        if (value === '') {
+        if (!value) {
             input.value = '0,00';
             return;
         }

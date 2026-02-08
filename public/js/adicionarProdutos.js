@@ -23,8 +23,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
         const precoLimpo = precoInicial.value;
         const preco = precoLimpo.replace(/\./g, '').replace(',', '.');
 
-        console.log(preco);
-
         if (isSubmitting) return;
         isSubmitting = true;
         let validar = [];

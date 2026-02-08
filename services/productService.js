@@ -35,4 +35,26 @@ export default class ProductService {
             client.release();
         }
     }
+
+    async alterTablesProductInStock(dados, imagem, id) {
+        const client = await pool.connect();
+
+        try {
+            client.query('BEGIN');
+
+            const productModel = new ProductModel();
+            const estoqueModel = new EstoqueModel();
+            dados.imagem = imagem;
+
+            await productModel.alterarProduto(client, dados, id);
+            await estoqueModel.alterarEstoque(client, dados, id);
+
+            client.query('COMMIT');
+        } catch(err) {
+            await client.query('ROLLBACK');
+            throw err;
+        } finally {
+            client.release();
+        }
+    }
 }

@@ -159,6 +159,31 @@ export default class ProductModel {
         }
     }
 
-    asycn 
+    async alterarProduto(client, dados, id){
+        const sql = `
+            update tb_produto set
+            pro_nome = $1,
+            pro_descricao = $2,
+            pro_preco = $3,
+            pro_imagem = $4,
+            pro_codigo_barras = $5,
+            pro_status = $6,
+            cat_id = $7
+            where pro_id = $8
+        `;
+
+        const values = [ 
+            dados.nome,
+            dados.descricao,
+            dados.preco,
+            dados.imagem,
+            dados.codigoBarras,
+            dados.status,
+            dados.categoria,
+            id
+        ];
+
+        await client.query(sql, values);
+    }
 }
 

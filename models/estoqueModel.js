@@ -57,4 +57,16 @@ export default class EstoqueModel {
             client.release();
         }
     }
-}
+
+    async alterarEstoque(client, dados, id) {
+
+        const sql = "update tb_estoque set est_quantidade = $1, est_minimo = $2 where pro_id = $3";
+        const values = [
+            dados.estoque,
+            dados.estoqueMin,
+            id
+        ];
+
+        await client.query(sql, values);
+    }
+} 
