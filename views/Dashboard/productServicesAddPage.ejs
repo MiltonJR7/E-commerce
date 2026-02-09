@@ -107,6 +107,20 @@
                         </div>
 
                         <div class="perfil-form-group">
+                            <label for="subcategoria" class="perfil-form-label">
+                                Subcategoria <span class="required">*</span>
+                            </label>
+                            <select
+                                id="subcategoria"
+                                name="subcategoria"
+                                class="perfil-form-control"
+                                disabled
+                            >
+                                <option value="">Selecione a categoria primeiro</option>
+                            </select>
+                        </div>
+
+                        <div class="perfil-form-group">
                             <label for="status" class="perfil-form-label">
                                 Status <span class="required">*</span>
                             </label>
@@ -173,6 +187,9 @@
             </div>
         </div>
     </div>
+    <script id="data-subcats" type="application/json">
+        <%- JSON.stringify(listaSubcateg || []) %>
+    </script>
 </div>
 
 <script>
@@ -222,4 +239,3 @@
         input.value = value;
     }
 </script>
-

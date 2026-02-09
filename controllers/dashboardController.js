@@ -3,6 +3,7 @@ import AddressModel from "../models/addressModel.js";
 import CategoriaModel from "../models/categoriaModel.js";
 import EstoqueModel from "../models/estoqueModel.js";
 import ProductModel from "../models/productModel.js";
+import SubcategoriaModel from "../models/subcategoriaModel.js";
 import UserModel from "../models/userModel.js";
 import ProductService from "../services/productService.js";
 import { uploadToCloudinary } from "../utils/cloudinaryUpload.js";
@@ -151,9 +152,12 @@ export default class DashboardController {
 
         try {
             const bancoCategoria = new CategoriaModel();
-            const listaCategorias = await bancoCategoria.listarCategorias();
+            const bancoSubcateg = new SubcategoriaModel();
 
-            res.render('Dashboard/productServicesAddPage', { layout: "Dashboard/layoutDashboard", lista: listaCategorias });
+            const listaCategorias = await bancoCategoria.listarCategorias();
+            const listaSubcateg = await bancoSubcateg.listarSubcategorias();
+
+            res.render('Dashboard/productServicesAddPage', { layout: "Dashboard/layoutDashboard", lista: listaCategorias, listaSubcateg: listaSubcateg });
         } catch(err) {
             console.log(err);
             return res.status(400).json({ err: "Erro de renderização: 400 - possivelmente erro de variaveis. --- dashboardProductServicesView ---" });
@@ -207,12 +211,14 @@ export default class DashboardController {
             const banco = new ProductModel();
             const bancoCategoria = new CategoriaModel();
             const bancoEstoque = new EstoqueModel();
+            const bancoSubcateg = new SubcategoriaModel();
 
             const lista = await banco.listarProdutosPorID(id);
             const listaCat = await bancoCategoria.listarCategorias();
             const listaEstoque = await bancoEstoque.procurarEstoqueID(id);
+            const listaSubcateg = await bancoSubcateg.listarSubcategorias();
 
-            if(lista) return res.render('Dashboard/productServicesAlterPage', { layout: "Dashboard/layoutDashboard", lista: lista, listaCat: listaCat, listaEstoque: listaEstoque });
+            if(lista) return res.render('Dashboard/productServicesAlterPage', { layout: "Dashboard/layoutDashboard", lista: lista, listaCat: listaCat, listaEstoque: listaEstoque, listaSubcateg: listaSubcateg });
             return res.status(500).json({ err: "Erro na lista retornada do banco!" })
         } catch(err) {
             console.log(err);

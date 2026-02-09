@@ -112,26 +112,22 @@
                         </div>
                     </div>
 
-                    <div>
-                        <div class="perfil-form-row">
-                            <div class="perfil-form-group">
-                                <label for="estoque" class="perfil-form-label">
-                                    Estoque Minimo
-                                </label>
-                                <input
-                                    type="number"
-                                    id="estoqueMin"
-                                    name="estoqueMin"
-                                    class="perfil-form-control"
-                                    placeholder="Estoque minimo"
-                                    min="0"
-                                    value="<%= listaEstoque.est_minimo %>"
-                                >
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="perfil-form-row">
+                        <div class="perfil-form-group">
+                            <label for="estoque" class="perfil-form-label">
+                                Estoque Minimo
+                            </label>
+                            <input
+                                type="number"
+                                id="estoqueMin"
+                                name="estoqueMin"
+                                class="perfil-form-control"
+                                placeholder="Estoque minimo"
+                                min="0"
+                                value="<%= listaEstoque.est_minimo %>"
+                            >
+                        </div>
+                        
                         <div class="perfil-form-group">
                             <label for="proStatus" class="perfil-form-label">Status</label>
                             <select id="status" name="proStatus" class="perfil-form-control">
@@ -139,17 +135,34 @@
                                 <option value="inativo" <%= lista.pro_status === false ? "selected" : "" %>>Inativo</option>
                             </select>
                         </div>
+                    </div>
 
+                    <div class="perfil-form-row">
                         <div class="perfil-form-group">
-                            <label for="proCategoria" class="perfil-form-label">Categoria</label>
+                            <label for="categoria" class="perfil-form-label">Categoria</label>
                             <select 
                                 name="categoria" 
                                 id="categoria"
                                 class="perfil-form-control"
                             >
-                                <option id="<%= lista.catID %>"><%= lista.cat_nome %></option>
+                                <option id="<%= lista.catID %>"><%= lista.catNome %></option>
                                 <% for(let i = 0; i < listaCat.length; i++) { %>
                                     <option id="<%= listaCat[i].catID %>" data-alter-cat-id=""><%= listaCat[i].catNome %></option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="perfil-form-group">
+                            <label for="subcategoria" class="perfil-form-label">
+                                Subcategoria
+                            </label>
+                            <select id="subcategoria" name="subcategoria" class="perfil-form-control">
+                                <% for(let i = 0; i < listaSubcateg.length; i++) { %>
+                                    <% console.log(lista.cat_id); %>
+                                    <% console.log(listaSubcateg[i].catID); %>
+                                    <% if(lista.catID === listaSubcateg[i].catID) { %>
+                                        <option value="<listaSubcateg[i].subID>"><%= listaSubcateg[i].subNome %></option>
+                                    <% } %>
                                 <% } %>
                             </select>
                         </div>
