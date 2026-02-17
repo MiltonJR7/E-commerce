@@ -16,11 +16,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         const imagem = document.getElementById('prodimgInput');
         const estoque = document.getElementById('estoque');
         const estoqueMin = document.getElementById('estoqueMin');
-<<<<<<< HEAD:public/js/alterarProdutos.js
         const subcategoria = document.getElementById('subcategoria');
-=======
-        const subcategoria = document.getElementById('subcategoria')
->>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages):public/js/serviceProductDashboard.js
 
         const parts = window.location.pathname.split("/");
         const id = Number(parts[parts.length - 1]);
@@ -44,11 +40,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
         if(subcategoria.value === "") { validar.push(subcategoria); } else { subcategoria.style.borderColor = "#D1D5DB"; }
         if(estoque.value === "") { validar.push(estoque); } else { estoque.style.borderColor = "#D1D5DB"; }
 
-<<<<<<< HEAD:public/js/alterarProdutos.js
-        console.log(subcategoria.value)
-
-=======
->>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages):public/js/serviceProductDashboard.js
         let statusBoolean = "";
         if(status.value === "ativo") statusBoolean = true; else statusBoolean = false;
 

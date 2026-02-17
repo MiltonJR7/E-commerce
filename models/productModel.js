@@ -18,11 +18,7 @@ export default class ProductModel {
     #proStatus;
     #proDataCadastro;
     #catID;
-<<<<<<< HEAD
-    #subID;
-=======
     #subID
->>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages)
 
     get proID() { return this.#proID; } set proID(value) { this.#proID = value; }
     get proNome() { return this.#proNome; } set proNome(value) { this.#proNome = value; }
@@ -227,42 +223,13 @@ export default class ProductModel {
         if (campos.length === 0) return false;
 
         const sql = `
-<<<<<<< HEAD
-            update tb_produto set
-            pro_nome = $1,
-            pro_descricao = $2,
-            pro_preco = $3,
-            pro_imagem = $4,
-            pro_codigo_barras = $5,
-            pro_status = $6,
-            cat_id = $7,
-            sub_id = $8
-            where pro_id = $9
-=======
             UPDATE tb_produto 
             SET ${campos.join(", ")}
             WHERE pro_id = $${i}
->>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages)
         `;
         valores.push(id);
 
-<<<<<<< HEAD
-        const values = [ 
-            dados.nome,
-            dados.descricao,
-            dados.preco,
-            dados.imagem,
-            dados.codigoBarras,
-            dados.status,
-            dados.categoria,
-            dados.subcategoria,
-            id
-        ];
-
         await client.query(sql, values);
-=======
-        await client.query(sql, valores);
->>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages)
     }
 }
 
