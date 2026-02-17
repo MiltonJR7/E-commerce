@@ -1,0 +1,250 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/product.css">
+
+<main class="main-content">
+    <div class="perfil-page">
+        <div class="perfil-decorative-banner"></div>
+        <div class="perfil-container">
+            <div class="product-page">
+                <div class="perfil-card">
+                    <div class="perfil-header">
+                        <h1 class="perfil-title">Editor de Produtos</h1>
+                        <p class="perfil-subtitle">Edite seus produtos do catálogo</p>
+                    </div>
+
+                    <div class="perfil-form">
+                        <div class="perfil-form-row">
+                            <div class="perfil-form-group">
+                                <label for="nome" class="perfil-form-label">
+                                    Nome do Produto
+                                </label>
+                                <input
+                                    type="text"
+                                    id="nome"
+                                    name="nome"
+                                    class="perfil-form-control"
+                                    placeholder="Digite o nome do produto"
+                                    value="<%= lista.pro_nome %>"
+                                >
+                            </div>
+
+                            <div class="perfil-form-group">
+                                <label for="codigoBarras" class="perfil-form-label">
+                                    Código de Barras
+                                </label>
+                                <input
+                                    type="text"
+                                    id="codigoBarras"
+                                    name="codigoBarras"
+                                    class="perfil-form-control"
+                                    placeholder="EAN ou código de barras"
+                                    value="<%= lista.pro_codigo_barras %>"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="perfil-form-row">
+                            <div class="perfil-form-group">
+                                <label for="preco" class="perfil-form-label">
+                                    Preço
+                                </label>
+                                <input
+                                    type="text"
+                                    id="preco"
+                                    name="preco"
+                                    class="perfil-form-control"
+                                    placeholder="0,00"
+                                    onkeyup="maskMoney(event)"
+                                    autofocus 
+                                    maxlength="11"
+                                    value="<%= Number(lista.pro_preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) %>"
+                                >
+                            </div>
+
+                            <div class="perfil-form-group">
+                                <label for="estoque" class="perfil-form-label">
+                                    Estoque
+                                </label>
+                                <input
+                                    type="number"
+                                    id="estoque"
+                                    name="estoque"
+                                    class="perfil-form-control"
+                                    placeholder="Quantidade em estoque"
+                                    min="0"
+                                    value="<%= listaEstoque.est_quantidade %>"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="perfil-form-row">
+                            <div class="perfil-form-group">
+                                <label for="estoqueMin" class="perfil-form-label">
+                                    Estoque Mínimo
+                                </label>
+                                <input
+                                    type="number"
+                                    id="estoqueMin"
+                                    name="estoqueMin"
+                                    class="perfil-form-control"
+                                    placeholder="Estoque mínimo"
+                                    min="0"
+                                    value="<%= listaEstoque.est_minimo %>"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="perfil-form-row">
+                            <div class="perfil-form-group">
+                                <label for="categoria" class="perfil-form-label">
+                                    Categoria
+                                </label>
+                                <select
+                                    id="categoria"
+                                    name="categoria"
+                                    class="perfil-form-control"
+                                >
+                                <% for(let i = 0; i < listaCat.length; i++) { %>
+                                    <% if(listaCat[i].catID === lista.cat_id) { %>
+                                        <option value="<%= listaCat[i].catID %>" selected>
+                                            <%= listaCat[i].catNome %>
+                                        </option>
+                                    <% } else { %>
+                                        <option value="<%= listaCat[i].catID %>">
+                                            <%= listaCat[i].catNome %>
+                                        </option>
+                                    <% } %>
+                                <% } %>
+                                </select>
+                            </div>
+
+                            <div class="perfil-form-group">
+                                <label for="subcategoria" class="perfil-form-label">
+                                    Subcategoria
+                                </label>
+                                <select
+                                    id="subcategoria"
+                                    name="subcategoria"
+                                    class="perfil-form-control"
+                                    disabled
+                                >
+                                    <option value="">Selecione a categoria primeiro</option>
+                                </select>
+                            </div>
+
+                            <div class="perfil-form-group">
+                                <label for="status" class="perfil-form-label">
+                                    Status
+                                </label>
+                                <select
+                                    id="status"
+                                    name="status"
+                                    class="perfil-form-control"
+                                >
+                                <% if(lista.pro_status === true) { %>
+                                    <option value="true" selected >Ativo</option>
+                                    <option value="false">Inativo</option>
+                                <% } else { %>
+                                    <option value="false" selected>Inativo</option>
+                                    <option value="true">Ativo</option>
+                                <% } %>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="perfil-form-group">
+                            <label for="descricao" class="perfil-form-label">
+                                Descrição
+                            </label>
+                            <textarea
+                                id="descricao"
+                                name="descricao"
+                                class="perfil-form-control product-textarea"
+                                placeholder="Digite uma descrição detalhada do produto"
+                                rows="4"
+                            ><%= lista.pro_descricao %></textarea>
+                        </div>
+
+                        <div class="prodimg-upload-section">
+                            <label class="prodimg-label">Imagem do Produto</label>
+
+                            <div class="prodimg-upload-box" id="prodimgUploadBox">
+                                <input type="file" id="prodimgInput" name="imagem" accept="image/*" hidden>
+                                <div class="prodimg-placeholder" id="prodimgPlaceholder">
+                                    <i class="fa fa-image"></i>
+                                    <span>Clique ou arraste uma imagem</span>
+                                    <small>PNG, JPG ou WEBP</small>
+                                </div>
+
+                                <img id="prodimgPreview" class="prodimg-preview" alt="Preview">
+                                <button type="button" class="prodimg-remove" id="prodimgRemove">Remover</button>
+                            </div>
+                        </div>
+
+                        <div class="perfil-actions">
+                            <button class="btn btn-primary-soft" id="salvarAlteracaoProdutos">
+                                <i class="fa fa-save"></i>
+                                <span>Adicionar Produto</span>
+                            </button>
+                            <button class="btn btn-outline-soft" id="clearBtn">
+                                Limpar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="data-subcats" type="application/json">
+        <%- JSON.stringify(listaSubcateg || []) %>
+    </script>
+</main>
+
+<script>
+    const input = document.getElementById("prodimgInput");
+    const preview = document.getElementById("prodimgPreview");
+    const placeholder = document.getElementById("prodimgPlaceholder");
+    const removeBtn = document.getElementById("prodimgRemove");
+    const box = document.getElementById("prodimgUploadBox");
+
+    box.addEventListener("click", () => input.click());
+
+    input.addEventListener("change", () => {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+                removeBtn.style.display = "inline-block";
+                placeholder.style.display = "none";
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    removeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        input.value = "";
+        preview.src = "";
+        preview.style.display = "none";
+        removeBtn.style.display = "none";
+        placeholder.style.display = "flex";
+    });
+
+    function maskMoney(e) {
+        let input = e.target;
+        let value = input.value.replace(/\D/g, '');
+
+        if (value === '') {
+            input.value = '0,00';
+            return;
+        }
+
+        value = (parseInt(value, 10) / 100).toFixed(2);
+        value = value.replace('.', ',');
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        input.value = value;
+    }
+</script>

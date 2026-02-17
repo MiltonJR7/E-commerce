@@ -16,7 +16,7 @@ export default class DashboardController {
             const lista = await banco.listarUsuarios();
 
             if(lista === null) return res.status(400).json({ mensage: "Erro na lista retornada!" });
-            return res.render('Dashboard/dashboardPage', { layout: "Dashboard/layoutDashboard", lista: lista });
+            return res.render('Dashboard/dashboard', { layout: 'Dashboard/layout', lista: lista });
         } catch(err) {
             console.log(err);
             return res.status(500).json({ err: "Erro na controladora com status: 500 - possivelmente erro com o banco de dados. --- dashboardView ---" });
@@ -64,7 +64,7 @@ export default class DashboardController {
             const lista = await banco.listarEnderecosDashboard();
             
             if(lista === null) return res.status(400).json({ mensage: "Erro na lista retornada!", ok: false });
-            return res.render('Dashboard/addressPage', { layout: "Dashboard/layoutDashboard", lista: lista });
+            return res.render('Dashboard/address', { layout: 'Dashboard/layout', lista: lista });
         } catch(err) {
             console.log(err);
             return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardEnderecoView ---" });
@@ -81,7 +81,7 @@ export default class DashboardController {
             const listaAddress = await bancoAddress.listarEnderecosDashboard();
 
             if(lista === null) return res.status(400).json({ mensage: "Erro na lista retornada!", ok: false });
-            return res.render('Dashboard/userServicesAlterPage.ejs', { layout: "Dashboard/layoutDashboard", lista: lista, listaAddress: listaAddress });
+            return res.render('Dashboard/serviceUser', { layout: 'Dashboard/layout', lista: lista, listaAddress: listaAddress });
         } catch(err) {
             console.log(err);
             return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardUserServiceView ---" });
@@ -141,7 +141,7 @@ export default class DashboardController {
             const banco = new ProductModel();
             const lista = await banco.listarProdutos();
 
-            res.render('Dashboard/productPage', { layout: "Dashboard/layoutDashboard", lista: lista });
+            res.render('Dashboard/products', { layout: 'Dashboard/layout', lista: lista });
         } catch(err) {
             console.log(err);
             return res.status(400).json({ err: "Erro na controladora com status: 400 - possivelmente erro com o banco de dados. --- dashboardProductsView ---" });
@@ -157,7 +157,7 @@ export default class DashboardController {
             const listaCategorias = await bancoCategoria.listarCategorias();
             const listaSubcateg = await bancoSubcateg.listarSubcategorias();
 
-            res.render('Dashboard/productServicesAddPage', { layout: "Dashboard/layoutDashboard", lista: listaCategorias, listaSubcateg: listaSubcateg });
+            res.render('Dashboard/serviceProduct', { layout: 'Dashboard/layout', lista: listaCategorias, listaSubcateg: listaSubcateg });
         } catch(err) {
             console.log(err);
             return res.status(400).json({ err: "Erro de renderização: 400 - possivelmente erro de variaveis. --- dashboardProductServicesView ---" });
@@ -167,7 +167,11 @@ export default class DashboardController {
     async dashboardProductServicesNewProduct(req, res) {
 
         try {
+<<<<<<< HEAD
             if(!req.file || !req.body.nome || !req.body.preco  || !req.body.codigoBarras || !req.body.status || !req.body.categoria || !req.body.subcategoria || req.body.estoque === null) return res.status(400).json({ ok: false });
+=======
+            if(!req.file || !req.body.nome || !req.body.preco  || !req.body.codigoBarras || !req.body.status || !req.body.categoria || req.body.estoque === null || req.body.subcategoria === null) return res.status(400).json({ ok: false });
+>>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages)
 
             const uploaded = await uploadToCloudinary(req.file.buffer, "products");
             const imagem = uploaded.secure_url;
@@ -218,7 +222,7 @@ export default class DashboardController {
             const listaEstoque = await bancoEstoque.procurarEstoqueID(id);
             const listaSubcateg = await bancoSubcateg.listarSubcategorias();
 
-            if(lista) return res.render('Dashboard/productServicesAlterPage', { layout: "Dashboard/layoutDashboard", lista: lista, listaCat: listaCat, listaEstoque: listaEstoque, listaSubcateg: listaSubcateg });
+            if(lista) return res.render('Dashboard/serviceProductEdit', { layout: 'Dashboard/layout', lista: lista, listaCat: listaCat, listaEstoque: listaEstoque, listaSubcateg: listaSubcateg });
             return res.status(500).json({ err: "Erro na lista retornada do banco!" })
         } catch(err) {
             console.log(err);
@@ -231,10 +235,14 @@ export default class DashboardController {
         try {
             const id = req.params.id;
             let imagem = "";
-            let idCategoria = "";
 
+<<<<<<< HEAD
             if(!req.body.nome || !req.body.preco  || !req.body.codigoBarras || !req.body.status || !req.body.categoria || !req.body.subcategoria || req.body.estoque === null) return res.status(400).json({ ok: false });
             
+=======
+            if(!req.body.nome || !req.body.preco  || !req.body.codigoBarras || !req.body.status || !req.body.categoria || req.body.estoque === null || req.body.subcategoria === null) return res.status(400).json({ ok: false });
+
+>>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages)
             if(req.file) {
                 const uploaded = await uploadToCloudinary(req.file.buffer, "products");
                 imagem = uploaded.secure_url;
@@ -244,18 +252,6 @@ export default class DashboardController {
                 imagem = lista.pro_imagem;
             }
 
-            const bancoCategoria = new CategoriaModel();
-            const lista = await bancoCategoria.listarCategorias();
-
-            if(lista) {
-                for(let i = 0; i < lista.length; i++) {
-                    if(req.body.categoria === lista[i].catNome) {
-                        idCategoria = lista[i].catID;
-                    }
-                }
-            }
-
-            req.body.categoria = idCategoria;
             const banco = new ProductService();
             await banco.alterTablesProductInStock(req.body, imagem, id);
 

@@ -11,9 +11,12 @@ const controllerUser = new UserController;
 const route = express.Router();
 
 route.get('/', authPublic, controller.homeView);
-route.get('/logout', controllerUser.logout);
-route.get('/profile', auth, controller.perfilView);
-route.put('/profile/address', auth, controller.perfilAddress);
-route.put('/profile/allData', auth, upload.single('imagem'), controller.perfilAlterarDados);
-route.delete('/profile/delete', auth, controller.profileDeleteAddress);
+route.get('/logout', auth, controllerUser.logout);
+route.get('/shopProduct/:id', authPublic, controller.shopProductView);
+
+route.get('/profile/:id', auth, controller.perfilView);
+route.put('/profile/:id', auth, upload.single('imagem'), controller.perfilAlterarDados);
+route.put('/profile/address/:id', auth, controller.perfilAddress);
+
+route.delete('/profile/:id', auth, controller.profileDeleteAddress);
 export default route;

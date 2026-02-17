@@ -203,9 +203,6 @@ export default class UserModel {
 
                 campos.push(`usu_hash_senha = $${i++}`);
                 valores.push(hash);
-
-                console.log("senha: ", this.#usuSenha);
-                console.log("hash: ", hash)
             }
 
             if (this.#usuUrlImagem !== undefined) {

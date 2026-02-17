@@ -1,291 +1,184 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Voky - Tecnologia e Eletrônicos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Loja de Tecnologia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="/css/layoutStyle.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
 </head>
-
 <body>
-    <div class="top-bar">
-        <p>Frete grátis para todo Brasil em compras acima de R$ 299</p>
-    </div>
-
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-bolt"></i>
-                    <span>Voky</span>
+                <div class="header-logo">
+                    <i class="fas fa-microchip"></i>
+                    <span>TechStore</span>
                 </div>
 
-                <div class="search-bar">
-                    <input type="text" placeholder="Encontre o que precisa...">
+                <div class="header-search">
+                    <input type="text" placeholder="Buscar produtos...">
                     <button><i class="fas fa-search"></i></button>
                 </div>
 
-                <button class="theme-toggle" id="theme-checkbox" title="Alternar tema">
-                    <i class="fas fa-moon"></i>
-                </button>
-
-                <div class="profile-menu">
-                    <button class="icon-btn">
-                        <% if (typeof lista !== "undefined" && lista && lista.usu_url_imagem) { %>
-                            <img src="<%= lista.usu_url_imagem %>" alt="avatar">
+                <div class="header-actions">
+                    <button class="theme-toggle" onclick="toggleTheme(), trocarBanners()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="header-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge">0</span>
+                    </button>
+                    <button class="header-icon">
+                        <% if(user) { %>
+                            <a href="/profile/<%= user %>">
+                                <i class="fas fa-user"></i>
+                            </a>
                         <% } else { %>
-                            <img src="/img/default_perfil.jpg" alt="avatar">
+                            <a href="/connect/login">
+                                <i class="fas fa-user"></i>
+                            </a>
                         <% } %>
                     </button>
-                    <div class="dropdown" role="menu" aria-label="Menu do perfil">
-
-                        <% if(!user || user === "") { %>
-                            <a href="/connect/login" role="menuitem">Login</a>
-                            <a href="/connect/register" role="menuitem">Criar conta</a>
-                        <% } else if(perfil === 1) { %>
-                            <a href="/profile" role="menuitem">Perfil</a>
-                            <a href="/dashboard" role="menuitem">Dashboard</a><hr>
-                            <a href="/logout" role="menuitem" class="danger">Sair</a>
-                        <% } else { %>
-                            <a href="/profile" role="menuitem">Perfil</a><hr>
-                            <a href="/logout" role="menuitem" class="danger">Sair</a>
-                        <% } %>
-                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <nav class="nav-bar">
+    <div class="categories-navbar">
         <div class="container">
-            <div class="nav-content">
-                <button class="menu-btn" id="menuToggle">
+            <div class="categories-content">
+                <button class="btn-categories" onclick="toggleCategoriesMenu()">
                     <i class="fas fa-bars"></i>
-                    <span>Menu</span>
+                    <span>Categorias</span>
                 </button>
-
-                <ul class="nav-links">
-                    <li><a href="#start-tech">Start Tech</a></li>
-                    <li><a href="#apple">Loja Apple</a></li>
-                    <li><a href="#samsung">Loja Samsung</a></li>
-                    <li><a href="#lenovo">Loja Lenovo</a></li>
-                    <li><a href="#dell">Loja Dell</a></li>
-                </ul>
+                <div class="quick-links">
+                    <a href="#promo-products">Ofertas</a>
+                    <a href="#monitors-products">Monitores</a>
+                    <a href="#gpu-products">Placas de Vídeo</a>
+                    <a href="#peripherals-products">Periféricos</a>
+                </div>
             </div>
         </div>
-    </nav>
-    
-    <aside class="sidebar" id="sidebar">
+    </div>
+
+    <div class="categories-sidebar" id="categoriesSidebar">
         <div class="sidebar-header">
             <h3>Categorias</h3>
-            <button class="sidebar-close" id="sidebarClose">
+            <button class="btn-close-sidebar" onclick="toggleCategoriesMenu()">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-
         <div class="sidebar-content">
-            <div class="sidebar-section">
-                <h4>Produtos</h4>
-                <ul class="sidebar-menu">
-                    <li>
-                        <a href="#smartphones">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span>Smartphones</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#tablets">
-                            <i class="fas fa-tablet-alt"></i>
-                            <span>Tablets</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#notebooks">
-                            <i class="fas fa-laptop"></i>
-                            <span>Notebooks</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#desktops">
-                            <i class="fas fa-desktop"></i>
-                            <span>Desktops</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#monitores">
-                            <i class="fas fa-tv"></i>
-                            <span>Monitores</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#acessorios">
-                            <i class="fas fa-headphones"></i>
-                            <span>Acessórios</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#perifericos">
-                            <i class="fas fa-keyboard"></i>
-                            <span>Periféricos</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#audio">
-                            <i class="fas fa-volume-up"></i>
-                            <span>Áudio</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <div class="sidebar-expandable">
-                    <button class="sidebar-expandable-toggle" data-target="brandsSubmenu">
-                        <div class="toggle-content">
-                            <i class="fas fa-tags"></i>
-                            <span>Marcas</span>
-                        </div>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </button>
-
-                    <div class="sidebar-submenu" id="brandsSubmenu">
-                        <div class="brand-group">
-                            <div class="brand-category">
-                                <button class="brand-category-toggle" data-target="appleBrands">
-                                    <span>Apple</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                                <div class="brand-subcategory" id="appleBrands">
-                                    <a href="#apple-iphone">iPhone</a>
-                                    <a href="#apple-ipad">iPad</a>
-                                    <a href="#apple-macbook">MacBook</a>
-                                    <a href="#apple-watch">Apple Watch</a>
-                                </div>
-                            </div>
-
-                            <div class="brand-category">
-                                <button class="brand-category-toggle" data-target="samsungBrands">
-                                    <span>Samsung</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                                <div class="brand-subcategory" id="samsungBrands">
-                                    <a href="#samsung-galaxy">Galaxy</a>
-                                    <a href="#samsung-note">Galaxy Note</a>
-                                    <a href="#samsung-tab">Galaxy Tab</a>
-                                    <a href="#samsung-watch">Galaxy Watch</a>
-                                </div>
-                            </div>
-
-                            <div class="brand-category">
-                                <button class="brand-category-toggle" data-target="dellBrands">
-                                    <span>Dell</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                                <div class="brand-subcategory" id="dellBrands">
-                                    <a href="#dell-inspiron">Inspiron</a>
-                                    <a href="#dell-xps">XPS</a>
-                                    <a href="#dell-alienware">Alienware</a>
-                                    <a href="#dell-vostro">Vostro</a>
-                                </div>
-                            </div>
-
-                            <div class="brand-category">
-                                <button class="brand-category-toggle" data-target="lenovoBrands">
-                                    <span>Lenovo</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                                <div class="brand-subcategory" id="lenovoBrands">
-                                    <a href="#lenovo-thinkpad">ThinkPad</a>
-                                    <a href="#lenovo-ideapad">IdeaPad</a>
-                                    <a href="#lenovo-legion">Legion</a>
-                                    <a href="#lenovo-yoga">Yoga</a>
-                                </div>
-                            </div>
-
-                            <div class="brand-category">
-                                <button class="brand-category-toggle" data-target="motorolaBrands">
-                                    <span>Motorola</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                                <div class="brand-subcategory" id="motorolaBrands">
-                                    <a href="#motorola-moto-g">Moto G</a>
-                                    <a href="#motorola-moto-e">Moto E</a>
-                                    <a href="#motorola-edge">Edge</a>
-                                    <a href="#motorola-razr">Razr</a>
-                                </div>
-                            </div>
-
-                            <div class="brand-category">
-                                <button class="brand-category-toggle" data-target="microsoftBrands">
-                                    <span>Microsoft</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                                <div class="brand-subcategory" id="microsoftBrands">
-                                    <a href="#microsoft-surface">Surface</a>
-                                    <a href="#microsoft-xbox">Xbox</a>
-                                    <a href="#microsoft-surface-laptop">Surface Laptop</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="category-item">
+                <button class="category-toggle" onclick="toggleCategory(this)">
+                    <i class="fas fa-desktop"></i>
+                    <span>Computadores</span>
+                    <i class="fas fa-chevron-down arrow"></i>
+                </button>
+                <div class="category-submenu">
+                    <a href="#">Placas de vídeo</a>
+                    <a href="#">Processadores</a>
+                    <a href="#">Memórias RAM</a>
+                    <a href="#">SSD / HD</a>
+                    <a href="#">Placas-mãe</a>
+                    <a href="#">Fontes</a>
                 </div>
             </div>
 
-            <div class="sidebar-section">
-                <h4>Ofertas Especiais</h4>
-                <ul class="sidebar-menu">
-                    <li>
-                        <a href="#start-tech">
-                            <i class="fas fa-rocket"></i>
-                            <span>Start Tech</span>
-                        </a>
-                    </li>
-                </ul>
+            <div class="category-item">
+                <button class="category-toggle" onclick="toggleCategory(this)">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Smartphones</span>
+                    <i class="fas fa-chevron-down arrow"></i>
+                </button>
+                <div class="category-submenu">
+                    <a href="#">Apple</a>
+                    <a href="#">Samsung</a>
+                    <a href="#">Xiaomi</a>
+                    <a href="#">Motorola</a>
+                    <a href="#">Acessórios</a>
+                </div>
+            </div>
+
+            <div class="category-item">
+                <button class="category-toggle" onclick="toggleCategory(this)">
+                    <i class="fas fa-keyboard"></i>
+                    <span>Periféricos</span>
+                    <i class="fas fa-chevron-down arrow"></i>
+                </button>
+                <div class="category-submenu">
+                    <a href="#">Teclados</a>
+                    <a href="#">Mouses</a>
+                    <a href="#">Headsets</a>
+                    <a href="#">Mousepads</a>
+                    <a href="#">Webcams</a>
+                </div>
+            </div>
+
+            <div class="category-item">
+                <button class="category-toggle" onclick="toggleCategory(this)">
+                    <i class="fas fa-tv"></i>
+                    <span>Monitores</span>
+                    <i class="fas fa-chevron-down arrow"></i>
+                </button>
+                <div class="category-submenu">
+                    <a href="#">Gamer</a>
+                    <a href="#">Ultrawide</a>
+                    <a href="#">Profissional</a>
+                    <a href="#">144Hz+</a>
+                </div>
+            </div>
+
+            <div class="category-item">
+                <button class="category-toggle" onclick="toggleCategory(this)">
+                    <i class="fas fa-plug"></i>
+                    <span>Componentes e Energia</span>
+                    <i class="fas fa-chevron-down arrow"></i>
+                </button>
+                <div class="category-submenu">
+                    <a href="#">Fontes</a>
+                    <a href="#">Gabinetes</a>
+                    <a href="#">Coolers</a>
+                    <a href="#">Watercooler</a>
+                    <a href="#">Cabos</a>
+                </div>
             </div>
         </div>
-    </aside>
-
-    <div>
-        <%- body %>
     </div>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleCategoriesMenu()"></div>
+
+    <%- body %>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
+                    <h3>TechStore</h3>
+                    <p>Sua loja de tecnologia de confiança</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
                     <h4>Institucional</h4>
                     <ul>
                         <li><a href="#">Sobre Nós</a></li>
-                        <li><a href="#">Nossas Lojas</a></li>
                         <li><a href="#">Trabalhe Conosco</a></li>
-                        <li><a href="#">Imprensa</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Políticas</h4>
-                    <ul>
-                        <li><a href="#">Trocas e Devoluções</a></li>
-                        <li><a href="#">Entregas</a></li>
-                        <li><a href="#">Garantias</a></li>
-                        <li><a href="#">Pagamentos</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Privacidade</h4>
-                    <ul>
                         <li><a href="#">Política de Privacidade</a></li>
                         <li><a href="#">Termos de Uso</a></li>
-                        <li><a href="#">Cookies</a></li>
-                        <li><a href="#">LGPD</a></li>
                     </ul>
                 </div>
 
@@ -293,20 +186,109 @@
                     <h4>Atendimento</h4>
                     <ul>
                         <li><a href="#">Central de Ajuda</a></li>
-                        <li><a href="#">Fale Conosco</a></li>
-                        <li><a href="#">WhatsApp</a></li>
-                        <li><a href="#">SAC</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                        <li><a href="#">Garantia</a></li>
+                        <li><a href="#">Rastreamento</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Pagamento</h4>
+                    <ul>
+                        <li><a href="#">Formas de Pagamento</a></li>
+                        <li><a href="#">Parcelamento</a></li>
+                        <li><a href="#">Cupons de Desconto</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 Voky Tecnologia. Todos os direitos reservados. CNPJ: 00.000.000/0001-00</p>
+                <p>&copy; 2024 TechStore. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            const icon = document.querySelector('.theme-toggle i');
+            if (icon) {
+                icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+
+            document.body.setAttribute('data-theme', savedTheme);
+
+            const icon = document.querySelector('.theme-toggle i');
+            if (icon) {
+                icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+        });
+
+        function slideProducts(category, direction) {
+            const container = document.getElementById(`${category}-products`);
+            const scrollAmount = 300;
+            container.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleCategoriesMenu() {
+            const sidebar = document.getElementById('categoriesSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.classList.toggle('sidebar-open');
+        }
+
+        function toggleCategory(button) {
+            const categoryItem = button.parentElement;
+            const wasActive = categoryItem.classList.contains('active');
+
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            if (!wasActive) {
+                categoryItem.classList.add('active');
+            }
+        }
+
+        function trocarBanners() {
+            const savedTheme = localStorage.getItem("theme") || "light";
+            let banner1 = document.getElementById('banner1');
+            let banner2 = document.getElementById('banner2');
+            let banner3 = document.getElementById('banner3');
+
+            if(savedTheme === "dark") {
+                banner1.src = "/img/iphone-banner-black.jpg"
+                banner2.src = "/img/intel-banner-black.webp"
+                banner3.src = "/img/logitech-banner-black.webp"
+            } else {
+                banner1.src = "/img/iphone-banner-white.webp"
+                banner2.src = "/img/ps5-banner-white.webp"
+                banner3.src = "/img/samsung-banner-white.jpg"
+            }
+        }
+    </script>
 </body>
 </html>
 
-<script type="module" src="/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/theme.js"></script>
+<script src="/js/apiViacep.js"></script>
+<script src="/js/register.js"></script>
+<script src="/js/alterar.js"></script>
+<script src="/js/delete.js"></script>

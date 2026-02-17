@@ -52,8 +52,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
         } else {
             for(let i = 0; i < listaValidar.length; i++) {
-                listaValidar[i].style.boxShadow = "2px 2px 8px rgba(248, 16, 16, 0.51)";
-                listaValidar[i].style.borderColor = "rgba(212, 85, 85, 0.52)";
+                listaValidar[i].style.borderColor = "rgba(253, 144, 144, 0.87)";
             }
         }
     }

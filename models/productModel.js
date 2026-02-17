@@ -18,7 +18,11 @@ export default class ProductModel {
     #proStatus;
     #proDataCadastro;
     #catID;
+<<<<<<< HEAD
     #subID;
+=======
+    #subID
+>>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages)
 
     get proID() { return this.#proID; } set proID(value) { this.#proID = value; }
     get proNome() { return this.#proNome; } set proNome(value) { this.#proNome = value; }
@@ -58,9 +62,13 @@ export default class ProductModel {
                 tb_produto.pro_codigo_barras,
                 tb_produto.pro_status,
                 tb_produto.pro_data_cadastro,
-                tb_categoria.cat_nome
+                tb_categoria.cat_nome,
+                tb_subcategoria.sub_nome
                 from tb_produto
-                inner join tb_categoria on tb_produto.cat_id = tb_categoria.cat_id
+                inner join
+                 tb_categoria on tb_produto.cat_id = tb_categoria.cat_id
+                inner join
+                 tb_subcategoria on tb_produto.sub_id = tb_subcategoria.sub_id
             `;
 
             const result = await client.query(sql);
@@ -79,6 +87,7 @@ export default class ProductModel {
                 produtos.proStatus = rows[i].pro_status;
                 produtos.proDataCadastro = rows[i].pro_data_cadastro;
                 produtos.catNome = rows[i].cat_nome;
+                produtos.subNome = rows[i].sub_nome;
 
                 listaProdutos.push(produtos)
             }
@@ -93,7 +102,11 @@ export default class ProductModel {
         const sql = `
             insert into tb_produto (pro_nome, pro_descricao, pro_preco, pro_imagem, pro_codigo_barras, pro_status, cat_id, sub_id)
             values ($1, $2, $3, $4, $5, $6, $7, $8)
+<<<<<<< HEAD
             returning pro_id, pro_nome, pro_preco, pro_imagem, pro_status, cat_id
+=======
+            returning pro_id, pro_nome, pro_preco, pro_imagem, pro_status, cat_id, sub_id
+>>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages)
         `;
 
         const values = [ 
@@ -118,7 +131,8 @@ export default class ProductModel {
             proPreco: row.pro_preco,
             proImagem: row.pro_imagem,
             proStatus: row.pro_status,
-            catID: row.cat_id
+            catID: row.cat_id,
+            subID: row.sub_id
         };
     }
 
@@ -165,7 +179,55 @@ export default class ProductModel {
     }
 
     async alterarProduto(client, dados, id){
+
+        let campos = [];
+        let valores = [];
+        let i = 1;
+
+        if (dados.nome !== "") {
+            campos.push(`pro_nome = $${i++}`);
+            valores.push(dados.nome);
+        }
+
+        if (dados.descricao !== "") {
+            campos.push(`pro_descricao = $${i++}`);
+            valores.push(dados.descricao);
+        }
+
+        if (dados.preco !== "") {
+            campos.push(`pro_preco = $${i++}`);
+            valores.push(dados.preco);
+        }
+
+        if (dados.imagem !== "") {
+            campos.push(`pro_imagem = $${i++}`);
+            valores.push(dados.imagem);
+        }
+
+        if (dados.codigoBarras !== "") {
+            campos.push(`pro_codigo_barras = $${i++}`);
+            valores.push(dados.codigoBarras);
+        }
+
+        if (dados.status !== "") {
+            campos.push(`pro_status = $${i++}`);
+            valores.push(dados.status);
+        }
+
+        if (dados.categoria !== "") {
+            campos.push(`cat_id = $${i++}`);
+            valores.push(dados.categoria);
+        }
+
+        if (dados.subcategoria !== "") {
+            campos.push(`sub_id = $${i++}`);
+            valores.push(dados.subcategoria);
+        }
+
+        if (campos.length === 0) return false;
+
         const sql = `
+<<<<<<< HEAD
             update tb_produto set
             pro_nome = $1,
             pro_descricao = $2,
@@ -176,8 +238,15 @@ export default class ProductModel {
             cat_id = $7,
             sub_id = $8
             where pro_id = $9
+=======
+            UPDATE tb_produto 
+            SET ${campos.join(", ")}
+            WHERE pro_id = $${i}
+>>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages)
         `;
+        valores.push(id);
 
+<<<<<<< HEAD
         const values = [ 
             dados.nome,
             dados.descricao,
@@ -191,6 +260,9 @@ export default class ProductModel {
         ];
 
         await client.query(sql, values);
+=======
+        await client.query(sql, valores);
+>>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages)
     }
 }
 

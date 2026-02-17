@@ -1,0 +1,110 @@
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+    <!-- ENDEREÇOS TAB -->
+    <div class="tab-content active" data-tab="enderecos">
+        <div class="page-header">
+            <h2 class="page-title">Produtos</h2>
+            <p class="page-subtitle">Gerencie os produtos cadastrados</p>
+        </div>
+
+        <div class="banner-decorativo">
+            <div class="banner-pattern"></div>
+        </div>
+
+        <div class="filters">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar produto por nome ou id" class="search-input"
+                    id="searchInput" />
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Produtos</h3>
+                <div>
+                    <a href="/dashboard/products/new" class="btn-new-user">
+                        Novo Produto
+                    </a>
+
+                    <span class="badge badge-info" id="userCount"><%= lista.length %> Produtos</span>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>EAN</th>
+                            <th>Status</th>
+                            <th>Categoria</th>
+                            <th>Subcategoria</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <% for(let i = 0; i < lista.length; i++) { %>
+                            <tr>
+                                <td><%= lista[i].proID %></td>
+                                <td><%= lista[i].proNome %></td>
+                                <td><%= lista[i].proPreco %></td> 
+                                <td><%= lista[i].proCodigoBarras %></td>
+                                <td>
+                                    <% if(lista[i].proStatus == true) { %>
+                                        <span class="badge badge-success">ATIVO</span>
+                                    <% } else { %>   
+                                        <span class="badge badge-danger">ATIVO</span>
+                                    <% } %>
+                                </td>
+                                <td><%= lista[i].catNome %></td>
+                                <td><%= lista[i].subNome %></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="/dashboard/products/<%= lista[i].proID %>" class="btn btn-edit" aria-label="Editar">Editar</a>
+                                        <button class="btn btn-delete btnDeletar" aria-label="Deletar" data-delete-product="<%= lista[i].proID %>">Deletar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="user-cards" id="userCards">
+                <% for(let i = 0; i < lista.length; i++) { %>
+                    <div class="user-card">
+                        <div class="user-card-field">
+                            <span class="user-card-label">NOME:</span>
+                            <span class="user-card-value"><%= lista[i].proNome %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">PREÇO:</span>
+                            <span class="user-card-value"><%= lista[i].proPreco %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">EAN:</span>
+                            <span class="user-card-value"><%= lista[i].proCodigoBarras %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">SUBCATEGORIA:</span>
+                            <span class="user-card-value"><%= lista[i].subNome %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">STATUS:</span>
+                            <% if(lista[i].proStatus == true) { %>
+                                <span class="badge badge-success">ATIVO</span>
+                            <% } else { %>   
+                                <span class="badge badge-danger">ATIVO</span>
+                            <% } %>
+                        </div><hr style="margin-bottom: 10px; background-color: rgba(124, 124, 124, 0.623);">
+                        <div class="action-buttons">
+                            <a href="/dashboard/products/<%= lista[i].proID %>" class="btn btn-edit" aria-label="Editar">Editar</a>
+                            <button class="btn btn-delete btnDeletar" aria-label="Excluir" data-delete-product="<%= lista[i].proID %>">Deletar</button>
+                        </div>
+                    </div> 
+                <% } %>     
+            </div>
+        </div>
+    </div>
+</main>

@@ -8,6 +8,9 @@ export default class HomeController {
         let id = null;
         let perID = null;
 
+        const limiteExibicao = 8;
+        let contador = 0;
+
         if(req.user) id = req.user.id;
         if(req.user) perID = req.user.perID;
 
@@ -17,7 +20,7 @@ export default class HomeController {
         const lista = await banco.listarUsuarioPeloID(id);
         const listaProduct = await bancoProduct.listarProdutos();
 
-        res.render('Home/homePage', { user: id, perfil: perID, layoutDashboard: false, lista: lista, listaProduct: listaProduct });
+        res.render('Home/homePage', { user: id, perfil: perID, layout: "layout", lista: lista, listaProduct: listaProduct, limite: limiteExibicao, contador: contador });
     }
 
     async perfilView(req, res) {
@@ -33,7 +36,7 @@ export default class HomeController {
         const bancoEndereco = new AddressModel();
         const listaEndereco = await bancoEndereco.listarEnderecos(id);
 
-        res.render('Home/perfilPage', { user: id, perfil: perID, lista: lista, listaEndereco: listaEndereco });
+        res.render('Home/perfilPage', { user: id, perfil: perID, layout: "layout",  lista: lista, listaEndereco: listaEndereco });
     }
 
     async perfilAddress(req, res) {
@@ -47,8 +50,8 @@ export default class HomeController {
         const lista = await banco.listarUsuarioPeloID(id);
 
         try {
-            const {cep, logradouro, numero, complemento, bairro, cidade, uf, pais} = req.body;
-            if(!cep || !logradouro || !numero || !complemento || !bairro || !cidade || !uf || !pais) return res.status(400).json({ ok: false });
+            const {cep, logradouro, numero, complemento, bairro, cidade, uf} = req.body;
+            if(!cep || !logradouro || !numero || !complemento || !bairro || !cidade || !uf) return res.status(400).json({ ok: false });
 
             const dbAddress = new AddressModel();
             dbAddress.endCep = cep;
@@ -58,7 +61,6 @@ export default class HomeController {
             dbAddress.endBairro = bairro;
             dbAddress.endCidade = cidade;
             dbAddress.endEstado = uf;
-            dbAddress.endPais = pais;
             dbAddress.usuID = id;
 
             const result = await dbAddress.registrarEndereco();
@@ -113,5 +115,20 @@ export default class HomeController {
             console.log(err);
             return err;
         }
+    }
+
+    async shopProductView(req, res) {
+        let id = null;
+        let perID = null;
+        let idProduto = req.params.id;
+
+        if(req.user) id = req.user.id;
+        if(req.user) perID = req.user.perID;
+
+        const banco = new ProductModel();
+        const listaOutros = await banco.listarProdutos();
+        const listaProduct = await banco.listarProdutosPorID(idProduto);
+
+        res.render('Shop/shopProductPage.ejs', { user: id, perfil: perID, layout: 'layout', listaProduct: listaProduct, listaOutros: listaOutros });
     }
 }

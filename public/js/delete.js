@@ -16,19 +16,19 @@ document.addEventListener('DOMContentLoaded', ()=> {
             let id = "";
 
             if(idUser) {
-                router = "/dashboard/user/delete";
+                router = `/dashboard/${idUser}`;
                 id = idUser;
             } else if(idAddress) {
-                router = "/dashboard/address/delete";
+                router = `/dashboard/address/${idAddress}`;
                 id = idAddress;
             } else if(idUserEdit){
                 router = `/dashboard/user/delete/${idUserEdit}`;
                 id = idUserEdit;
             } else if(idAddressProfile) {
-                router = `/profile/delete`;
+                router = `/profile/${idAddressProfile}`;
                 id = idAddressProfile;
             } else if(idProduct) {
-                router = `/dashboard/products/delete`;
+                router = `/dashboard/products/${idProduct}`;
                 id = idProduct;
             } else {
                 router = `/dashboard/products/delete/${idParams}`;

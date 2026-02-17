@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         const email = document.getElementById('email');
         const genero = document.getElementById('genero');
         const numero = document.getElementById('telefone');
-        const imagem = document.getElementById('avatarInput');
+        const imagem = document.getElementById('inputFoto');
 
         const cleanNumber = numero.value.replace(/\D/g, "");
         const regexLetras = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/;
@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
         if(isSubmitting) return;
         isSubmitting = true;
 
-        if(!regexLetras.test(nome.value)) { validar.push(nome); } else { nome.style.borderColor = "#f9fafb"; }
-        if(!emailPattern.test(email.value)) { validar.push(email); } else { email.style.borderColor = "#f9fafb"; }
-        if(!regexLetras.test(genero.value)) { validar.push(genero); } else { genero.style.borderColor = "#f9fafb"; }
-        if(cleanNumber !== "" && !regex.test(cleanNumber)) { validar.push(numero); } else { numero.style.borderColor = "#f9fafb"; }
+        if(!regexLetras.test(nome.value)) { validar.push(nome); } else { nome.style.borderColor = "#e5e7eb"; }
+        if(!emailPattern.test(email.value)) { validar.push(email); } else { email.style.borderColor = "#e5e7eb"; }
+        if(!regexLetras.test(genero.value)) { validar.push(genero); } else { genero.style.borderColor = "#e5e7eb"; }
+        if(cleanNumber !== "" && !regex.test(cleanNumber)) { validar.push(numero); } else { numero.style.borderColor = "#e5e7eb"; }
 
         if(validar.length === 0) {
             const formData = new FormData();

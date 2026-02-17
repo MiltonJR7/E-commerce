@@ -55,20 +55,24 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
         } else {
             for(let i = 0; i < listaValidar.length; i++) {
-                listaValidar[i].style.borderColor = "red";
+                listaValidar[i].style.borderColor = "rgba(253, 144, 144, 0.87)";
             }
         }
     }
 
     function registerAddress() {
-        const cep = document.getElementById('cepInput');
-        const logradouro = document.getElementById('logradouroInput');
-        const numero = document.getElementById('numeroInput');
-        const complemento = document.getElementById('complementoInput');
-        const bairro = document.getElementById('bairroInput');
-        const cidade = document.getElementById('cidadeInput');
-        const uf = document.getElementById('estadoInput');
-        const pais = document.getElementById('paisInput');
+        const cep = document.getElementById('inputCep');
+        const logradouro = document.getElementById('inputRua');
+        const numero = document.getElementById('inputNumero');
+        const complemento = document.getElementById('inputComplemento');
+        const bairro = document.getElementById('inputBairro');
+        const cidade = document.getElementById('inputCidade');
+        const uf = document.getElementById('inputEstado');
+
+        const parts = window.location.pathname.split("/");
+        const idParams = Number(parts[parts.length - 1]);
+
+        console.log(idParams);
 
         const regexEndereco = /^(?!\s*$)(?!.*([.,-])\1)(?![.,-])(?!.*[.,-]$)[A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+(?:[ .,-][A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+)*$/;
         const regexNumero = /^[0-9]+$/
@@ -101,7 +105,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
         if(bairro.value === "" || !regexLetras.test(bairro.value)) { listaValidar.push(bairro) } else { bairro.style.borderColor = "#f9fafb"; }
         if(cidade.value === "" || !regexLetras.test(cidade.value)) { listaValidar.push(cidade) } else { cidade.style.borderColor = "#f9fafb"; }
         if(uf.value === "" || !regexLetras.test(uf.value) || uf.value.length !== 2) { listaValidar.push(uf) } else { uf.style.borderColor = "#f9fafb"; }
-        if(pais.value === "" || !regexLetras.test(pais.value)) { listaValidar.push(pais) } else { pais.style.borderColor = "#f9fafb"; }
 
         if(listaValidar.length === 0) {
 
@@ -113,10 +116,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 bairro: bairro.value,
                 cidade: cidade.value,
                 uf: uf.value,
-                pais: pais.value
             }
 
-            fetch("/profile/address", {
+            fetch(`/profile/address/${idParams}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -138,7 +140,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
             });
         } else {
             for(let i = 0; i < listaValidar.length; i++) {
-                listaValidar[i].style.borderColor = "red";
+                listaValidar[i].style.borderColor = "rgba(253, 144, 144, 0.87)";
             }
             isSubmitting = false;
         }

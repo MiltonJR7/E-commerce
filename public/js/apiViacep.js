@@ -1,11 +1,11 @@
 
 document.addEventListener('DOMContentLoaded', ()=> {
     const btnLimpar = document.getElementById('btnLimparCampo');
-    const cepInput = document.getElementById('cepInput');
+    const inputCep = document.getElementById('inputCep');
     btnLimpar.addEventListener('click', limpa_formulário_cep);
 
-    cepInput.addEventListener('blur', (event)=> {
-        const valor = document.getElementById('cepInput').value;
+    inputCep.addEventListener('blur', (event)=> {
+        const valor = document.getElementById('inputCep').value;
         var cep = valor.replace(/\D/g, '');
 
         if(cep !== "") {
@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 })
                 .then((corpo)=> {
                     if(!corpo.erro) {
-                        document.getElementById('logradouroInput').value=(corpo.logradouro);
-                        document.getElementById('bairroInput').value=(corpo.bairro);
-                        document.getElementById('cidadeInput').value=(corpo.localidade);
-                        document.getElementById('estadoInput').value=(corpo.uf);
+                        document.getElementById('inputRua').value=(corpo.logradouro);
+                        document.getElementById('inputBairro').value=(corpo.bairro);
+                        document.getElementById('inputCidade').value=(corpo.localidade);
+                        document.getElementById('inputEstado').value=(corpo.uf);
                     } else {
                         limpa_formulário_cep();
                         alert("CEP não encontrado.");
@@ -37,13 +37,12 @@ document.addEventListener('DOMContentLoaded', ()=> {
     })
     
     function limpa_formulário_cep() {
-        document.getElementById('cepInput').value=("");
-        document.getElementById('logradouroInput').value=("");
-        document.getElementById('bairroInput').value=("");
-        document.getElementById('cidadeInput').value=("");
-        document.getElementById('estadoInput').value=("");
-        document.getElementById('numeroInput').value=("");
-        document.getElementById('complementoInput').value=("");
-        document.getElementById('paisInput').value=("");
+        document.getElementById('inputCep').value=("");
+        document.getElementById('inputRua').value=("");
+        document.getElementById('inputBairro').value=("");
+        document.getElementById('inputCidade').value=("");
+        document.getElementById('inputEstado').value=("");
+        document.getElementById('inputNumero').value=("");
+        document.getElementById('inputComplemento').value=("");
     }
 })

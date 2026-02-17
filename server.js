@@ -7,9 +7,9 @@ import { neon } from '@neondatabase/serverless';
 import cookieParser from 'cookie-parser';
 import expressEjsLayouts from 'express-ejs-layouts';
 
-import UserRoute from './routes/userRoute.js';
-import DashboardRoute from './routes/dashboardRoute.js';
-import HomeRoute from './routes/homeRoute.js';
+import UserRoute from './routes/perfilRouter.js';
+import DashboardRoute from './routes/dashboardRouter.js';
+import HomeRoute from './routes/homeRouter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

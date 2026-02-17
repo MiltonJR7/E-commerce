@@ -1,0 +1,118 @@
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+    <!-- USUÁRIOS TAB -->
+    <div class="tab-content active" data-tab="usuarios">
+        <div class="page-header">
+            <h2 class="page-title">Usuários</h2>
+            <p class="page-subtitle">Gerencie os usuários cadastrados no sistema</p>
+        </div>
+
+        <div class="banner-decorativo">
+            <div class="banner-pattern"></div>
+        </div>
+
+        <div class="filters">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar usuário por nome ou email..." class="search-input"
+                    id="searchInput" />
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Usuários</h3>
+                <div class="header-right">
+                    <a href="/connect/register" class="btn-new-user">
+                        Novo Usuário
+                    </a>
+
+                    <span class="badge badge-info" id="userCount">
+                        <%= lista.length %> Usuários
+                    </span>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Número</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <% for(let i = 0; i < lista.length; i++) { %>
+                            <tr>
+                                <td><%= lista[i].usuID %></td>
+                                <td><%= lista[i].usuNome %></td>
+                                <td><%= lista[i].usuEmail %></td> 
+                                <td>
+                                    <% if(!lista[i].usuNumero) { %>
+                                        <span class="user-card-value" style="color: rgba(107, 107, 107, 0.596);">não cadastrado</span>
+                                    <% } else { %>
+                                        <span class="user-card-value"><%= lista[i].usuNumero %></span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if(lista[i].usuAtivo == "ativo") { %>
+                                        <span class="badge badge-success">ATIVO</span>
+                                    <% } else { %>   
+                                        <span class="badge badge-danger">ATIVO</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="/dashboard/user/<%= lista[i].usuID %>" class="btn btn-edit" aria-label="Editar" data-delete-user="<%= lista[i].usuID %>">Editar</a>
+                                        <button class="btn btn-delete btnDeletar" aria-label="Deletar" data-delete-user="<%= lista[i].usuID %>">Deletar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="user-cards" id="userCards">
+                <% for(let i = 0; i < lista.length; i++) { %>
+                    <div class="user-card">
+                        <div class="user-card-field">
+                            <span class="user-card-label">ID:</span>
+                            <span class="user-card-value"><%= lista[i].usuID %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">NOME:</span>
+                            <span class="user-card-value"><%= lista[i].usuNome %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">EMAIL:</span>
+                            <span class="user-card-value"><%= lista[i].usuEmail %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">Nº:</span>
+                            <% if(!lista[i].usuNumero) { %>
+                                <span class="user-card-value" style="color: rgba(107, 107, 107, 0.596);">não cadastrado</span>
+                            <% } else { %>
+                                <span class="user-card-value"><%= lista[i].usuNumero %></span>
+                            <% } %>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">STATUS:</span>
+                            <% if(lista[i].usuAtivo === 'ativo') { %>
+                                <span class="badge badge-success">ATIVO</span>
+                            <% } else { %>
+                                <span class="badge badge-danger">INATIVO</span>
+                            <% } %>
+                        </div><hr style="margin-bottom: 10px; background-color: rgba(124, 124, 124, 0.623);">
+                        <div class="action-buttons">
+                            <button class="btn btn-edit" aria-label="Editar">Editar</button>
+                            <button class="btn btn-delete btnDeletar" aria-label="Excluir" data-delete-user="<%= lista[i].usuID %>">Deletar</button>
+                        </div>
+                    </div> 
+                <% } %>     
+            </div>
+        </div>
+    </div>
+</main>

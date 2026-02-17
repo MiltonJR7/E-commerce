@@ -4,62 +4,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - Voky</title>
-    <link rel="stylesheet" href="/css/formStyle.css">
+    <title>Cadastro - TechStore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/auth.css">
 </head>
+
 <body>
     <div class="auth-container">
-        <div class="decorative-block"></div>
-
-        <div class="auth-card" id="divFormRegister"> 
-            <a href="/" class="back-link">← Voltar para a <span>Home</span></a>
-
-            <div class="auth-header">
-                <span class="logo">voky</span>
-                <h1>Crie sua conta</h1>
-                <p>Preencha os dados abaixo para começar</p>
+        <div class="auth-visual">
+            <div class="auth-visual-content">
+                <h1>TechStore</h1>
+                <p>Junte-se a milhares de clientes satisfeitos</p>
             </div>
+        </div>
 
-            <div class="auth-form">
-                <div class="form-group">
-                    <label for="name">Nome</label>
-                    <input type="text" id="name" name="name" placeholder="Seu nome completo">
+        <div class="auth-content">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="16" height="16" x="4" y="4" rx="2" />
+                            <rect width="6" height="6" x="9" y="9" rx="1" />
+                            <path d="M15 2v2" />
+                            <path d="M15 20v2" />
+                            <path d="M2 15h2" />
+                            <path d="M2 9h2" />
+                            <path d="M20 15h2" />
+                            <path d="M20 9h2" />
+                            <path d="M9 2v2" />
+                            <path d="M9 20v2" />
+                        </svg>
+                    </div>
+                    <h2>Criar conta</h2>
+                    <p>Preencha os dados abaixo para começar</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="seu@email.com">
+                <div class="auth-form" id="registerForm">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" placeholder="Seu nome completo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar senha</label>
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gênero</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Selecione</option>
+                            <option value="feminino">Feminino</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-primary" id="btnRegister">Criar conta</button>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••">
+                <div class="form-footer">
+                    Já tem conta? <a href="/connect/login">Entrar</a>
                 </div>
-
-                <div class="form-group">
-                    <label for="confirm-password">Confirmar senha</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••">
-                </div>
-
-                <div class="form-group">
-                    <label for="gender">Gênero</label>
-                    <select id="gender" name="gender">
-                        <option value="">Selecione</option>
-                        <option value="feminino">Feminino</option>
-                        <option value="masculino">Masculino</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                </div>
-
-                <button class="btn-primary" id="btnRegister">Criar conta</button>
-            </div>
-
-            <div class="form-footer">
-                Já tem conta? <a href="/connect/login">Entrar</a>
             </div>
         </div>
     </div>
+
+    <script src="/js/register.js"></script>
 </body>
 </html>
-
-<script src="/js/register.js"></script>

@@ -10,13 +10,13 @@ const route = express.Router();
 route.get('/', authAdmin, controller.dashboardView);
 route.get('/address', authAdmin, controller.dashboardEnderecoView);
 route.get('/products', authAdmin, controller.dashboardProductsView);
-route.get('/products/add-new', authAdmin, controller.dashboardProductServicesView);
+route.get('/products/new', authAdmin, controller.dashboardProductServicesView);
 
-route.post('/products/add-new', authAdmin, upload.single('imagem'), controller.dashboardProductServicesNewProduct);
+route.post('/products/new', authAdmin, upload.single('imagem'), controller.dashboardProductServicesNewProduct);
 
-route.delete('/user/delete', authAdmin, controller.deleteUsers);
-route.delete('/address/delete', authAdmin, controller.deleteAddress);
-route.delete('/products/delete', authAdmin, controller.dashboardProductsDelete);
+route.delete('/:id', authAdmin, controller.deleteUsers);
+route.delete('/address/:id', authAdmin, controller.deleteAddress);
+route.delete('/products/:id', authAdmin, controller.dashboardProductsDelete);
 
 route.get('/user/:id', authAdmin, controller.dashboardUserServiceView);
 route.put('/user/:id', authAdmin, upload.single('imagem'), controller.dashboardUserServiceAlter);

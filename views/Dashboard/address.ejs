@@ -1,0 +1,93 @@
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+    <!-- ENDEREÇOS TAB -->
+    <div class="tab-content active" data-tab="enderecos">
+        <div class="page-header">
+            <h2 class="page-title">Endereços</h2>
+            <p class="page-subtitle">Gerencie os endereços cadastrados</p>
+        </div>
+
+        <div class="banner-decorativo">
+            <div class="banner-pattern"></div>
+        </div>
+
+        <div class="filters">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar enderecos por cep ou id" class="search-input"
+                    id="searchInput" />
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Endereços</h3>
+                <span class="badge badge-info" id="userCount"><%= lista.length %> Endereços</span>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>CEP</th>
+                            <th>Logradouro</th>
+                            <th>Número</th>
+                            <th>Bairro</th>
+                            <th>Cidade</th>
+                            <th>Estado</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <% for(let i = 0; i < lista.length; i++) { %>
+                            <tr>
+                                <td><%= lista[i].endID %></td>
+                                <td><%= lista[i].endCep %></td>
+                                <td><%= lista[i].endLogradouro %></td>
+                                <td><%= lista[i].endNumero %></td>
+                                <td><%= lista[i].endBairro %></td>
+                                <td><%= lista[i].endCidade %></td>
+                                <td><%= lista[i].endEstado %></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-delete btnDeletar" aria-label="Deletar" data-delete-address="<%= lista[i].endID %>">Deletar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="user-cards" id="userCards">
+                <% for(let i = 0; i < lista.length; i++) { %>
+                    <div class="user-card">
+                        <div class="user-card-field">
+                            <span class="user-card-label">CEP:</span>
+                            <span class="user-card-value"><%= lista[i].endCep %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">LOGRADOURO:</span>
+                            <span class="user-card-value"><%= lista[i].endLogradouro %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">Nº:</span>
+                            <span class="user-card-value"><%= lista[i].endNumero %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">CIDADE:</span>
+                            <span class="user-card-value"><%= lista[i].endCidade %></span>
+                        </div>
+                        <div class="user-card-field">
+                            <span class="user-card-label">ESTADO:</span>
+                            <span class="user-card-value"><%= lista[i].endEstado %></span>
+                        </div><hr style="margin-bottom: 10px; background-color: rgba(124, 124, 124, 0.623);">
+                        <div class="action-buttons">
+                            <button class="btn btn-edit" aria-label="Editar">Editar</button>
+                            <button class="btn btn-delete btnDeletar" aria-label="Excluir">Deletar</button>
+                        </div>
+                    </div> 
+                <% } %>     
+            </div>
+        </div>
+    </div>
+</main>

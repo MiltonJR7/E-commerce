@@ -1,0 +1,192 @@
+
+
+<link rel="stylesheet" href="/css/shop.css">
+
+<div class="page-wrapper">
+    <div class="container py-4 py-md-5">
+        <!-- Seção Principal do Produto -->
+        <section class="product-main mb-5">
+            <div class="row g-4 g-lg-5">
+
+                <!-- Imagem do Produto -->
+                <div class="col-lg-6">
+                    <a href="/" class="btn-back">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                        Voltar
+                    </a>
+                    <div class="product-image-container">
+                        <img src="<%= listaProduct.pro_imagem %>"
+                            alt="<%= listaProduct.cat_nome %>" class="product-image" />
+                    </div>
+                </div>
+
+                <!-- Informações do Produto -->
+                <div class="col-lg-6">
+                    <div class="product-info">
+
+                        <h1 class="product-title"><%= listaProduct.pro_nome %></h1>
+
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star half">★</span>
+                            </div>
+                            <span class="rating-text">4.5 (128 avaliações)</span>
+                        </div>
+
+                        <div class="product-pricing">
+                            <div class="price-wrapper">
+                                <span class="price-old">
+                                    <% let precoAlto =+ listaProduct.pro_preco + 400; %>
+
+                                    <%= Number(precoAlto).toLocaleString("pt-BR", {
+                                        style: "currency",
+                                        currency: "BRL"
+                                    }) %>
+                                </span> 
+                                <span class="price-current">
+                                    <%= Number(listaProduct.pro_preco).toLocaleString("pt-BR", {
+                                        style: "currency",
+                                        currency: "BRL"
+                                    }) %>
+                                </span>
+                            </div>
+                            <p class="price-installment">
+                                ou 12x de  
+                                <% let precoQuebrado =+ listaProduct.pro_preco / 12; %>
+
+                                <%= Number(precoQuebrado).toLocaleString("pt-BR", {
+                                    style: "currency",
+                                    currency: "BRL"
+                                }) %>
+                                sem juros
+                            </p>
+                            <div class="payment-badges">
+                                <span class="badge-payment">5% OFF no PIX</span>
+                                <span class="badge-payment">Frete Grátis</span>
+                            </div>
+                        </div>
+
+                        <div class="product-stock">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Em estoque - Envio imediato</span>
+                        </div>
+
+                        <div class="product-actions">
+                            <button class="btn-add-cart">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                    </path>
+                                </svg>
+                                Adicionar ao Carrinho
+                            </button>
+                            <button class="btn-buy-now">Comprar Agora</button>
+                        </div>
+
+                        <div class="product-features">
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>Entrega para todo Brasil</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <span>Compra 100% segura</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                </svg>
+                                <span>Devolução grátis em 30 dias</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Descrição do Produto -->
+        <section class="product-description mb-5">
+            <div class="description-card">
+                <h2 class="section-title">Descrição do Produto</h2>
+
+                <div class="description-content">
+                    <div class="description-preview">
+                        <p>
+                            <%= listaProduct.pro_descricao %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produtos Relacionados -->
+        <div class="products-slider">
+            <button class="slider-btn prev" onclick="slideProducts('monitors', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="products-container" id="monitors-products">
+                <% listaOutros.forEach((produto)=> { %>
+                    <% if(produto.catNome === listaProduct.cat_nome) { %>
+                        <div class="product-card">
+                            <div class="product-image-mini">
+                                <img src="<%= produto.proImagem %>"
+                                    alt="Monitor">
+                            </div>
+                            <div class="product-info">
+                                <h3><%= produto.proNome %></h3>
+                                <p class="product-price">
+                                    <%= Number(produto.proPreco).toLocaleString("pt-BR", {
+                                        style: "currency",
+                                        currency: "BRL"
+                                    }) %>
+                                </p>
+                                <p class="product-installment">
+                                    ou 12x de  
+                                    <% let precoQuebrado =+ produto.proPreco / 12; %>
+
+                                    <%= Number(precoQuebrado).toLocaleString("pt-BR", {
+                                        style: "currency",
+                                        currency: "BRL"
+                                    }) %>
+                                    sem juros
+                                </p>
+                                <a href="/shopProduct/<%= produto.proID %>" class="btn-buy">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Comprar
+                                </a>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }) %>
+            </div>
+
+            <button class="slider-btn next" onclick="slideProducts('monitors', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
