@@ -114,6 +114,8 @@ export default class DashboardController {
             const {nome, email, genero, senha, cleanNumber} = req.body;
             if(!idUserServices) return res.status(500).json({ mensage: "Erro params inexistente ou invalido!", ok: false }); 
 
+            console.log(req.body)
+
             const banco = new UserModel();
             if(nome) banco.usuNome = nome;
             if(email) banco.usuEmail = email;

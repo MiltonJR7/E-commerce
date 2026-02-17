@@ -2,7 +2,9 @@
 
 document.addEventListener('DOMContentLoaded', ()=> {
     const btn = document.getElementById('salvarAlteracaoProdutos');
+    const btnClear = document.getElementById('clearBtn');
     btn.addEventListener('click', salvarAlteracao);
+    btnClear.addEventListener('click', limparFormulario);
     let isSubmitting = false;
 
     function salvarAlteracao() {
@@ -27,7 +29,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 .replace(',', '.')
         );
 
-
         if(isSubmitting) return;
         isSubmitting = true;
         let validar = [];
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         if(estoque.value === "") { validar.push(estoque); } else { estoque.style.borderColor = "#D1D5DB"; }
 
         let statusBoolean = "";
-        if(status.value === "ativo") statusBoolean = true; else statusBoolean = false;
+        if(status.value === "true") statusBoolean = true; else statusBoolean = false;
 
         if(validar.length === 0) {
             const formData = new FormData();
@@ -52,7 +53,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
             formData.append("codigoBarras", codigoBarras.value);
             formData.append("status", statusBoolean);
             formData.append("categoria", categoria.value);
-            formData.append("subcategoria", subcategoria.value);
             formData.append("estoque", estoque.value);
             formData.append("estoqueMin", estoqueMin.value);
             formData.append("subcategoria", subcategoria.value);
@@ -82,5 +82,18 @@ document.addEventListener('DOMContentLoaded', ()=> {
             }
             isSubmitting = false;
         }
+    }
+
+    function limparFormulario(){
+        const nome = document.getElementById('nome').value = "";
+        const descricao = document.getElementById('descricao').value = "";
+        const precoInicial = document.getElementById('preco').value = "";
+        const codigoBarras = document.getElementById('codigoBarras').value = "";
+        const status = document.getElementById('status').value = "";
+        const categoria = document.getElementById('categoria').value = "";
+        const imagem = document.getElementById('prodimgInput').value = "";
+        const estoque = document.getElementById('estoque').value = "";
+        const estoqueMin = document.getElementById('estoqueMin').value = "";
+        const subcategoria = document.getElementById('subcategoria').value = "";
     }
 })

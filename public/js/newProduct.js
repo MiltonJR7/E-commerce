@@ -36,14 +36,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
         if(codigoBarras.value === "" || codigoBarras.value < 0 || !regexNumeros.test(codigoBarras.value)) { validar.push(codigoBarras); } else { codigoBarras.style.borderColor = "#D1D5DB"; }
         if(status.value === "") { validar.push(status); } else { status.style.borderColor = "#D1D5DB"; }
         if(categoria.value === "") { validar.push(categoria); } else { categoria.style.borderColor = "#D1D5DB"; }
-<<<<<<< HEAD:public/js/adicionarProdutos.js
         if(subcategoria.value === "") { validar.push(subcategoria); } else { subcategoria.style.borderColor = "#D1D5DB"; }
         if(estoque.value === "" || estoque.value < 0 || !regexNumeros.test(estoque.value)) { validar.push(estoque); } else { estoque.style.borderColor = "#D1D5DB"; }
         if(estoqueMin.value < 0 || !regexNumeros.test(estoqueMin.value)) { validar.push(estoqueMin); } else { estoqueMin.style.borderColor = "#D1D5DB"; }
-=======
-        if(estoque.value === "") { validar.push(estoque); } else { estoque.style.borderColor = "#D1D5DB"; }
-        if(subcategoria.value === "") { validar.push(subcategoria); } else { subcategoria.style.borderColor = "#D1D5DB"; }
->>>>>>> 0dd1ffe (fix, feat, style: bugs and new layouts for pages):public/js/newProduct.js
+
 
 
         if(validar.length === 0) {

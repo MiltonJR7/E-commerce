@@ -105,6 +105,7 @@
                                     name="categoria"
                                     class="perfil-form-control"
                                 >
+                                <option value="" >Selecione</option>
                                 <% for(let i = 0; i < listaCat.length; i++) { %>
                                     <% if(listaCat[i].catID === lista.cat_id) { %>
                                         <option value="<%= listaCat[i].catID %>" selected>
@@ -123,14 +124,24 @@
                                 <label for="subcategoria" class="perfil-form-label">
                                     Subcategoria
                                 </label>
-                                <select
-                                    id="subcategoria"
-                                    name="subcategoria"
-                                    class="perfil-form-control"
-                                    disabled
-                                >
-                                    <option value="">Selecione a categoria primeiro</option>
-                                </select>
+                                <% if(lista.cat_id !== "") { %>
+                                    <select
+                                        id="subcategoria"
+                                        name="subcategoria"
+                                        class="perfil-form-control"
+                                        data-id-subcategoria="<%= lista.sub_id %>"
+                                    >
+                                    </select>
+                                <% } else { %>
+                                    <select
+                                        id="subcategoria"
+                                        name="subcategoria"
+                                        class="perfil-form-control"
+                                        disabled
+                                    >
+                                        <option value="">Selecione a categoria primeiro</option>
+                                    </select>
+                                <% } %>
                             </div>
 
                             <div class="perfil-form-group">
@@ -143,11 +154,13 @@
                                     class="perfil-form-control"
                                 >
                                 <% if(lista.pro_status === true) { %>
-                                    <option value="true" selected >Ativo</option>
-                                    <option value="false">Inativo</option>
-                                <% } else { %>
-                                    <option value="false" selected>Inativo</option>
                                     <option value="true">Ativo</option>
+                                    <option value="false">Inativo</option>
+                                    <option value="" >Selecione</option>
+                                <% } else { %>
+                                    <option value="false">Inativo</option>
+                                    <option value="true">Ativo</option>
+                                    <option value="" >Selecione</option>
                                 <% } %>
                                 </select>
                             </div>
@@ -185,7 +198,7 @@
                         <div class="perfil-actions">
                             <button class="btn btn-primary-soft" id="salvarAlteracaoProdutos">
                                 <i class="fa fa-save"></i>
-                                <span>Adicionar Produto</span>
+                                <span>Editar Produto</span>
                             </button>
                             <button class="btn btn-outline-soft" id="clearBtn">
                                 Limpar
