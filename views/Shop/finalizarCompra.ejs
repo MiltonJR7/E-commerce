@@ -42,10 +42,14 @@
                         <div class="flex-fill">
                             <h3 class="address-name"><%= lista.usu_nome %></h3>
                             <p class="address-details">
-                                <%= listaAddress[0].endLogradouro %>, <%= listaAddress[0].endNumero %> - <%= listaAddress[0].endComplemento %><br>
-                                <%= listaAddress[0].endBairro %><br>
-                                <%= listaAddress[0].endEstado %><br>
-                                CEP: <%= listaAddress[0].endCep %>
+                                <% if(listaAddress[0] !== undefined) { %>
+                                    Endereco: <%= listaAddress[0].endLogradouro %>,<%= listaAddress[0].endNumero %> - <%= listaAddress[0].endComplemento %><br>
+                                    Bairro: <%= listaAddress[0].endBairro %><br>
+                                    Estado: <%= listaAddress[0].endEstado %><br>
+                                    CEP: <%= listaAddress[0].endCep %>
+                                <% } else { %>
+                                    <p>Cadastre um endereco!</p>
+                                <% } %>
                             </p>
                             <p class="address-phone">
                                 Telefone: <% if(lista.usu_numero) { %>

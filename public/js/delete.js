@@ -40,33 +40,25 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
 
     function deletar(id, router) {
-
-        try {
-            let obj = id;
-
-            if(confirm("Os dados seram deletados apos a confirmação, deseja confirmar?")) {
-                fetch(`${router}`, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({obj})
-                })
-                .then((res)=> {
-                    return res.json();
-                })
-                .then((corpo)=> {
-                    if(corpo.ok) {
-                        if(window.location.pathname === `/dashboard/user/${id}` || window.location.pathname === `/dashboard/products/${id}`) { window.location.href = "/dashboard"; } else { window.location.reload(); }
-                    } else {
-                        alert("Error na confirmação do corpo.");
-                    }
-                })
-            }
-
-        } catch(err) {
-            console.log(err);
-            return err;
+        let obj = id;
+        if(confirm("Os dados seram deletados apos a confirmação, deseja confirmar?")) {
+            fetch(`${router}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({obj})
+            })
+            .then((res)=> {
+                return res.json();
+            })
+            .then((corpo)=> {
+                if(corpo.ok) {
+                    if(window.location.pathname === `/dashboard/user/${id}` || window.location.pathname === `/dashboard/products/${id}`) { window.location.href = "/dashboard"; } else { window.location.reload(); }
+                } else {
+                    alert("Error na confirmação do corpo.");
+                }
+            })
         }
     }
 })

@@ -67,8 +67,7 @@ export default class HomeController {
             if(result) return res.json({ ok: true, lista: lista });
             return res.status(400).json({ ok: false });
         } catch(err) {
-            console.log(err);
-            return res.status(500).json({ ok: false });
+            return res.status(500).json({ message: "Erro na requisção!", ok: false});
         }
     }
 
@@ -95,8 +94,7 @@ export default class HomeController {
             if(result) return res.status(200).json({ ok: true });
             return res.status(500).json({ ok: false });
         } catch(err) {
-            console.log(err);
-            return err;
+            return res.status(500).json({ message: "Erro na requisção!" });
         }
     }
 
@@ -112,8 +110,7 @@ export default class HomeController {
             if(result) return res.status(200).json({ ok: true });
             return res.status(500).json({ ok: false });
         } catch(err) {
-            console.log(err);
-            return err;
+            return res.status(500).json({ message: "Erro na requisção!" });
         }
     }
 
@@ -143,7 +140,7 @@ export default class HomeController {
         const bancoEndereco = new AddressModel();
         const lista = await banco.listarUsuarioPeloID(id);
         const listaAddress = await bancoEndereco.listarEnderecos(id);
-
+        
         res.render('Shop/finalizarCompra', { layout: 'layout', user: id, perfil: perID, lista: lista, listaAddress: listaAddress });
     }
 }

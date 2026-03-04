@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     const btnEndereco = document.getElementById('btnRegistrarEndereco');
     if(btnEndereco) { btnEndereco.addEventListener('click', registerAddress); }
+
+    const btnAlteracao = document.getElementById('alterarEndereco');
+    if(btnAlteracao) { btnAlteracao.addEventListener('click', registerAddress); }
+
     let isSubmitting = false;
 
     function registerSystem() {
@@ -71,8 +75,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
         const parts = window.location.pathname.split("/");
         const idParams = Number(parts[parts.length - 1]);
-
-        console.log(idParams);
 
         const regexEndereco = /^(?!\s*$)(?!.*([.,-])\1)(?![.,-])(?!.*[.,-]$)[A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+(?:[ .,-][A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+)*$/;
         const regexNumero = /^[0-9]+$/
