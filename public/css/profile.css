@@ -83,6 +83,22 @@ body {
     z-index: 10;
 }
 
+.address-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.address-actions button {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-sm);
+}
+
 .btn-back:hover {
     background: var(--color-background-page);
     border-color: var(--color-primary);
@@ -410,6 +426,7 @@ select.form-control {
 
 .address-section {
     margin-top: 24px;
+    overflow: visible;
 }
 
 .address-header {
@@ -481,6 +498,7 @@ select.form-control {
     padding: 20px;
     margin-bottom: 16px;
     transition: var(--transition);
+    overflow: visible;
 }
 
 .address-card:hover {
@@ -545,21 +563,27 @@ select.form-control {
     flex-direction: column;
     gap: 12px;
     max-height: 0;
-    overflow: hidden;
+    overflow: visible;
     opacity: 0;
     transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease, margin 0.3s ease;
 }
 
 .address-details.show {
-    max-height: 500px;
+    max-height: none;
     opacity: 1;
     margin-top: 20px;
     padding-top: 20px;
+    overflow: visible;
 }
 
 .detail-row {
     display: flex;
     gap: 12px;
+}
+
+.detail-row .form-control {
+    flex: 1;
+    min-width: 0;
 }
 
 .detail-label {
@@ -584,8 +608,9 @@ select.form-control {
     color: #ef4444;
     font-size: 14px;
     font-weight: 500;
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     cursor: pointer;
     transition: var(--transition);
@@ -725,7 +750,17 @@ select.form-control {
 
     .btn-remove {
         width: 100%;
-        justify-content: center;
+    }
+
+    .address-actions {
+        flex-direction: column;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .address-actions button {
+        width: 100%;
     }
 }
 
@@ -785,6 +820,16 @@ select.form-control {
 
     .empty-state p {
         font-size: 13px;
+    }
+
+    .address-details.show {
+        overflow: visible;
+    }
+
+    .btn-edit {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 8px;
     }
 }
 
@@ -858,33 +903,60 @@ input[type="file"] {
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
 }
 
-.address-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+.btn-save {
+    padding: 8px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
-.address-actions button {
-    flex: 1;
-    width: 50%;
-    padding: 10px 20px;
-    font-size: 14px;
-    gap: 8px;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    transition: var(--transition);
-    border-radius: var(--radius-sm);
+.btn-save:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    transform: translateY(-1px);
 }
 
 .btn-cancel {
-    background: #e5e7eb;
-    border: none;
-    color: #111;
+    padding: 8px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
 .btn-cancel:hover {
-    background: #d1d5db;
+    background: var(--color-background);
+    color: var(--color-text);
+    border-color: var(--color-text-secondary);
+}
+
+.btn-edit {
+    margin-top: 16px;
+    padding: 10px 20px;
+    background: rgb(37, 100, 235);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-edit:hover {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary-hover);
 }

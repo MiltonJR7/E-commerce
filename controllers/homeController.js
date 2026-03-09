@@ -1,6 +1,7 @@
 import AddressModel from "../models/addressModel.js";
 import ProductModel from "../models/productModel.js";
 import UserModel from "../models/userModel.js";
+import EstoqueModel from "../models/estoqueModel.js";
 import { uploadToCloudinary } from "../utils/cloudinaryUpload.js";
 
 export default class HomeController {
@@ -67,8 +68,7 @@ export default class HomeController {
             if(result) return res.json({ ok: true, lista: lista });
             return res.status(400).json({ ok: false });
         } catch(err) {
-            console.log(err);
-            return res.status(500).json({ ok: false });
+            return res.status(500).json({ message: "Erro na requisção!", ok: false});
         }
     }
 
@@ -95,8 +95,7 @@ export default class HomeController {
             if(result) return res.status(200).json({ ok: true });
             return res.status(500).json({ ok: false });
         } catch(err) {
-            console.log(err);
-            return err;
+            return res.status(500).json({ message: "Erro na requisção!" });
         }
     }
 
@@ -112,8 +111,7 @@ export default class HomeController {
             if(result) return res.status(200).json({ ok: true });
             return res.status(500).json({ ok: false });
         } catch(err) {
-            console.log(err);
-            return err;
+            return res.status(500).json({ message: "Erro na requisção!" });
         }
     }
 
@@ -126,10 +124,13 @@ export default class HomeController {
         if(req.user) perID = req.user.perID;
 
         const banco = new ProductModel();
+        const bancoEstoque = new EstoqueModel();
+
         const listaOutros = await banco.listarProdutos();
         const listaProduct = await banco.listarProdutosPorID(idProduto);
+        const listaEstoque = await bancoEstoque.procurarEstoqueID(idProduto);
 
-        res.render('Shop/shopProductPage', { user: id, perfil: perID, layout: 'layout', listaProduct: listaProduct, listaOutros: listaOutros });
+        res.render('Shop/shopProductPage', { user: id, perfil: perID, layout: 'layout', listaProduct: listaProduct, listaOutros: listaOutros, listaEstoque: listaEstoque });
     }
 
     async checkoutView(req, res) {
@@ -143,7 +144,7 @@ export default class HomeController {
         const bancoEndereco = new AddressModel();
         const lista = await banco.listarUsuarioPeloID(id);
         const listaAddress = await bancoEndereco.listarEnderecos(id);
-
+        
         res.render('Shop/finalizarCompra', { layout: 'layout', user: id, perfil: perID, lista: lista, listaAddress: listaAddress });
     }
 }

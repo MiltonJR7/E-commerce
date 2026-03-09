@@ -63,7 +63,14 @@
                                     currency: "BRL"
                                 }) %>
                                 sem juros
-                            </p>
+                            </p><hr>
+
+                            <% if(listaEstoque.est_quantidade > 0) { %>
+                                <p class="price-installment" id="estoqueProduto" data-estoque-product="<%= listaEstoque.est_quantidade %>"><%= listaEstoque.est_quantidade %> Unidades disponivel</p>
+                            <% } else { %>
+                                <p class="price-installment">Produto indisponivel!< /p>
+                            <% } %>
+                            
                             <div class="payment-badges">
                                 <span class="badge-payment">5% OFF no PIX</span>
                                 <span class="badge-payment">Frete Grátis</span>

@@ -15,7 +15,6 @@ export default function auth(req, res, next) {
         return next();
     } catch(err) {
         return res.status(401).redirect('/login');
-    }
-    
+    } 
 }
 

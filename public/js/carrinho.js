@@ -7,19 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const nomeElemento = document.getElementById('nomeProduto');
     const precoElemento = document.getElementById('precoProduto');
     const imagemElemento = document.getElementById('imgProduct');
+    const quantidadeDisponivel = document.getElementById('estoqueProduto');
     const estrutura = document.getElementById('estruturaCompleta');
     const estruturaPrecoTotal = document.getElementById('precoFinal');
     const abrirCarrinho = document.getElementById('abrirCarrinho');
-    const listaItens = document.getElementById('summary-items');
+
+    let estoque = 0;
+
+    if(quantidadeDisponivel) estoque = quantidadeDisponivel.dataset.estoqueProduct;
 
     let nomeProduto = "";
     let precoProduto = 0;
     let imagemProduto = "";
     let quantidadeInicial = 1;
+    let estoqueDefinido = 0;
 
     if (nomeElemento) nomeProduto = nomeElemento.dataset.nomeProduct;
     if (precoElemento) precoProduto = Number(precoElemento.dataset.precoProduct);
     if (imagemElemento) imagemProduto = imagemElemento.dataset.imagemProduct;
+    if (estoque) estoqueDefinido = Number(estoque);
 
     if (btn) {
         btn.addEventListener('click', () => {
@@ -31,7 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 nome: nomeProduto,
                 preco: precoProduto,
                 imagem: imagemProduto,
-                quantidade: quantidadeInicial
+                quantidade: quantidadeInicial,
+                estoque: estoqueDefinido
             };
 
             const index = carrinho.findIndex(p => p.id === product.id);
@@ -139,49 +146,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const btnMais = e.target.closest('.btnMais');
             if (btnMais) {
-                const id = Number(btnMais.dataset.id);
-                const index = carrinho.findIndex(p => p.id === id);
+                carrinho.forEach((produtos, index) => {
+                    if (index !== -1 && produtos.quantidade +1 <= produtos.estoque) {
+                        produtos.quantidade += 1;
+                        salvarCarrinho(carrinho);
+                    }
+                })
 
-                if (index !== -1) {
-                    carrinho[index].quantidade += 1;
-                    salvarCarrinho(carrinho);
-                }
                 return;
             }
 
             const btnMenos = e.target.closest('.btnMenos');
 
             if (btnMenos) {
-                const id = Number(btnMenos.dataset.id);
-                const index = carrinho.findIndex(p => p.id === id);
-                if (index !== -1) {
 
-                    if (carrinho[index].quantidade > 1) {
-                        carrinho[index].quantidade -= 1;
-                    } else {
-                        carrinho.splice(index, 1);
+                carrinho.forEach((produtos, index)=> {
+                    if(index !== -1) {
+                        if(produtos.quantidade > 1) {
+                            carrinho[index].quantidade -= 1;
+                        } else {
+                            carrinho.splice(index, 1);
+                        }
+                        salvarCarrinho(carrinho);
                     }
-                    salvarCarrinho(carrinho);
-                }
+                })
+
                 return;
             }
         });
 
         estrutura.addEventListener('change', (e) => {
             const input = e.target.closest('.carrinho-quantidade-input');
-            if (!input) return;
-
             let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-
-            const id = Number(input.dataset.id);
             const novaQtd = Number(input.value);
 
-            const index = carrinho.findIndex(p => p.id === id);
-
-            if (index !== -1 && novaQtd > 0) {
-                carrinho[index].quantidade = novaQtd;
-                salvarCarrinho(carrinho);
-            }
+            if (!input) return;
+            carrinho.forEach((produtos, index)=> {
+                if(index !== -1 && novaQtd > 0 && novaQtd <= produtos.estoque) {
+                    produtos.quantidade = novaQtd;
+                    salvarCarrinho(carrinho);
+                } else {
+                    produtos.quantidade = produtos.estoque;
+                    salvarCarrinho(carrinho);
+                }
+            })
         });
     }
 });
