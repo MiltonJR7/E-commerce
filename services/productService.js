@@ -40,7 +40,7 @@ export default class ProductService {
         const client = await pool.connect();
 
         try {
-            client.query('BEGIN');
+            await client.query('BEGIN');
 
             const productModel = new ProductModel();
             const estoqueModel = new EstoqueModel();
@@ -49,7 +49,7 @@ export default class ProductService {
             await productModel.alterarProduto(client, dados, id);
             await estoqueModel.alterarEstoque(client, dados, id);
 
-            client.query('COMMIT');
+            await client.query('COMMIT');
         } catch(err) {
             await client.query('ROLLBACK');
             throw err;
