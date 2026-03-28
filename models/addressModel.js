@@ -170,7 +170,7 @@ export default class AddressModel {
         }
     }
 
-    async alterAddress(id) {
+    async alterAddress(idAddress) {
         const client = await pool.connect();
 
         try {
@@ -186,12 +186,12 @@ export default class AddressModel {
                     end_cidade = $6,
                     end_estado = $7
                 where 
-                    usu_id = $8
+                    end_id = $8
                 returning 
                     end_id, end_cep, end_numero, end_bairro, end_cidade, end_estado
             `;
 
-            const values = [this.#endCep, this.#endLogradouro, this.#endNumero, this.#endComplemento, this.#endBairro, this.#endCidade, this.#endEstado, id];
+            const values = [this.#endCep, this.#endLogradouro, this.#endNumero, this.#endComplemento, this.#endBairro, this.#endCidade, this.#endEstado, idAddress];
             const { rows } = await client.query(sql, values);
             return rows[0] ?? null;
         } finally {

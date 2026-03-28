@@ -355,35 +355,35 @@
                                             <div class="edit-addr-container" id="edit-<%= index %>">
 
                                                 <div class="detail-row">
-                                                    <input class="form-control edit-addr-input" id="inputCepEdit" name="cep" value="<%= endereco.endCep %>" placeholder="CEP" maxlength="8">
+                                                    <input class="form-control edit-addr-input inputCepEdit" name="cep" value="<%= endereco.endCep %>" placeholder="CEP" maxlength="8">
                                                 </div>
                                                 
                                                 <div class="detail-row">
-                                                    <input class="form-control edit-addr-input" id="inputRuaEdit" name="logradouro" value="<%= endereco.endLogradouro %>" placeholder="Rua">
+                                                    <input class="form-control edit-addr-input inputRuaEdit" name="logradouro" value="<%= endereco.endLogradouro %>" placeholder="Rua">
                                                 </div>
 
                                                 <div class="detail-row">
-                                                    <input class="form-control edit-addr-input" id="inputComplementoEdit" name="complemento" value="<%= endereco.endComplemento %>" placeholder="Complemento">
+                                                    <input class="form-control edit-addr-input inputComplementoEdit" name="complemento" value="<%= endereco.endComplemento %>" placeholder="Complemento">
                                                 </div>
 
                                                 <div class="detail-row">
-                                                    <input class="form-control edit-addr-input" id="inputBairroEdit" name="bairro" value="<%= endereco.endBairro %>" placeholder="Bairro">
+                                                    <input class="form-control edit-addr-input inputBairroEdit" name="bairro" value="<%= endereco.endBairro %>" placeholder="Bairro">
                                                 </div>
 
                                                 <div class="detail-row">
-                                                    <input class="form-control edit-addr-input" id="inputCidadeEdit" name="cidade" value="<%= endereco.endCidade %>" placeholder="Cidade">
+                                                    <input class="form-control edit-addr-input inputCidadeEdit" name="cidade" value="<%= endereco.endCidade %>" placeholder="Cidade">
                                                 </div>
 
                                                 <div class="detail-row">
-                                                    <input class="form-control edit-addr-input" id="inputNumeroEdit" name="numero" value="<%= endereco.endNumero %>" placeholder="Número">
+                                                    <input class="form-control edit-addr-input inputNumeroEdit" name="numero" value="<%= endereco.endNumero %>" placeholder="Número">
                                                 </div>
 
                                                 <div class="detail-row">
-                                                    <input class="form-control edit-addr-input" id="inputEstadoEdit" name="estado" value="<%= endereco.endEstado %>" placeholder="Estado">
+                                                    <input class="form-control edit-addr-input inputEstadoEdit" name="estado" value="<%= endereco.endEstado %>" placeholder="Estado">
                                                 </div>
 
                                                 <div class="address-actions">
-                                                    <button class="btn-save edit-addr-save" id="salvarAlteracao">Salvar</button>
+                                                    <button class="btn-save edit-addr-save salvarAlteracao" data-id-address-edit="<%= endereco.endID %>">Salvar</button>
                                                     <button class="btn-cancel edit-addr-cancel" data-cancel="<%= index %>">Cancelar</button>
                                                 </div>
 

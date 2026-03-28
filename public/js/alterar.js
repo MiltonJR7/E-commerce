@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     const btn = document.getElementById('btnAlterar');
     const phoneInput = document.getElementById('telefone');
-    const salvarAlteracao = document.getElementById('salvarAlteracao');
+    const acoes = document.querySelectorAll('.salvarAlteracao');
+    let idAddress = 0;
     let isSubmitting = false;
 
     btn.addEventListener('click', alterarDados);
-    salvarAlteracao.addEventListener('click', alterarEndereco);
     phoneInput.addEventListener('input', (e)=> {
         e.target.value = formatPhone(e.target.value);
     })
@@ -83,88 +83,94 @@ document.addEventListener('DOMContentLoaded', ()=> {
         }
     }
 
-    function alterarEndereco() {
-        const cep = document.getElementById('inputCepEdit');
-        const logradouro = document.getElementById('inputRuaEdit');
-        const numero = document.getElementById('inputNumeroEdit');
-        const complemento = document.getElementById('inputComplementoEdit');
-        const bairro = document.getElementById('inputBairroEdit');
-        const cidade = document.getElementById('inputCidadeEdit');
-        const uf = document.getElementById('inputEstadoEdit');
+    acoes.forEach(acao => {
+        acao.addEventListener('click', (e)=> {
+            idAddress = e.currentTarget.dataset.idAddressEdit;
+            const container = e.currentTarget.closest('.edit-addr-container');
 
-        const parts = window.location.pathname.split("/");
-        const idParams = Number(parts[parts.length - 1]);
+            const cep = container.querySelector('.inputCepEdit');
+            const logradouro = container.querySelector('.inputRuaEdit');
+            const numero = container.querySelector('.inputNumeroEdit');
+            const complemento = container.querySelector('.inputComplementoEdit');
+            const bairro = container.querySelector('.inputBairroEdit');
+            const cidade = container.querySelector('.inputCidadeEdit');
+            const uf = container.querySelector('.inputEstadoEdit');
 
-        const regexEndereco = /^(?!\s*$)(?!.*([.,-])\1)(?![.,-])(?!.*[.,-]$)[A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+(?:[ .,-][A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+)*$/;
-        const regexNumero = /^[0-9]+$/
-        const regexLetras = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/
+            const parts = window.location.pathname.split("/");
+            const idParams = Number(parts[parts.length - 1]);
 
-        if (isSubmitting) return;
-        isSubmitting = true;
-        let listaValidar = [];
+            const regexEndereco = /^(?!\s*$)(?!.*([.,-])\1)(?![.,-])(?!.*[.,-]$)[A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+(?:[ .,-][A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+)*$/;
+            const regexNumero = /^[0-9]+$/
+            const regexLetras = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/
 
-        if(cep.value === "" || !regexNumero.test(cep.value)) { listaValidar.push(cep) } else { cep.style.borderColor = "#f9fafb"; }
-        if(logradouro.value === "" || !regexLetras.test(logradouro.value)) { listaValidar.push(logradouro) } else { logradouro.style.borderColor = "#f9fafb"; }
+            if (isSubmitting) return;
+            isSubmitting = true;
+            let listaValidar = [];
 
-        if(numero.value === "") { 
-            numero.value = "n/a";
-            numero.style.borderColor = "#f9fafb";
-        } else if (!regexNumero.test(numero.value) && numero.value !== "n/a") {
-            listaValidar.push(numero)
-        } else {
-            numero.style.borderColor = "#f9fafb";
-        }
+            if(cep.value === "" || !regexNumero.test(cep.value)) { listaValidar.push(cep) } else { cep.style.borderColor = "#f9fafb"; }
+            if(logradouro.value === "" || !regexLetras.test(logradouro.value)) { listaValidar.push(logradouro) } else { logradouro.style.borderColor = "#f9fafb"; }
 
-        if(complemento.value === "") { 
-            complemento.value = "n/a"; 
-        } else if (!regexEndereco.test(complemento.value) && complemento.value !== "n/a") {
-            listaValidar.push(complemento)
-        } else {
-            complemento.style.borderColor = "#f9fafb";
-        }
-
-        if(bairro.value === "" || !regexLetras.test(bairro.value)) { listaValidar.push(bairro) } else { bairro.style.borderColor = "#f9fafb"; }
-        if(cidade.value === "" || !regexLetras.test(cidade.value)) { listaValidar.push(cidade) } else { cidade.style.borderColor = "#f9fafb"; }
-        if(uf.value === "" || !regexLetras.test(uf.value) || uf.value.length !== 2) { listaValidar.push(uf) } else { uf.style.borderColor = "#f9fafb"; }
-
-        if(listaValidar.length == 0) {
-
-            let obj = {
-                cep: cep.value,
-                logradouro: logradouro.value,
-                numero: numero.value,
-                complemento: complemento.value,
-                bairro: bairro.value,
-                cidade: cidade.value,
-                uf: uf.value,
+            if(numero.value === "") { 
+                numero.value = "n/a";
+                numero.style.borderColor = "#f9fafb";
+            } else if (!regexNumero.test(numero.value) && numero.value !== "n/a") {
+                listaValidar.push(numero)
+            } else {
+                numero.style.borderColor = "#f9fafb";
             }
 
-            fetch(`/profile/addressAlter/${idParams}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(obj)
-            })
-            .then((res)=> {
-                return res.json();
-            })
-            .then((corpo)=> {
-                if(corpo.ok) {
-                    window.location.reload();
-                } else {
-                    return alert('ERRO IN RETURN BODY IS NOT -- OK --');
+            if(complemento.value === "") { 
+                complemento.value = "n/a"; 
+            } else if (!regexEndereco.test(complemento.value) && complemento.value !== "n/a") {
+                listaValidar.push(complemento)
+            } else {
+                complemento.style.borderColor = "#f9fafb";
+            }
+
+            if(bairro.value === "" || !regexLetras.test(bairro.value)) { listaValidar.push(bairro) } else { bairro.style.borderColor = "#f9fafb"; }
+            if(cidade.value === "" || !regexLetras.test(cidade.value)) { listaValidar.push(cidade) } else { cidade.style.borderColor = "#f9fafb"; }
+            if(uf.value === "" || !regexLetras.test(uf.value) || uf.value.length !== 2) { listaValidar.push(uf) } else { uf.style.borderColor = "#f9fafb"; }
+
+            if(listaValidar.length == 0) {
+
+                let obj = {
+                    cep: cep.value,
+                    logradouro: logradouro.value,
+                    numero: numero.value,
+                    complemento: complemento.value,
+                    bairro: bairro.value,
+                    cidade: cidade.value,
+                    uf: uf.value,
+                    idAddress: idAddress
                 }
-            })
-            .finally(() => {
-                isSubmitting = false;
-            });
 
-        } else {
-            for(let i = 0; i < listaValidar.length; i++) {
-                listaValidar[i].style.borderColor = "rgba(253, 144, 144, 0.87)";
+                fetch(`/profile/addressAlter/${idParams}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(obj)
+                })
+                .then((res)=> {
+                    return res.json();
+                })
+                .then((corpo)=> {
+                    if(corpo.ok) {
+                        window.location.reload();
+                    } else {
+                        return alert('ERRO IN RETURN BODY IS NOT -- OK --');
+                    }
+                })
+                .finally(() => {
+                    isSubmitting = false;
+                });
+
+            } else {
+                for(let i = 0; i < listaValidar.length; i++) {
+                    listaValidar[i].style.borderColor = "rgba(253, 144, 144, 0.87)";
+                }
+                isSubmitting = false;
             }
-            isSubmitting = false;
-        }
-    }
+        });
+    });
 })

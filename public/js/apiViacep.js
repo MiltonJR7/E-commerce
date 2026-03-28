@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', (event)=> {
     const btnLimpar = document.getElementById('btnLimparCampo');
     const inputCep = document.getElementById('inputCep');
-    const inputCepEdit = document.getElementById('inputCepEdit');
+    const acoes = document.querySelectorAll('.inputCepEdit');
     
     btnLimpar.addEventListener('click', limpa_formulario_cep);
     if(inputCep) {
@@ -39,38 +39,39 @@ document.addEventListener('DOMContentLoaded', (event)=> {
         })
     }
 
-    if(inputCepEdit) {
-        inputCepEdit.addEventListener('blur', (event)=> {
-            const valor = document.getElementById('inputCepEdit').value;
-            var cepEdit = valor.replace(/\D/g, '');
+    if(acoes) {
+        acoes.forEach(acao => {
+            acao.addEventListener('blur', (event)=> {
+                const valor = acao.value;
+                var cepEdit = valor.replace(/\D/g, '');
 
-            if(cepEdit !== "") {
-                var validacep = /^[0-9]{8}$/;
-                if(validacep.test(cepEdit)) {
-                    fetch(`https://viacep.com.br/ws/${cepEdit}/json/`)
-                    .then((res)=> {
-                        return res.json();
-                    })
-                    .then((corpo)=> {
-                        if(!corpo.erro) {
-                            document.getElementById('inputRuaEdit').value=(corpo.logradouro);
-                            document.getElementById('inputBairroEdit').value=(corpo.bairro);
-                            document.getElementById('inputCidadeEdit').value=(corpo.localidade);
-                            document.getElementById('inputEstadoEdit').value=(corpo.uf);
-                        } else {
-                            limpa_formulario_cep_edit()
-                            alert("CEP não encontrado.");
-                        }
-                    })
-                    .catch((err)=> {
-                        console.log(err);
-                        return alert('Error interno, tente novamente mais tarde.');
-                    })
-                } else {
-                    limpa_formulario_cep_edit()
-                    return alert('ERRO: CEP INVALIDO');
+                if(cepEdit !== "") {
+                    var validacep = /^[0-9]{8}$/;
+                    if(validacep.test(cepEdit)) {
+                        fetch(`https://viacep.com.br/ws/${cepEdit}/json/`)
+                        .then((res)=> {
+                            return res.json();
+                        })
+                        .then((corpo)=> {
+                            if(!corpo.erro) {
+                                const container = event.target.closest('.edit-addr-container');
+                                container.querySelector('.inputRuaEdit').value = corpo.logradouro;
+                                container.querySelector('.inputBairroEdit').value = corpo.bairro;
+                                container.querySelector('.inputCidadeEdit').value = corpo.localidade;
+                                container.querySelector('.inputEstadoEdit').value = corpo.uf;
+                            } else {
+                                alert("CEP não encontrado.");
+                            }
+                        })
+                        .catch((err)=> {
+                            console.log(err);
+                            return alert('Error interno, tente novamente mais tarde.');
+                        })
+                    } else {
+                        return alert('ERRO: CEP INVALIDO');
+                    } 
                 }
-            }
+            })
         })
     }
     
@@ -82,15 +83,5 @@ document.addEventListener('DOMContentLoaded', (event)=> {
         document.getElementById('inputEstado').value=("");
         document.getElementById('inputNumero').value=("");
         document.getElementById('inputComplemento').value=("");
-    }
-
-    function limpa_formulario_cep_edit() {
-        document.getElementById('inputCepEdit').value=("");
-        document.getElementById('inputRuaEdit').value=("");
-        document.getElementById('inputBairroEdit').value=("");
-        document.getElementById('inputCidadeEdit').value=("");
-        document.getElementById('inputEstadoEdit').value=("");
-        document.getElementById('inputNumeroEdit').value=("");
-        document.getElementById('inputComplementoEdit').value=("");
     }
 })

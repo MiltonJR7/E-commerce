@@ -150,10 +150,9 @@ export default class HomeController {
 
     async alterarEndereco(req, res) {
         try {
-            const {cep, logradouro, numero, complemento, bairro, cidade, uf} = req.body;
-            const id = req.params.id;
+            const {cep, logradouro, numero, complemento, bairro, cidade, uf, idAddress} = req.body;
 
-            if(!cep || !logradouro || !numero || !complemento || !bairro || !cidade || !uf) return res.status(400).json({ ok: false });
+            if(!cep || !logradouro || !numero || !complemento || !bairro || !cidade || !uf || !idAddress) return res.status(400).json({ ok: false });
 
             const dbAddress = new AddressModel();
             dbAddress.endCep = cep;
@@ -163,9 +162,8 @@ export default class HomeController {
             dbAddress.endBairro = bairro;
             dbAddress.endCidade = cidade;
             dbAddress.endEstado = uf;
-            dbAddress.usuID = id;
 
-            const result = await dbAddress.alterAddress(id);
+            const result = await dbAddress.alterAddress(idAddress);
             if(result) return res.json({ ok: true });
             return res.status(400).json({ ok: false });
         } catch(err) {
