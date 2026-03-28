@@ -169,4 +169,33 @@ export default class AddressModel {
             client.release();
         }
     }
+
+    async alterAddress(id) {
+        const client = await pool.connect();
+
+        try {
+            const sql = `
+                update
+                    tb_endereco 
+                set
+                    end_cep = $1,
+                    end_logradouro = $2,
+                    end_numero = $3,
+                    end_complemento = $4,
+                    end_bairro = $5,
+                    end_cidade = $6,
+                    end_estado = $7
+                where 
+                    usu_id = $8
+                returning 
+                    end_id, end_cep, end_numero, end_bairro, end_cidade, end_estado
+            `;
+
+            const values = [this.#endCep, this.#endLogradouro, this.#endNumero, this.#endComplemento, this.#endBairro, this.#endCidade, this.#endEstado, id];
+            const { rows } = await client.query(sql, values);
+            return rows[0] ?? null;
+        } finally {
+            client.release();
+        }
+    }
 }

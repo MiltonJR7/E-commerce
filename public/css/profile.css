@@ -579,6 +579,7 @@ select.form-control {
 .detail-row {
     display: flex;
     gap: 12px;
+    margin-bottom: 5px;
 }
 
 .detail-row .form-control {
@@ -597,6 +598,11 @@ select.form-control {
     font-size: 14px;
     color: var(--color-text);
     font-weight: 400;
+}
+
+.address-actions .btn-remove {
+    margin-top: 0;
+    padding: 10px 14px;
 }
 
 .btn-remove {
@@ -761,6 +767,10 @@ select.form-control {
 
     .address-actions button {
         width: 100%;
+    }
+
+    .edit-addr-container {
+        margin-top: 16px;
     }
 }
 
@@ -939,13 +949,18 @@ input[type="file"] {
     border-color: var(--color-text-secondary);
 }
 
+.address-actions .btn-edit {
+    margin-top: 0;
+    padding: 10px 14px;
+}
+
 .btn-edit {
     margin-top: 16px;
     padding: 10px 20px;
     background: rgb(37, 100, 235);
     border: 1px solid var(--color-primary);
     border-radius: var(--radius-sm);
-    color: var(--color-text);
+    color: #fff;
     font-size: 14px;
     font-weight: 500;
     display: inline-flex;
@@ -959,4 +974,23 @@ input[type="file"] {
     background: var(--color-primary);
     color: #fff;
     border-color: var(--color-primary-hover);
+}
+
+
+/* CONTAINER DE EDIÇÃO */
+.edit-addr-container {
+    display: none;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--color-border);
+    animation: fadeIn 0.3s ease;
+}
+
+.edit-addr-container.active {
+    display: block;
+}
+
+/* INPUTS */
+.edit-addr-input {
+    width: 100%;
 }

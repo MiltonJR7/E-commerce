@@ -42,7 +42,7 @@ export default class HomeController {
 
     async perfilAddress(req, res) {
         let id = null;
-        let perID = null
+        let perID = null;
 
         if(req.user) id = req.user.id; 
         if(req.user) perID = req.user.perID;
@@ -146,5 +146,31 @@ export default class HomeController {
         const listaAddress = await bancoEndereco.listarEnderecos(id);
         
         res.render('Shop/finalizarCompra', { layout: 'layout', user: id, perfil: perID, lista: lista, listaAddress: listaAddress });
+    }
+
+    async alterarEndereco(req, res) {
+        try {
+            const {cep, logradouro, numero, complemento, bairro, cidade, uf} = req.body;
+            const id = req.params.id;
+
+            if(!cep || !logradouro || !numero || !complemento || !bairro || !cidade || !uf) return res.status(400).json({ ok: false });
+
+            const dbAddress = new AddressModel();
+            dbAddress.endCep = cep;
+            dbAddress.endLogradouro = logradouro;
+            dbAddress.endNumero = numero;
+            dbAddress.endComplemento = complemento;
+            dbAddress.endBairro = bairro;
+            dbAddress.endCidade = cidade;
+            dbAddress.endEstado = uf;
+            dbAddress.usuID = id;
+
+            const result = await dbAddress.alterAddress(id);
+            if(result) return res.json({ ok: true });
+            return res.status(400).json({ ok: false });
+        } catch(err) {
+            console.log(err);
+            return res.status(500).json({ message: "Erro na requisção!", ok: false});
+        }
     }
 }

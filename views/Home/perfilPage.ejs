@@ -341,10 +341,52 @@
                                                 <span class="detail-label">Estado:</span>
                                                 <span class="detail-value view-mode"><%= endereco.endEstado %></span>
                                             </div>
+
                                             <div class="address-actions">
+                                                <button class="btn-edit edit-addr-toggle" data-edit="<%= index %>">
+                                                    Editar
+                                                </button>
                                                 <button class="btn-remove btnDeletar" data-delete-address-profile="<%= endereco.endID %>" id="btnDeletar">
                                                     Remover Endereço
                                                 </button>
+                                            </div>
+
+                                            <!-- FORM DE EDIÇÃO -->
+                                            <div class="edit-addr-container" id="edit-<%= index %>">
+
+                                                <div class="detail-row">
+                                                    <input class="form-control edit-addr-input" id="inputCepEdit" name="cep" value="<%= endereco.endCep %>" placeholder="CEP" maxlength="8">
+                                                </div>
+                                                
+                                                <div class="detail-row">
+                                                    <input class="form-control edit-addr-input" id="inputRuaEdit" name="logradouro" value="<%= endereco.endLogradouro %>" placeholder="Rua">
+                                                </div>
+
+                                                <div class="detail-row">
+                                                    <input class="form-control edit-addr-input" id="inputComplementoEdit" name="complemento" value="<%= endereco.endComplemento %>" placeholder="Complemento">
+                                                </div>
+
+                                                <div class="detail-row">
+                                                    <input class="form-control edit-addr-input" id="inputBairroEdit" name="bairro" value="<%= endereco.endBairro %>" placeholder="Bairro">
+                                                </div>
+
+                                                <div class="detail-row">
+                                                    <input class="form-control edit-addr-input" id="inputCidadeEdit" name="cidade" value="<%= endereco.endCidade %>" placeholder="Cidade">
+                                                </div>
+
+                                                <div class="detail-row">
+                                                    <input class="form-control edit-addr-input" id="inputNumeroEdit" name="numero" value="<%= endereco.endNumero %>" placeholder="Número">
+                                                </div>
+
+                                                <div class="detail-row">
+                                                    <input class="form-control edit-addr-input" id="inputEstadoEdit" name="estado" value="<%= endereco.endEstado %>" placeholder="Estado">
+                                                </div>
+
+                                                <div class="address-actions">
+                                                    <button class="btn-save edit-addr-save" id="salvarAlteracao">Salvar</button>
+                                                    <button class="btn-cancel edit-addr-cancel" data-cancel="<%= index %>">Cancelar</button>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -406,6 +448,24 @@
                 details.classList.add("show");
                 button.classList.add("active");
             }
+        });
+    });
+
+    document.querySelectorAll(".edit-addr-toggle").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const id = btn.dataset.edit;
+            const container = document.getElementById("edit-" + id);
+
+            container.classList.toggle("active");
+        });
+    });
+
+    document.querySelectorAll(".edit-addr-cancel").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const id = btn.dataset.cancel;
+            const container = document.getElementById("edit-" + id);
+
+            container.classList.remove("active");
         });
     });
 </script>

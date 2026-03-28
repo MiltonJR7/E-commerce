@@ -12,12 +12,13 @@ const route = express.Router();
 
 route.get('/', authPublic, controller.homeView);
 route.get('/logout', auth, controllerUser.logout);
-route.get('/shopProduct/:id', authPublic, controller.shopProductView);
 route.get('/checkout', auth, controller.checkoutView);
-
+route.get('/shopProduct/:id', authPublic, controller.shopProductView);
 route.get('/profile/:id', auth, controller.perfilView);
+
 route.put('/profile/:id', auth, upload.single('imagem'), controller.perfilAlterarDados);
 route.put('/profile/address/:id', auth, controller.perfilAddress);
+route.put('/profile/addressAlter/:id', auth, controller.alterarEndereco);
 
 route.delete('/profile/:id', auth, controller.profileDeleteAddress);
 export default route;

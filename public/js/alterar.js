@@ -4,9 +4,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     const btn = document.getElementById('btnAlterar');
     const phoneInput = document.getElementById('telefone');
-    btn.addEventListener('click', alterarDados);
+    const salvarAlteracao = document.getElementById('salvarAlteracao');
     let isSubmitting = false;
 
+    btn.addEventListener('click', alterarDados);
+    salvarAlteracao.addEventListener('click', alterarEndereco);
     phoneInput.addEventListener('input', (e)=> {
         e.target.value = formatPhone(e.target.value);
     })
@@ -76,6 +78,91 @@ document.addEventListener('DOMContentLoaded', ()=> {
         } else {
             for(let i = 0; i < validar.length; i++) {
                 validar[i].style.borderColor = "red";
+            }
+            isSubmitting = false;
+        }
+    }
+
+    function alterarEndereco() {
+        const cep = document.getElementById('inputCepEdit');
+        const logradouro = document.getElementById('inputRuaEdit');
+        const numero = document.getElementById('inputNumeroEdit');
+        const complemento = document.getElementById('inputComplementoEdit');
+        const bairro = document.getElementById('inputBairroEdit');
+        const cidade = document.getElementById('inputCidadeEdit');
+        const uf = document.getElementById('inputEstadoEdit');
+
+        const parts = window.location.pathname.split("/");
+        const idParams = Number(parts[parts.length - 1]);
+
+        const regexEndereco = /^(?!\s*$)(?!.*([.,-])\1)(?![.,-])(?!.*[.,-]$)[A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+(?:[ .,-][A-Za-zÀ-ÖØ-öø-ÿ0-9ºª]+)*$/;
+        const regexNumero = /^[0-9]+$/
+        const regexLetras = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/
+
+        if (isSubmitting) return;
+        isSubmitting = true;
+        let listaValidar = [];
+
+        if(cep.value === "" || !regexNumero.test(cep.value)) { listaValidar.push(cep) } else { cep.style.borderColor = "#f9fafb"; }
+        if(logradouro.value === "" || !regexLetras.test(logradouro.value)) { listaValidar.push(logradouro) } else { logradouro.style.borderColor = "#f9fafb"; }
+
+        if(numero.value === "") { 
+            numero.value = "n/a";
+            numero.style.borderColor = "#f9fafb";
+        } else if (!regexNumero.test(numero.value) && numero.value !== "n/a") {
+            listaValidar.push(numero)
+        } else {
+            numero.style.borderColor = "#f9fafb";
+        }
+
+        if(complemento.value === "") { 
+            complemento.value = "n/a"; 
+        } else if (!regexEndereco.test(complemento.value) && complemento.value !== "n/a") {
+            listaValidar.push(complemento)
+        } else {
+            complemento.style.borderColor = "#f9fafb";
+        }
+
+        if(bairro.value === "" || !regexLetras.test(bairro.value)) { listaValidar.push(bairro) } else { bairro.style.borderColor = "#f9fafb"; }
+        if(cidade.value === "" || !regexLetras.test(cidade.value)) { listaValidar.push(cidade) } else { cidade.style.borderColor = "#f9fafb"; }
+        if(uf.value === "" || !regexLetras.test(uf.value) || uf.value.length !== 2) { listaValidar.push(uf) } else { uf.style.borderColor = "#f9fafb"; }
+
+        if(listaValidar.length == 0) {
+
+            let obj = {
+                cep: cep.value,
+                logradouro: logradouro.value,
+                numero: numero.value,
+                complemento: complemento.value,
+                bairro: bairro.value,
+                cidade: cidade.value,
+                uf: uf.value,
+            }
+
+            fetch(`/profile/addressAlter/${idParams}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(obj)
+            })
+            .then((res)=> {
+                return res.json();
+            })
+            .then((corpo)=> {
+                if(corpo.ok) {
+                    window.location.reload();
+                } else {
+                    return alert('ERRO IN RETURN BODY IS NOT -- OK --');
+                }
+            })
+            .finally(() => {
+                isSubmitting = false;
+            });
+
+        } else {
+            for(let i = 0; i < listaValidar.length; i++) {
+                listaValidar[i].style.borderColor = "rgba(253, 144, 144, 0.87)";
             }
             isSubmitting = false;
         }

@@ -288,4 +288,3 @@ document.addEventListener('DOMContentLoaded', () => {
         addressSection.classList.remove('fade-in');
     }, 400);
 });
-
