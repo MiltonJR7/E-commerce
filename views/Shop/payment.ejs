@@ -90,27 +90,27 @@
 
                     <div class="mb-3">
                         <label class="form-label">Número do cartão</label>
-                        <input type="text" class="form-control" placeholder="0000 0000 0000 0000" maxlength="19">
+                        <input id="card-number" type="text" class="form-control" placeholder="0000 0000 0000 0000">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Nome no cartão</label>
-                        <input type="text" class="form-control" placeholder="João Silva">
+                        <input id="card-name" type="text" class="form-control" placeholder="João Silva">
                     </div>
 
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Validade</label>
-                            <input type="text" class="form-control" placeholder="MM/AA" maxlength="5">
+                            <input id="card-exp" type="text" class="form-control" placeholder="MM/AA">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">CVV</label>
-                            <input type="text" class="form-control" placeholder="123" maxlength="4">
+                            <input id="card-cvv" type="text" class="form-control" placeholder="123">
                         </div>
                     </div>
 
                     <div class="mt-3" id="parcelas">
-                        
+                        <!-- Logica aplicada do script finalizarCompra -->
                     </div>
                 </div>
 
@@ -139,4 +139,28 @@
         </div>
     </div>
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/cleave.js@1/dist/cleave.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cleaveCard = new Cleave('#card-number', {
+            creditCard: true,
+            onCreditCardTypeChanged: function (type) {
+                console.log('Bandeira:', type);
+            }
+        });
+
+        const cleaveExp = new Cleave('#card-exp', {
+            date: true,
+            datePattern: ['m', 'y']
+        });
+
+        const cleaveCvv = new Cleave('#card-cvv', {
+            numeral: true,
+            numeralIntegerScale: 4,
+            numeralPositiveOnly: true,
+            stripLeadingZeroes: false
+        });
+    });
+</script>
 
