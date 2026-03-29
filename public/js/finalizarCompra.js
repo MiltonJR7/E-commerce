@@ -1,49 +1,74 @@
-
-document.addEventListener('DOMContentLoaded', ()=> {
+document.addEventListener('DOMContentLoaded', () => {
     const productList = document.getElementById('productList');
     const sumarryItens = document.getElementById('listaValores');
     const btnFinalizar = document.getElementById('btn-continue');
-    const addressSection = document.getElementById('address-section');
-    const paymentSection = document.getElementById('payment-section');
-    
-    let currentStep = 2;
+    const btnPagamento = document.getElementById('btn-pagamento');
+    const btnVoltar = document.getElementById('btn-back');
 
-    if(btnFinalizar) {
-        btnFinalizar.addEventListener('click', iniciarProcessoCompra);
+    let id = null;
 
-        function iniciarProcessoCompra() {
-            const addressValue = document.getElementById("addressID").dataset.productId;
+    if (btnFinalizar) {
+        exibirProdutos();
+        exibirTotal();
 
-            if(addressValue !== undefined) {
-                goToPaymentStep();
-            } else {
+        btnFinalizar.addEventListener('click', () => {
+            const input = document.querySelector('[data-address-id]');
+
+            if (!input) {
+                console.error('Elemento com data-address-id não encontrado');
                 finishOrder();
+                return;
             }
+
+            id = input.dataset.addressId;
+
+            iniciarProcessoCompra();
+        });
+    }
+
+    if (btnPagamento) {
+        exibirTotal();
+        definirParcelas();
+
+        btnPagamento.addEventListener('click', () => {
+            iniciarProcessoCompra();
+        });
+    }
+
+    if (btnVoltar) {
+        btnVoltar.addEventListener('click', () => {
+            goToCheckoutStep();
+        });
+    }
+
+    function iniciarProcessoCompra() {
+        if (id) {
+            goToPaymentStep();
+        } else {
+            finishOrder();
         }
     }
 
-    if(productList || sumarryItens) {
+    function exibirProdutos() {
         const carrinhoStorage = localStorage.getItem('carrinho');
+        if (!carrinhoStorage) return;
+
         const objeto = JSON.parse(carrinhoStorage);
 
         let html = "";
-        let htmlTotalCompra = "";
-        let preco = 0;
-        let precoComFrete = 0;
 
-        for(let i = 0; i < objeto.length; i++) {
+        for (let i = 0; i < objeto.length; i++) {
             const item = objeto[i];
-            preco += objeto[i].preco * objeto[i].quantidade;
 
             html += `
                 <div class="product-item">
-                    <img src="${item.imagem}"
-                            alt="${item.nome}"
-                            class="product-image">
+                    <img src="${item.imagem}" alt="${item.nome}" class="product-image">
+                    
                     <div class="product-info">
                         <h3 class="product-name">${item.nome}</h3>
                         <p class="product-quantity">${item.quantidade}</p>
                     </div>
+
                     <div class="product-price-container">
                         <p class="product-price">
                             ${(item.preco).toLocaleString("pt-BR", {
@@ -59,13 +84,30 @@ document.addEventListener('DOMContentLoaded', ()=> {
                         </p>
                     </div>
                 </div>
-            `
-            productList.innerHTML = html;
+            `;
         }
 
-        precoComFrete = preco + 29.90;
+        productList.innerHTML = html;
+    }
 
-        htmlTotalCompra += `
+    function exibirTotal() {
+        const carrinhoStorage = localStorage.getItem('carrinho');
+        if (!carrinhoStorage) return;
+
+        const objeto = JSON.parse(carrinhoStorage);
+
+        let preco = 0;
+        let quantidadeTotal = 0;
+
+        for (let i = 0; i < objeto.length; i++) {
+            preco += objeto[i].preco * objeto[i].quantidade;
+            quantidadeTotal += objeto[i].quantidade;
+        }
+        
+        let frete = quantidadeTotal * 29.90;
+        const precoComFrete = preco + frete;
+
+        sumarryItens.innerHTML = `
             <div class="summary-item">
                 <span class="summary-label">Subtotal</span>
                 <span class="summary-value">
@@ -75,10 +117,17 @@ document.addEventListener('DOMContentLoaded', ()=> {
                     })}
                 </span>
             </div>
+
             <div class="summary-item">
                 <span class="summary-label">Frete</span>
-                <span class="summary-value">R$ 29,90</span>
+                <span class="summary-value">
+                    ${(frete).toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL"
+                    })}
+                </span>
             </div>
+
             <div class="summary-total">
                 <span class="summary-total-label">Total</span>
                 <span class="summary-total-value">
@@ -88,8 +137,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                     })}
                 </span>
             </div>
-        `
-        sumarryItens.innerHTML = htmlTotalCompra;
+        `;
     }
 
     function finishOrder() {
@@ -147,57 +195,107 @@ document.addEventListener('DOMContentLoaded', ()=> {
         document.body.appendChild(confirmation);
     }
 
-    function goToPaymentStep() {
-        currentStep = 3;
+    function definirParcelas() {
+        const parcelas = document.getElementById('parcelas');
+        const carrinhoStorage = localStorage.getItem('carrinho');
+        if (!carrinhoStorage) return;
 
-        addressSection.classList.remove('fade-in');
-        addressSection.classList.add('d-none');
+        const objeto = JSON.parse(carrinhoStorage);
+        let preco = 0;
+        let quantidadeTotal = 0;
 
-        paymentSection.classList.remove('d-none');
-        paymentSection.classList.add('slide-in-right');
-
-        setTimeout(() => {
-            paymentSection.classList.remove('slide-in-right');
-        }, 400);
-
-        updateStepIndicator();
-
-        btnFinalizar.innerHTML = 'Finalizar Compra';
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    function goToAddressStep() {
-        currentStep = 2;
-
-        paymentSection.classList.remove('fade-in');
-        paymentSection.classList.add('d-none');
-
-        addressSection.classList.remove('d-none');
-        addressSection.classList.add('slide-in-left');
-
-        setTimeout(() => {
-            addressSection.classList.remove('slide-in-left');
-        }, 400);
-
-        updateStepIndicator();
-
-        btnFinalizar.innerHTML = 'Continuar para Pagamento';
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    btnFinalizar.addEventListener('click', () => {
-        if (currentStep === 2) {
-            goToPaymentStep();
-        } else if (currentStep === 3) {
-            finishOrder();
+        for (let i = 0; i < objeto.length; i++) {
+            preco += objeto[i].preco * objeto[i].quantidade;
+            quantidadeTotal += objeto[i].quantidade;
         }
-    });
-})
+        
+        let frete = quantidadeTotal * 29.90;
+        const precoComFrete = preco + frete;
+
+        parcelas.innerHTML = `
+        <label class="form-label">Parcelas</label>
+        <select class="form-select" id="parcelas">
+            <option>1x de 
+                ${(precoComFrete).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>2x de 
+                ${(precoComFrete/2).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>3x de 
+                ${(precoComFrete/3).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>4x de 
+                ${(precoComFrete/4).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>5x de 
+                ${(precoComFrete/5).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>6x de 
+                ${(precoComFrete/6).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>7x de 
+                ${(precoComFrete/7).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>8x de 
+                ${(precoComFrete/8).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>9x de 
+                ${(precoComFrete/9).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>10x de 
+                ${(precoComFrete/10).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>11x de 
+                ${(precoComFrete/11).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            <option>12x de 
+                ${(precoComFrete/12).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+        </select>
+        `
+    }
+
+    function goToPaymentStep() {
+        window.location.href = "/payment";
+    }
+
+    function goToCheckoutStep() {
+        window.location.href = "/checkout";
+    }
+});

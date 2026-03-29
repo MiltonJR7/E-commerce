@@ -1,0 +1,94 @@
+
+<link rel="stylesheet" href="/css/finalizarCompra.css">
+<main class="container py-4">
+    <div class="step-indicator mb-5">
+        <div class="step-item">
+            <div class="step-circle completed">
+                <i class="bi bi-check-lg"></i>
+            </div>
+            <span class="step-label">Carrinho</span>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-item">
+            <div class="step-circle active">2</div>
+            <span class="step-label">Endereço</span>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-item">
+            <div class="step-circle">3</div>
+            <span class="step-label">Pagamento</span>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-item">
+            <div class="step-circle">4</div>
+            <span class="step-label">Confirmação</span>
+        </div>
+    </div>
+
+    <div id="step-content" class="row g-4">
+        <div class="col-lg-8">
+            <section id="address-section">
+                <h2 class="section-title mb-4">Revise seu pedido</h2>
+
+                <div class="card checkout-card mb-4" id="productList">
+                    <!-- Logica implementada com finalizarCompra.js -->
+                </div>
+
+                <h2 class="section-title mb-4">Endereço de entrega</h2>
+
+                <div class="address-card mb-3">
+                    <div class="d-flex gap-3 mb-3">
+                        <i class="bi bi-geo-alt-fill address-icon"></i>
+                        <div class="flex-fill">
+                            <h3 class="address-name"><%= lista.usu_nome %></h3>
+                            <p class="address-details">
+                                <% if(listaAddress[0] !== undefined) { %>
+                                    <input type="hidden" data-address-id="<%= listaAddress[0].endID %>">
+                                    Endereco: <%= listaAddress[0].endLogradouro %>,<%= listaAddress[0].endNumero %> - <%= listaAddress[0].endComplemento %><br>
+                                    Bairro: <%= listaAddress[0].endBairro %><br>
+                                    Estado: <%= listaAddress[0].endEstado %><br>
+                                    CEP: <%= listaAddress[0].endCep %>
+                                <% } else { %>
+                                    <p>Cadastre um endereco antes de continuar!</p>
+                                <% } %>
+                            </p>
+                            <p class="address-phone">
+                                Telefone: <% if(lista.usu_numero) { %>
+                                    (<%= lista.usu_numero.slice(0,2) %>) <%= lista.usu_numero.slice(2,7) %>-<%= lista.usu_numero.slice(7,11)%>
+                                <% } else { %>
+                                    (00) 00000-000
+                                <% } %>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="address-actions">
+                        <a href="/profile/<%= user %>" class="btn btn-outline-primary flex-fill">Alterar endereço</a>
+                        <a href="/profile/<%= user %>" class="btn btn-outline-primary flex-fill">Adicionar novo</a>
+                    </div>
+                </div>
+
+                <div class="delivery-info">
+                    <strong>Entrega prevista:</strong> 3 a 5 dias úteis
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="order-summary">
+                <h3 class="summary-title mb-4">Resumo do pedido</h3>
+
+                <div class="summary-items mb-4" id="listaValores">
+                    <!-- Logica aplicada do script finalizarCompra -->
+                </div>
+
+                <button id="btn-continue" class="btn btn-primary btn-checkout w-100 mb-3">
+                    Continuar para Pagamento
+                </button>
+
+                <div class="security-badge">
+                    Compra 100% segura e protegida
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

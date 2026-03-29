@@ -21,7 +21,7 @@ export default class HomeController {
         const lista = await banco.listarUsuarioPeloID(id);
         const listaProduct = await bancoProduct.listarProdutos();
 
-        res.render('Home/homePage', { user: id, perfil: perID, layout: "layout", lista: lista, listaProduct: listaProduct, limite: limiteExibicao, contador: contador });
+        res.render('Home/homePage.ejs', { user: id, perfil: perID, layout: "layout", lista: lista, listaProduct: listaProduct, limite: limiteExibicao, contador: contador });
     }
 
     async perfilView(req, res) {
@@ -37,7 +37,7 @@ export default class HomeController {
         const bancoEndereco = new AddressModel();
         const listaEndereco = await bancoEndereco.listarEnderecos(id);
 
-        res.render('Home/perfilPage', { user: id, perfil: perID, layout: "layout",  lista: lista, listaEndereco: listaEndereco });
+        res.render('Home/perfilPage.ejs', { user: id, perfil: perID, layout: "layout",  lista: lista, listaEndereco: listaEndereco });
     }
 
     async perfilAddress(req, res) {
@@ -130,7 +130,7 @@ export default class HomeController {
         const listaProduct = await banco.listarProdutosPorID(idProduto);
         const listaEstoque = await bancoEstoque.procurarEstoqueID(idProduto);
 
-        res.render('Shop/shopProductPage', { user: id, perfil: perID, layout: 'layout', listaProduct: listaProduct, listaOutros: listaOutros, listaEstoque: listaEstoque });
+        res.render('Shop/shopProductPage.ejs', { user: id, perfil: perID, layout: 'layout', listaProduct: listaProduct, listaOutros: listaOutros, listaEstoque: listaEstoque });
     }
 
     async checkoutView(req, res) {
@@ -145,7 +145,17 @@ export default class HomeController {
         const lista = await banco.listarUsuarioPeloID(id);
         const listaAddress = await bancoEndereco.listarEnderecos(id);
         
-        res.render('Shop/finalizarCompra', { layout: 'layout', user: id, perfil: perID, lista: lista, listaAddress: listaAddress });
+        res.render('Shop/checkout.ejs', { layout: 'layout.ejs', user: id, perfil: perID, lista: lista, listaAddress: listaAddress });
+    }
+
+    async pagamentoView(req, res) {
+        let id = null;
+        let perID = null;
+
+        if(req.user) id = req.user.id;
+        if(req.user) perID = req.user.perID;
+
+        res.render('Shop/payment.ejs', { layout: 'layout.ejs', user: id, perfil: perID });
     }
 
     async alterarEndereco(req, res) {
