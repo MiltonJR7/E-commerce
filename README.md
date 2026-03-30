@@ -2,9 +2,9 @@
 
 ## 📄 Descrição
 
-Projeto **Full Stack** de **E-commerce** em desenvolvimento, criado com o objetivo de consolidar conhecimentos em desenvolvimento web, segurança, autenticação, arquitetura de aplicações e persistência de dados utilizando **Node.js**, **PostgreSQL** e tecnologias modernas de front-end.
+Projeto **Full Stack** de **E-commerce** em desenvolvimento, criado com o objetivo de consolidar conhecimentos em desenvolvimento web, segurança, autenticação, arquitetura de aplicações e persistência de dados utilizando **Node.js**, **PostgreSQL**.
 
-O sistema já conta com **autenticação segura**, **dashboard administrativo**, **gerenciamento de usuários, produtos e endereços**, além de **upload de imagens integrado à Cloudinary**, sendo hospedado de forma dinâmica na **Vercel**.
+O sistema já conta com **autenticação segura**, **dashboard administrativo**, **gerenciamento de usuários, produtos, endereços e carrinho**, além de **upload de imagens integrado à Cloudinary**, sendo hospedado de forma dinâmica na **Vercel**.
 
 ---
 
@@ -12,7 +12,12 @@ O sistema já conta com **autenticação segura**, **dashboard administrativo**,
 
 🚧 **Em desenvolvimento ativo**
 
-O sistema possui diversas funcionalidades completas e outras em constante evolução, principalmente relacionadas ao fluxo completo de e-commerce.
+O sistema possui diversas funcionalidades completas e outras em constante evolução, principalmente relacionadas ao fluxo completo de e-commerce.  
+
+⚠️ **Observação:** O **fluxo de venda no back-end ainda não está finalizado**, faltando:  
+- Baixa automática de estoque  
+- Validação completa dos dados da compra  
+- Registro correto de **venda** e **itens da venda** no banco  
 
 ---
 
@@ -33,7 +38,7 @@ O sistema possui diversas funcionalidades completas e outras em constante evolu�
 - Atualização de dados do usuário ✅  
 - Exclusão de usuários ✅  
 - Tela de perfil do usuário ✅  
-- Finalização de cadastro com:
+- Finalização de cadastro com:  
   - Telefone  
   - Endereço  
   - Upload de imagem de perfil  
@@ -54,9 +59,26 @@ O sistema possui diversas funcionalidades completas e outras em constante evolu�
 
 ---
 
+### 🛒 Carrinho e Compra
+- Adição de produtos ao carrinho (LocalStorage) ✅  
+- Listagem dinâmica do carrinho ✅  
+- Alteração de quantidade de itens ✅  
+- Remoção de produtos do carrinho ✅  
+- Tela de checkout ✅  
+- Seleção de método de pagamento (front-end) ✅  
+- Envio de dados da compra para o back-end ✅  
+
+⚠️ **Observação:** O fluxo de compra ainda não está completamente finalizado no back-end.  
+Faltam:  
+- Baixa automática de estoque  
+- Validação completa de dados no servidor  
+- Registro correto de **venda** e **itens da venda**  
+
+---
+
 ### 📊 Dashboard Administrativo
 - Página de dashboard ✅  
-- Visualização de:
+- Visualização de:  
   - Usuários  
   - Produtos  
   - Endereços  
@@ -71,10 +93,9 @@ O sistema possui diversas funcionalidades completas e outras em constante evolu�
 ---
 
 ## 🚀 Funcionalidades Planejadas / Em Desenvolvimento
-
-- Carrinho de compras  
+- Carrinho de compras completo  
 - Sistema de pedidos  
-- Finalização de compra  
+- Finalização de compra com validações no back-end  
 - Integração com meios de pagamento  
 - Controle de permissões (admin / usuário)  
 - Validações avançadas de formulários  
@@ -120,7 +141,8 @@ O projeto segue uma arquitetura organizada e escalável, baseada na separação 
 - **Controllers**: regras de negócio  
 - **Models**: comunicação com o banco de dados  
 - **Middlewares**: autenticação e proteção de rotas  
-- **Config**: variáveis de ambiente e conexão com o banco  
+- **Services**: camada de abstração para regras reutilizáveis  
+- **Utils**: funções auxiliares (criptografia, upload, etc.)  
 
 Essa estrutura facilita a manutenção, escalabilidade e evolução do sistema.
 
@@ -129,3 +151,8 @@ Essa estrutura facilita a manutenção, escalabilidade e evolução do sistema.
 ## 🎯 Objetivo do Projeto
 
 Este projeto tem como objetivo o **aprendizado prático**, o fortalecimento de conceitos de **Full Stack**, **segurança**, **autenticação**, **integração com banco de dados relacional** e a construção de um **e-commerce completo para portfólio profissional**.
+
+O sistema está sendo desenvolvido com foco em simular cenários reais de mercado, incluindo:  
+- Controle de estoque  
+- Processamento de pedidos  
+- Validações de dados no servidor  
