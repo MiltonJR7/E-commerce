@@ -3,6 +3,8 @@ import 'dotenv/config';
 import { Pool } from "pg";
 import ProductModel from "../models/productModel.js";
 import EstoqueModel from "../models/estoqueModel.js";
+import VendaShopModel from '../models/vendaShopModel.js';
+import ItensVendasModel from '../models/itensVendasModel.js';
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -50,6 +52,29 @@ export default class ProductService {
             await estoqueModel.alterarEstoque(client, dados, id);
 
             await client.query('COMMIT');
+        } catch(err) {
+            await client.query('ROLLBACK');
+            throw err;
+        } finally {
+            client.release();
+        }
+    }
+
+    async saveSaleWithItems(dados) {
+        const client = await pool.connect();
+
+        try {
+            await client.query('BEGIN');
+
+            const vendaShopModel = new VendaShopModel();
+            const itensVendasModel = new ItensVendasModel();
+
+            const venda = await vendaShopModel.registrarVenda(client, dados);
+            await itensVendasModel.registrarItensVendas(client, venda.venID, dados);
+
+            await client.query('COMMIT');
+
+            return venda.venID;
         } catch(err) {
             await client.query('ROLLBACK');
             throw err;

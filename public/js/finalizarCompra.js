@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnFinalizar = document.getElementById('btn-continue');
     const btnPagamento = document.getElementById('btn-pagamento');
     const btnVoltar = document.getElementById('btn-back');
+    const parts = window.location.pathname.split("/");
+    const idParams = Number(parts[parts.length - 1]);
 
     let id = null;
 
@@ -31,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         definirParcelas();
 
         btnPagamento.addEventListener('click', () => {
-            iniciarProcessoCompra();
+            enviarDadosBack();
         });
     }
 
@@ -140,6 +142,68 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
+    function successOrder() {
+        return new Promise((resolve) => {
+            const confirmation = document.createElement('div');
+
+            confirmation.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 9999;
+                    animation: fadeIn 0.3s ease-in;
+                ">
+                    <div style="
+                        background: white;
+                        padding: 2rem;
+                        border-radius: 12px;
+                        max-width: 400px;
+                        text-align: center;
+                        animation: slideInRight 0.4s ease-out;
+                    ">
+                        <div style="
+                            width: 60px;
+                            height: 60px;
+                            background: #88E788;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 1rem;
+                        ">
+                            <i class="bi bi-check-lg" style="color: white; font-size: 2rem;"></i>
+                        </div>
+
+                        <h3>Pedido realizado com sucesso!</h3>
+
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">
+                            Sua compra está sendo processada.
+                            Você pode acompanhar tudo na sua área do usuário.
+                        </p>
+
+                        <button class="btn btn-success" id="closeModal">
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(confirmation);
+            const btn = confirmation.querySelector('#closeModal');
+            btn.addEventListener('click', () => {
+                confirmation.remove();
+                resolve()
+            });
+        });
+    }
+
     function finishOrder() {
         const confirmation = document.createElement('div');
         confirmation.innerHTML = `
@@ -195,6 +259,61 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(confirmation);
     }
 
+    function errorOrder() {
+        const confirmation = document.createElement('div');
+        confirmation.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                animation: fadeIn 0.3s ease-in;
+            ">
+                <div style="
+                    background: white;
+                    padding: 2rem;
+                    border-radius: 12px;
+                    max-width: 400px;
+                    text-align: center;
+                    animation: slideInRight 0.4s ease-out;
+                ">
+                    <div style="
+                        width: 60px;
+                        height: 60px;
+                        background: #ef4444;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 1rem;
+                    ">
+                        <i class="bi bi-x-lg" style="color: white; font-size: 2rem;"></i>
+                    </div>
+
+                    <h3 style="color: #1f2937; margin-bottom: 0.5rem;">
+                        Pagamento estornado!
+                    </h3>
+
+                    <p style="color: #6b7280; margin-bottom: 1.5rem;">
+                        Ocorreu um erro ao processar sua solicitação.
+                        Tente novamente mais tarde.
+                    </p>
+
+                    <button class="btn btn-danger" onclick="this.closest('div').parentElement.remove()">
+                        Fechar
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(confirmation);
+    }
+
     function definirParcelas() {
         const parcelas = document.getElementById('parcelas');
         const carrinhoStorage = localStorage.getItem('carrinho');
@@ -212,90 +331,107 @@ document.addEventListener('DOMContentLoaded', () => {
         let frete = quantidadeTotal * 29.90;
         const precoComFrete = preco + frete;
 
+
+        let opcoes = "";
+
+        for(let i = 1; i < 13; i++) {
+            opcoes += 
+            `
+            <option value="${i}">${i}x de 
+                ${(precoComFrete/i).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                })}
+            sem juros</option>
+            `
+        }
+
         parcelas.innerHTML = `
-        <label class="form-label">Parcelas</label>
-        <select class="form-select" id="parcelas">
-            <option>1x de 
-                ${(precoComFrete).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>2x de 
-                ${(precoComFrete/2).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>3x de 
-                ${(precoComFrete/3).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>4x de 
-                ${(precoComFrete/4).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>5x de 
-                ${(precoComFrete/5).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>6x de 
-                ${(precoComFrete/6).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>7x de 
-                ${(precoComFrete/7).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>8x de 
-                ${(precoComFrete/8).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>9x de 
-                ${(precoComFrete/9).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>10x de 
-                ${(precoComFrete/10).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>11x de 
-                ${(precoComFrete/11).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-            <option>12x de 
-                ${(precoComFrete/12).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL"
-                })}
-            sem juros</option>
-        </select>
+            <label class="form-label">Parcelas</label>
+            <select class="form-select" id="parcelas">
+                ${opcoes}
+            </select>
         `
     }
 
     function goToPaymentStep() {
-        window.location.href = "/payment";
+        window.location.href = `/shop/payment/${idParams}`;
     }
 
     function goToCheckoutStep() {
-        window.location.href = "/checkout";
+        window.location.href = `/shop/checkout/${idParams}`;
+    }
+
+    function enviarDadosBack() {
+        const carrinhoStorage = localStorage.getItem('carrinho');
+        if (!carrinhoStorage) return;
+        let produtos = JSON.parse(carrinhoStorage);
+        const methods = document.querySelectorAll('.payment-method');
+        let methodPayment = "credit";
+        let verify = false;
+
+        methods.forEach(method => {
+            method.addEventListener('click', () => {
+                methodPayment = method.dataset.method;
+            });
+        });
+
+        if(methodPayment === "credit") verify = creditPayment();
+
+        if(verify === true) {
+            const payload = {
+                carrinho: produtos,
+                pagamento: methodPayment,
+                usuarioID: idParams
+            }
+            
+            fetch(`/shop/payment/${idParams}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then((res)=> {
+                return res.json();
+            })
+            .then(async (corpo)=> {
+                if(corpo.ok) {
+                    await successOrder();
+                    localStorage.clear();
+                    window.location.href = "/";
+                } else {
+                    errorOrder();
+                }
+            });
+        }
+    }
+
+    function creditPayment() {
+        const numero = document.getElementById('card-number');
+        const nome = document.getElementById('card-name');
+        const validade = document.getElementById('card-exp');
+        const cvv = document.getElementById('card-cvv');
+
+        const regexNome = /^[A-Za-zÀ-ÿ]+(?:\s+[A-Za-zÀ-ÿ]+)+$/;
+        const regexCard = /^\d{13,19}$/;
+        const regexValidade = /^(0[1-9]|1[0-2])\/\d{2}$/;
+        const regexCVV = /^\d{3,4}$/;
+        const numeroLimpo = numero.value.replace(/\D/g, '');
+        let listaValidar = [];
+
+        if (!regexNome.test(nome.value)) { listaValidar.push(nome); } else { nome.style.borderColor = "#E5E7EB"; }
+        if (!regexCard.test(numeroLimpo)) { listaValidar.push(numero); } else { numero.style.borderColor = "#E5E7EB"; }
+        if (!regexValidade.test(validade.value)) { listaValidar.push(validade); } else { validade.style.borderColor = "#E5E7EB"; }
+        if (!regexCVV.test(cvv.value)) { listaValidar.push(cvv); } else { cvv.style.borderColor = "#E5E7EB"; }
+
+        if(listaValidar.length == 0) {
+            return true;
+        } else {    
+            for(let i = 0; i < listaValidar.length; i++) {
+                listaValidar[i].style.borderColor = "rgba(253, 144, 144, 0.87)";
+            }
+            return false;
+        }
     }
 });

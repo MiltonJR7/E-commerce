@@ -12,9 +12,6 @@ const route = express.Router();
 
 route.get('/', authPublic, controller.homeView);
 route.get('/logout', auth, controllerUser.logout);
-route.get('/checkout', auth, controller.checkoutView);
-route.get('/payment', auth, controller.pagamentoView);
-route.get('/shopProduct/:id', authPublic, controller.shopProductView);
 route.get('/profile/:id', auth, controller.perfilView);
 
 route.put('/profile/:id', auth, upload.single('imagem'), controller.perfilAlterarDados);

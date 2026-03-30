@@ -146,50 +146,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const btnMais = e.target.closest('.btnMais');
             if (btnMais) {
-                carrinho.forEach((produtos, index) => {
-                    if (index !== -1 && produtos.quantidade +1 <= produtos.estoque) {
-                        produtos.quantidade += 1;
-                        salvarCarrinho(carrinho);
-                    }
-                })
-
+                const id = Number(btnMais.dataset.id);
+                const index = carrinho.findIndex(p => p.id === id);
+                if (index !== -1 && carrinho[index].quantidade + 1 <= carrinho[index].estoque) {
+                    carrinho[index].quantidade += 1;
+                    salvarCarrinho(carrinho);
+                }
                 return;
             }
 
             const btnMenos = e.target.closest('.btnMenos');
-
             if (btnMenos) {
-
-                carrinho.forEach((produtos, index)=> {
-                    if(index !== -1) {
-                        if(produtos.quantidade > 1) {
-                            carrinho[index].quantidade -= 1;
-                        } else {
-                            carrinho.splice(index, 1);
-                        }
-                        salvarCarrinho(carrinho);
+                const id = Number(btnMenos.dataset.id);
+                const index = carrinho.findIndex(p => p.id === id);
+                if (index !== -1) {
+                    if (carrinho[index].quantidade > 1) {
+                        carrinho[index].quantidade -= 1;
+                    } else {
+                        carrinho.splice(index, 1);
                     }
-                })
-
+                    salvarCarrinho(carrinho);
+                }
                 return;
             }
         });
 
         estrutura.addEventListener('change', (e) => {
             const input = e.target.closest('.carrinho-quantidade-input');
+            if (!input) return;
+
+            const id = Number(input.dataset.id);
             let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+            const index = carrinho.findIndex(p => p.id === id);
             const novaQtd = Number(input.value);
 
-            if (!input) return;
-            carrinho.forEach((produtos, index)=> {
-                if(index !== -1 && novaQtd > 0 && novaQtd <= produtos.estoque) {
-                    produtos.quantidade = novaQtd;
-                    salvarCarrinho(carrinho);
+            if (index !== -1) {
+                if (novaQtd > 0 && novaQtd <= carrinho[index].estoque) {
+                    carrinho[index].quantidade = novaQtd;
                 } else {
-                    produtos.quantidade = produtos.estoque;
-                    salvarCarrinho(carrinho);
+                    carrinho[index].quantidade = carrinho[index].estoque;
                 }
-            })
+
+                salvarCarrinho(carrinho);
+            }
         });
     }
 });

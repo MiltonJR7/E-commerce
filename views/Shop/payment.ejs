@@ -162,5 +162,16 @@
             stripLeadingZeroes: false
         });
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const methods = document.querySelectorAll('.payment-method');
+        methods.forEach(method => {
+            method.addEventListener('click', () => {
+                methods.forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+                const selectedMethod = method.dataset.method;
+            });
+        });
+    });
 </script>
 

@@ -177,7 +177,7 @@ export default class DashboardController {
             const banco = new ProductService();
             const proID = await banco.joinProductInStock(req.body, imagem);
             
-            res.status(201).json({
+            return res.status(201).json({
                 sucesso: true,
                 pro_id: proID,
                 ok: true

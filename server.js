@@ -10,6 +10,7 @@ import expressEjsLayouts from 'express-ejs-layouts';
 import UserRoute from './routes/perfilRouter.js';
 import DashboardRoute from './routes/dashboardRouter.js';
 import HomeRoute from './routes/homeRouter.js';
+import ShopRoute from './routes/shopRouter.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,6 +42,7 @@ app.get('/db', async (req, res) => {
 app.use('/', HomeRoute);
 app.use('/connect', UserRoute);
 app.use('/dashboard', DashboardRoute);
+app.use('/shop', ShopRoute);
 
 if (!process.env.VERCEL) {
   const port = process.env.PORT || 5000;
