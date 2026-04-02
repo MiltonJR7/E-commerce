@@ -25,8 +25,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
         const preco = precoLimpo.replace(/\./g, '').replace(',', '.');
         const regexNumeros = /^\d+$/
 
-        console.log(subcategoria.value)
-
         if (isSubmitting) return;
         isSubmitting = true;
         let validar = [];
@@ -40,8 +38,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
         if(estoque.value === "" || estoque.value < 0 || !regexNumeros.test(estoque.value)) { validar.push(estoque); } else { estoque.style.borderColor = "#D1D5DB"; }
         if(estoqueMin.value < 0 || !regexNumeros.test(estoqueMin.value)) { validar.push(estoqueMin); } else { estoqueMin.style.borderColor = "#D1D5DB"; }
 
-
-
         if(validar.length === 0) {
 
             const formData = new FormData();
@@ -52,7 +48,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
             formData.append("codigoBarras", codigoBarras.value);
             formData.append("status", status.value);
             formData.append("categoria", categoria.value);
-            formData.append("subcategoria", subcategoria.value);
             formData.append("estoque", estoque.value);
             formData.append("estoqueMin", estoqueMin.value);
             formData.append("subcategoria", subcategoria.value);

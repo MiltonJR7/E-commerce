@@ -101,6 +101,8 @@ export default class ProductModel {
             returning pro_id, pro_nome, pro_preco, pro_imagem, pro_status, cat_id
         `;
 
+        console.log(dados);
+
         const values = [ 
             dados.nome,
             dados.descricao,
