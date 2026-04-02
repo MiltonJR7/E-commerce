@@ -3,7 +3,6 @@ import JWT from 'jsonwebtoken';
 
 export default function auth(req, res, next) {
     const token = req.cookies.token;
-    
     if(!token) return res.status(201).redirect('/connect/login');
 
     try {   
@@ -12,7 +11,7 @@ export default function auth(req, res, next) {
 
         return next();
     } catch(err) {
-        return res.status(401).redirect('/login');
+        return res.status(401).redirect('/connect/login');
     }
 }
 

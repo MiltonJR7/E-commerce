@@ -66,11 +66,17 @@
                                 <i class="bi bi-arrow-left"></i>
                                 Continuar Comprando
                             </button>
-
-                            <a href="/shop/checkout/<%= user %>" class="carrinho-acao carrinho-finalizar" id="finalizarCompra">
-                                <i class="bi bi-check-circle"></i>
-                                Finalizar Compra
-                            </a>
+                            <% if(user !== null) { %>
+                                <a href="/shop/checkout/<%= user %>" class="carrinho-acao carrinho-finalizar" id="finalizarCompra">
+                                    <i class="bi bi-check-circle"></i>
+                                    Finalizar Compra
+                                </a>
+                            <% } else { %>
+                                <a href="/connect/login" class="carrinho-acao carrinho-finalizar">
+                                    <i class="bi bi-check-circle"></i>
+                                    Finalizar Compra
+                                </a>
+                            <% } %> 
                         </div>
                     </div>
                     <button class="header-icon">
