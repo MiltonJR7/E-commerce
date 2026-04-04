@@ -69,4 +69,52 @@ export default class EstoqueModel {
 
         await client.query(sql, values);
     }
+
+    async descontarEstoque(client, dados) {
+        let values = [];
+
+        for (let i = 0; i < dados.carrinho.length; i++) {
+            values.push(
+                Number(dados.carrinho[i].id),
+                Number(dados.carrinho[i].quantidade)
+            );
+        }
+
+        const sql = `
+            UPDATE tb_estoque
+            SET est_quantidade = est_quantidade - COALESCE(
+                CASE pro_id
+                    ${dados.carrinho.map((_, i) => 
+                        `WHEN $${i*2+1} THEN $${i*2+2}::int`
+                    ).join(' ')}
+                END,
+            0)
+            WHERE pro_id IN (${dados.carrinho.map((_, i) => `$${i*2+1}`).join(', ')})
+        `;
+
+        await client.query(sql, values);
+    }
+
+    async dadosEstoqueCarrinho(client, dados) {
+        let values = [];
+
+        for(let i = 0; i < dados.carrinho.length; i++) {
+            values.push(
+                dados.carrinho[i].id
+            );
+        }
+
+        const sql = `
+            SELECT  * FROM 
+                tb_estoque
+            WHERE
+                pro_id IN (${dados.carrinho.map((_, i) => `$${i+1}`).join(', ')})
+        `;
+
+        const result = await client.query(sql, values);
+        const rows = result.rows;
+
+        if(!rows) return null;
+        return rows;
+    }
 } 

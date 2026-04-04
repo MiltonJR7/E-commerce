@@ -204,5 +204,28 @@ export default class ProductModel {
        
         await client.query(sql, values);
     }
+
+    async dadosProdutosCarrinho(client, dados) {
+        let values = [];
+
+        for(let i = 0; i < dados.carrinho.length; i++) {
+            values.push(
+                dados.carrinho[i].id
+            );
+        }
+
+        const sql = `
+            SELECT * FROM 
+                tb_produto 
+            WHERE 
+                pro_id IN (${dados.carrinho.map((_, i) => `$${i+1}`).join(', ')})
+        `;
+
+        const result = await client.query(sql, values);
+        const rows = result.rows;
+
+        if(!rows) return null;
+        return rows;
+    }
 }
 

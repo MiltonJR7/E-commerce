@@ -68,12 +68,44 @@ export default class ProductService {
 
             const vendaShopModel = new VendaShopModel();
             const itensVendasModel = new ItensVendasModel();
+            const estoqueModel = new EstoqueModel();
+            const productModel = new ProductModel();
+
+            const products = await productModel.dadosProdutosCarrinho(client, dados);
+            const estoque = await estoqueModel.dadosEstoqueCarrinho(client, dados);
+            
+            if(!products || !estoque) {
+                throw new Error('Erro na validação da compra');
+            };
+
+            const carrinhoMap = new Map(
+                dados.carrinho.map(item => [item.id, item])
+            );
+
+            const estoqueMap = new Map(
+                estoque.map(item => [item.pro_id, item])
+            );
 
             const venda = await vendaShopModel.registrarVenda(client, dados);
+            for(const item of products) {
+                const carrinhoItens = carrinhoMap.get(item.pro_id);
+                const estoqueItens = estoqueMap.get(item.pro_id);
+
+                if(!carrinhoItens) {
+                    throw new Error(`Produto ${item.pro_id} não encontrado no carrinho`);
+                }
+                if(Number(carrinhoItens.preco) !== Number(item.pro_preco)) {
+                    throw new Error(`Preço divergente no produto ${item.pro_id}`);
+                }
+                if(!estoqueItens || estoqueItens.est_quantidade < carrinhoItens.quantidade) {
+                    throw new Error(`Estoque insuficiente para produto ${item.pro_id}`);
+                }
+            }
+
             await itensVendasModel.registrarItensVendas(client, venda.venID, dados);
+            await estoqueModel.descontarEstoque(client, dados);
 
             await client.query('COMMIT');
-
             return venda.venID;
         } catch(err) {
             await client.query('ROLLBACK');
