@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function finishOrder() {
+    async function finishOrder() {
         const confirmation = document.createElement('div');
         confirmation.innerHTML = `
             <div style="
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(confirmation);
     }
 
-    function errorOrder() {
+    async function errorOrder() {
         const confirmation = document.createElement('div');
         confirmation.innerHTML = `
             <div style="
