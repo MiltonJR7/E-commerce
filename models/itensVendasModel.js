@@ -48,4 +48,37 @@ export default class ItensVendasModel {
         `;
         await client.query(sql, values);
     }
+
+    async listarVendas(id) {
+        const client = await pool.connect();
+
+        try {
+            const sql = `
+                SELECT 
+                    iv.itv_quantidade,
+                    iv.ven_id,
+                    v.ven_data,
+                    v.ven_valor,
+                    v.ven_forma_pagamento,
+                    v.ven_status,
+                    v.usu_id
+                FROM 
+                    tb_item_venda AS iv
+                INNER JOIN
+                    tb_venda AS v
+                ON
+                    iv.ven_id = v.ven_id
+                WHERE
+                    v.usu_id = $1
+            `;
+
+            const rows = await client.query(sql, [id]);
+            const result = rows.rows;
+            
+            if(result) return result;
+            return null;
+        } finally {
+            client.release();
+        }
+    }
 }

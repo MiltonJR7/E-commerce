@@ -129,8 +129,10 @@
                         </div>
                     </div>
 
-                    <!-- Right Column - Edit Form -->
+                    <!-- Right Column -->
                     <div class="col-lg-8">
+
+                        <!-- Edit Form -->
                         <div class="edit-card">
                             <h2 class="section-title">Editar Informações</h2>
                             <div id="formAlterar" class="edit-form">
@@ -276,6 +278,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="addresses-list">
                             <h2 class="section-title">Endereços Cadastrados</h2>
 
@@ -390,11 +393,97 @@
                                             </div>
                                         </div>
                                     </div>
+                                    </div>
                                 <% } %>
                             <% }) %>
                         </div>
+
+                    </div><!-- end col-lg-8 -->
+                </div><!-- end row two-columns -->
+
+                <!-- Full Width - Orders Section -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="orders-section">
+                            <div class="orders-header">
+                                <div class="orders-header-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                        <line x1="3" y1="6" x2="21" y2="6"/>
+                                        <path d="M16 10a4 4 0 0 1-8 0"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h2 class="orders-title">Meus Pedidos</h2>
+                                    <p class="orders-subtitle">Acompanhe e consulte suas compras</p>
+                                </div>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="orders-tabs">
+                                <button class="orders-tab active" data-tab="historico">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="9 11 12 14 22 4"/>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                                    </svg>
+                                    Histórico
+                                </button>
+                            </div>
+
+                            <!-- Tab: Histórico -->
+                            <div class="orders-tab-content active" id="tab-historico">
+                                <% if(listaPedidos.length === 0) { %>
+                                    <div class="orders-empty">
+                                        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <polyline points="9 11 12 14 22 4"/>
+                                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                                        </svg>
+                                        <h3>Nenhuma compra finalizada ainda</h3>
+                                        <p>Seus pedidos entregues e cancelados aparecerão aqui.</p>
+                                    </div>
+                                <% } else { %>
+                                    <div class="orders-grid">
+                                    <% listaPedidos.forEach(pedido => { %>
+                                        <div class="order-card order-card--history">
+                                            <div class="order-card-header">
+                                                <div class="order-id-group">
+                                                    <span class="order-label">Pedido</span>
+                                                    <span class="order-id">#<%= pedido.ven_id %></span>
+                                                </div>
+                                                <span class="order-status-badge status-<%= pedido.ped_status %>">
+                                                    <span class="status-dot"></span>
+                                                    <%= pedido.ven_status %>
+                                                </span>
+                                            </div>
+                                            <div class="order-card-body">
+                                                <div class="order-meta">
+                                                    <div class="order-meta-item">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                                            <line x1="16" y1="2" x2="16" y2="6"/>
+                                                            <line x1="8" y1="2" x2="8" y2="6"/>
+                                                            <line x1="3" y1="10" x2="21" y2="10"/>
+                                                        </svg>
+                                                        <span><%= pedido.ven_data %></span>
+                                                    </div>
+                                                    <div class="order-meta-item">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                            <line x1="12" y1="1" x2="12" y2="23"/>
+                                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                                        </svg>
+                                                        <span class="order-value">R$ <%= pedido.ven_valor %></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% }) %>
+                                    </div><!-- end orders-grid -->
+                                <% } %>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </div><!-- end full-width orders row -->
+
             </div>
         </div>
     </div>
@@ -402,6 +491,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        // Toggle endereço form
         const btnToggleEndereco = document.getElementById("btnToggleEndereco");
         const formContainer = document.getElementById("formEnderecoContainer");
 
@@ -412,20 +502,19 @@
             });
         }
 
+        // Troca de foto
         const inputFoto = document.getElementById("inputFoto");
         const imgPerfil = document.getElementById("imgPerfil");
 
         if (inputFoto && imgPerfil) {
             inputFoto.addEventListener("change", function () {
-
                 const file = this.files[0];
                 if (!file) return;
-
                 imgPerfil.src = URL.createObjectURL(file);
-
             });
         }
 
+        // Toggle detalhes endereço
         document.addEventListener("click", function (e) {
             const button = e.target.closest(".btn-toggle-details");
             if (!button) return;
@@ -449,13 +538,30 @@
                 button.classList.add("active");
             }
         });
+
+        // Tabs de pedidos
+        const tabs = document.querySelectorAll(".orders-tab");
+        const tabContents = document.querySelectorAll(".orders-tab-content");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", function () {
+                const target = this.dataset.tab;
+
+                tabs.forEach(t => t.classList.remove("active"));
+                tabContents.forEach(c => c.classList.remove("active"));
+
+                this.classList.add("active");
+                const content = document.getElementById("tab-" + target);
+                if (content) content.classList.add("active");
+            });
+        });
     });
 
+    // Edit/cancel endereço
     document.querySelectorAll(".edit-addr-toggle").forEach(btn => {
         btn.addEventListener("click", () => {
             const id = btn.dataset.edit;
             const container = document.getElementById("edit-" + id);
-
             container.classList.toggle("active");
         });
     });
@@ -464,7 +570,6 @@
         btn.addEventListener("click", () => {
             const id = btn.dataset.cancel;
             const container = document.getElementById("edit-" + id);
-
             container.classList.remove("active");
         });
     });

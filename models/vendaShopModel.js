@@ -44,6 +44,7 @@ export default class VendaShopModel {
 
         for(let i = 0; i < dados.carrinho.length; i++) {
             somar += dados.carrinho[i].preco * dados.carrinho[i].quantidade;
+            somar += 29.99 * dados.carrinho[i].quantidade;
         }
 
         const values = [
