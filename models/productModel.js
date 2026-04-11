@@ -227,5 +227,41 @@ export default class ProductModel {
         if(!rows) return null;
         return rows;
     }
+
+    async listarProdutosPorCategoria(id) {
+        const client = await pool.connect();
+
+        try {
+            const sql = `
+                select 
+                    tb_produto.pro_id,
+                    tb_produto.pro_nome,
+                    tb_produto.pro_descricao,
+                    tb_produto.pro_preco,
+                    tb_produto.pro_imagem,
+                    tb_produto.pro_codigo_barras,
+                    tb_produto.pro_status,
+                    tb_produto.pro_data_cadastro,
+                    tb_produto.cat_id,
+                    tb_categoria.cat_nome,
+                    tb_subcategoria.sub_nome
+                from tb_produto
+                inner join
+                    tb_categoria on tb_produto.cat_id = tb_categoria.cat_id
+                inner join
+                    tb_subcategoria on tb_produto.sub_id = tb_subcategoria.sub_id
+                where 
+                    tb_produto.cat_id = $1
+            `;
+
+            const rows = await client.query(sql, [id]);
+            const listaProdutos = rows.rows;
+ 
+            if(listaProdutos) return listaProdutos;
+            return null;
+        } finally {
+
+        }
+    }
 }
 

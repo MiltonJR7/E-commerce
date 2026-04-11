@@ -1,0 +1,324 @@
+<link rel="stylesheet" href="/css/listing.css">
+
+<div class="listing-page">
+    <div class="container">
+
+        <!-- Breadcrumb -->
+        <nav class="listing-breadcrumb" aria-label="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i></a>
+            <span class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+            <% if (typeof catNome !== "undefined" && catNome) { %>
+                <a href="#"><%= catNome %></a>
+                <span class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+            <% } %>
+            <span class="breadcrumb-current"><%= pageTitle %></span>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="listing-header">
+            <div class="listing-header-info">
+                <h1 class="listing-title"><%= pageTitle %></h1>
+                <p class="listing-count">
+                    <span id="totalCount"><%= listaProduct.length %></span> produto<%= listaProduct.length !== 1 ? 's' : '' %> encontrado<%= listaProduct.length !== 1 ? 's' : '' %>
+                </p>
+            </div>
+
+            <div class="listing-controls">
+                <!-- Ordenação -->
+                <div class="sort-control">
+                    <label for="sortSelect"><i class="fas fa-sort"></i></label>
+                    <select id="sortSelect" onchange="sortProducts(this.value)">
+                        <option value="relevance">Relevância</option>
+                        <option value="price-asc">Menor preço</option>
+                        <option value="price-desc">Maior preço</option>
+                        <option value="name-asc">A - Z</option>
+                        <option value="name-desc">Z - A</option>
+                    </select>
+                </div>
+
+                <!-- Toggle de layout -->
+                <div class="layout-toggle">
+                    <button class="layout-btn active" id="btnGrid" onclick="setLayout('grid')" title="Grade">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="layout-btn" id="btnList" onclick="setLayout('list')" title="Lista">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="listing-layout">
+
+            <!-- Sidebar de Filtros -->
+            <aside class="listing-sidebar">
+                <div class="filter-header">
+                    <h3><i class="fas fa-sliders-h"></i> Filtros</h3>
+                    <button class="btn-clear-filters" onclick="clearFilters()">Limpar</button>
+                </div>
+
+                <!-- Filtro de Preço -->
+                <div class="filter-group">
+                    <button class="filter-group-toggle active" onclick="toggleFilter(this)">
+                        <span>Preço</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="filter-group-body show">
+                        <div class="price-range">
+                            <div class="price-inputs">
+                                <div class="price-input-group">
+                                    <label>Mín.</label>
+                                    <input type="number" id="priceMin" placeholder="R$ 0" min="0" oninput="filterProducts()">
+                                </div>
+                                <span class="price-sep">—</span>
+                                <div class="price-input-group">
+                                    <label>Máx.</label>
+                                    <input type="number" id="priceMax" placeholder="R$ 9999" min="0" oninput="filterProducts()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtro por Subcategoria (se existir) -->
+                <% if (typeof listaSubcategorias !== "undefined" && listaSubcategorias.length > 0) { %>
+                <div class="filter-group">
+                    <button class="filter-group-toggle active" onclick="toggleFilter(this)">
+                        <span>Subcategoria</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="filter-group-body show">
+                        <% listaSubcategorias.forEach(sub => { %>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="<%= sub.subNome %>" onchange="filterProducts()">
+                                <span class="checkmark"></span>
+                                <span class="filter-label"><%= sub.subNome %></span>
+                            </label>
+                        <% }) %>
+                    </div>
+                </div>
+                <% } %>
+
+                <!-- Filtro por Marca (se existir) -->
+                <% if (typeof listaMarcas !== "undefined" && listaMarcas.length > 0) { %>
+                <div class="filter-group">
+                    <button class="filter-group-toggle active" onclick="toggleFilter(this)">
+                        <span>Marca</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="filter-group-body show">
+                        <% listaMarcas.forEach(marca => { %>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="<%= marca.marNome %>" onchange="filterProducts()">
+                                <span class="checkmark"></span>
+                                <span class="filter-label"><%= marca.marNome %></span>
+                            </label>
+                        <% }) %>
+                    </div>
+                </div>
+                <% } %>
+
+                <!-- Botão mobile de fechar filtros -->
+                <button class="btn-apply-filters" onclick="closeMobileFilters()">
+                    Ver resultados
+                </button>
+            </aside>
+
+            <!-- Conteúdo principal -->
+            <div class="listing-content">
+
+                <!-- Filtros ativos -->
+                <div class="active-filters" id="activeFilters" style="display:none;">
+                    <span class="active-filters-label">Filtros ativos:</span>
+                    <div class="active-filters-tags" id="activeFiltersTags"></div>
+                </div>
+
+                <!-- Botão mobile de filtro -->
+                <button class="btn-mobile-filter" onclick="openMobileFilters()">
+                    <i class="fas fa-sliders-h"></i>
+                    Filtros
+                    <span class="filter-count-badge" id="filterBadge" style="display:none;">0</span>
+                </button>
+
+                <!-- Grid de produtos -->
+                <div class="products-grid" id="productsGrid">
+                    <% listaProduct.forEach((produto) => { %>
+                        <div class="listing-card"
+                             data-name="<%= produto.proNome.toLowerCase() %>"
+                             data-price="<%= produto.proPreco %>"
+                             data-sub="<%= produto.subNome || '' %>"
+                             data-marca="<%= produto.marNome || '' %>">
+
+                            <a href="/shop/shopProduct/<%= produto.proID %>" class="listing-card-link">
+                                <div class="listing-card-image">
+                                    <img src="<%= produto.proImagem %>" alt="<%= produto.proNome %>" loading="lazy">
+                                    <% if (produto.proDesconto && produto.proDesconto > 0) { %>
+                                        <span class="listing-badge badge-discount">-<%= produto.proDesconto %>%</span>
+                                    <% } %>
+                                    <% if (produto.proNovo) { %>
+                                        <span class="listing-badge badge-new">Novo</span>
+                                    <% } %>
+                                </div>
+
+                                <div class="listing-card-body">
+                                    <% if (produto.marNome) { %>
+                                        <span class="listing-card-brand"><%= produto.marNome %></span>
+                                    <% } %>
+                                    <h3 class="listing-card-name"><%= produto.proNome %></h3>
+
+                                    <div class="listing-card-pricing">
+                                        <span class="listing-card-price">
+                                            <%= Number(produto.proPreco).toLocaleString("pt-BR", {
+                                                style: "currency",
+                                                currency: "BRL"
+                                            }) %>
+                                        </span>
+                                        <span class="listing-card-installment">
+                                            ou 12x de
+                                            <%= Number(produto.proPreco / 12).toLocaleString("pt-BR", {
+                                                style: "currency",
+                                                currency: "BRL"
+                                            }) %>
+                                            sem juros
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="listing-card-footer">
+                                <a href="/shop/shopProduct/<%= produto.proID %>" class="btn-buy">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Comprar
+                                </a>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+
+                <!-- Estado vazio (exibido via JS quando filtro não retorna nada) -->
+                <div class="listing-empty" id="listingEmpty" style="display:none;">
+                    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                        <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+                    </svg>
+                    <h3>Nenhum produto encontrado</h3>
+                    <p>Tente remover ou ajustar os filtros aplicados.</p>
+                    <button class="btn-clear-filters-empty" onclick="clearFilters()">Limpar filtros</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay mobile filtros -->
+<div class="filter-overlay" id="filterOverlay" onclick="closeMobileFilters()"></div>
+
+<script>
+    // ---- Layout toggle ----
+    function setLayout(type) {
+        const grid = document.getElementById('productsGrid');
+        const btnGrid = document.getElementById('btnGrid');
+        const btnList = document.getElementById('btnList');
+
+        if (type === 'list') {
+            grid.classList.add('layout-list');
+            btnList.classList.add('active');
+            btnGrid.classList.remove('active');
+        } else {
+            grid.classList.remove('layout-list');
+            btnGrid.classList.add('active');
+            btnList.classList.remove('active');
+        }
+    }
+
+    // ---- Filtros móvel ----
+    function openMobileFilters() {
+        document.querySelector('.listing-sidebar').classList.add('mobile-open');
+        document.getElementById('filterOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileFilters() {
+        document.querySelector('.listing-sidebar').classList.remove('mobile-open');
+        document.getElementById('filterOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // ---- Toggle grupo de filtro ----
+    function toggleFilter(btn) {
+        const body = btn.nextElementSibling;
+        const isOpen = body.classList.contains('show');
+        body.classList.toggle('show');
+        btn.classList.toggle('active');
+    }
+
+    // ---- Limpar filtros ----
+    function clearFilters() {
+        document.querySelectorAll('.filter-checkbox input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.getElementById('priceMin').value = '';
+        document.getElementById('priceMax').value = '';
+        filterProducts();
+    }
+
+    // ---- Filtrar ----
+    function filterProducts() {
+        const cards = document.querySelectorAll('.listing-card');
+        const priceMin = parseFloat(document.getElementById('priceMin').value) || 0;
+        const priceMax = parseFloat(document.getElementById('priceMax').value) || Infinity;
+
+        const checkedSubs = [...document.querySelectorAll('.filter-checkbox input[type="checkbox"][value]:checked')]
+            .filter(cb => cb.closest('.filter-group-body'))
+            .map(cb => cb.value.toLowerCase());
+
+        let visible = 0;
+        cards.forEach(card => {
+            const price = parseFloat(card.dataset.price);
+            const sub = (card.dataset.sub || '').toLowerCase();
+            const marca = (card.dataset.marca || '').toLowerCase();
+
+            const passPrice = price >= priceMin && price <= priceMax;
+            const passSub = checkedSubs.length === 0 || checkedSubs.includes(sub) || checkedSubs.includes(marca);
+
+            if (passPrice && passSub) {
+                card.style.display = '';
+                visible++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        document.getElementById('totalCount').textContent = visible;
+        document.getElementById('listingEmpty').style.display = visible === 0 ? 'flex' : 'none';
+        document.getElementById('productsGrid').style.display = visible === 0 ? 'none' : '';
+
+        // Badge de filtros ativos
+        const activeCount = document.querySelectorAll('.filter-checkbox input:checked').length
+            + (priceMin > 0 ? 1 : 0) + (priceMax < Infinity ? 1 : 0);
+        const badge = document.getElementById('filterBadge');
+        badge.style.display = activeCount > 0 ? 'flex' : 'none';
+        badge.textContent = activeCount;
+    }
+
+    // ---- Ordenar ----
+    function sortProducts(value) {
+        const grid = document.getElementById('productsGrid');
+        const cards = [...grid.querySelectorAll('.listing-card')];
+
+        cards.sort((a, b) => {
+            const pa = parseFloat(a.dataset.price);
+            const pb = parseFloat(b.dataset.price);
+            const na = a.dataset.name;
+            const nb = b.dataset.name;
+
+            if (value === 'price-asc') return pa - pb;
+            if (value === 'price-desc') return pb - pa;
+            if (value === 'name-asc') return na.localeCompare(nb);
+            if (value === 'name-desc') return nb.localeCompare(na);
+            return 0;
+        });
+
+        cards.forEach(card => grid.appendChild(card));
+    }
+</script>

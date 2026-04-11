@@ -44,10 +44,7 @@ export default class HomeController {
 
     async perfilAddress(req, res) {
         let id = null;
-        let perID = null;
-
         if(req.user) id = req.user.id; 
-        if(req.user) perID = req.user.perID;
 
         const banco = new UserModel();
         const lista = await banco.listarUsuarioPeloID(id);
@@ -138,6 +135,24 @@ export default class HomeController {
         } catch(err) {
             console.log(err);
             return res.status(500).json({ message: "Erro na requisção!", ok: false});
+        }
+    }
+
+    async categoriaView(req, res) {
+        try {
+            let id = null;
+            let perID = null;
+
+            if(req.user) id = req.user.id; 
+            if(req.user) perID = req.user.perID;
+
+            const banco = new ProductModel();
+            const listaProduct = await banco.listarProdutos();
+
+            return res.status(200).render('Categorias/listingPage.ejs', { pageTitle: "Categorias", listaProduct: listaProduct, user: id, perID: perID });
+        } catch(err) {
+            console.log(err);
+            return res.status(500).json({ message: "Erro na requisção!" });
         }
     }
 }
