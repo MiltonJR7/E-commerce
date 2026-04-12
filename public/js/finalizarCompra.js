@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnVoltar = document.getElementById('btn-back');
     const parts = window.location.pathname.split("/");
     const idParams = Number(parts[parts.length - 1]);
-
     let id = null;
 
     if (btnFinalizar) {
@@ -44,10 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function iniciarProcessoCompra() {
-        if (id) {
-            goToPaymentStep();
-        } else {
+        const carrinhoValid = JSON.parse(localStorage.getItem('carrinho'));
+
+        if (!id || !carrinhoValid || carrinhoValid.length === 0) {
             finishOrder();
+        } else {
+            goToPaymentStep();
         }
     }
 
@@ -207,52 +208,34 @@ document.addEventListener('DOMContentLoaded', () => {
     async function finishOrder() {
         const confirmation = document.createElement('div');
         confirmation.innerHTML = `
-            <div style="
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.5);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 9999;
-                animation: fadeIn 0.3s ease-in;
-            ">
-                <div style="
-                    background: white;
-                    padding: 2rem;
-                    border-radius: 12px;
-                    max-width: 400px;
-                    text-align: center;
-                    animation: slideInRight 0.4s ease-out;
-                ">
-                    <div style="
-                        width: 60px;
-                        height: 60px;
-                        background: #ef4444;
-                        border-radius: 50%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        margin: 0 auto 1rem;
-                    ">
-                        <i class="bi bi-x-lg" style="color: white; font-size: 2rem;"></i>
+            <div class="modal-overlay">
+                <div class="modal-box">
+
+                    <div class="modal-icon">
+                        <i class="bi bi-x-lg"></i>
                     </div>
 
-                    <h3 style="color: #1f2937; margin-bottom: 0.5rem;">
-                        Necessario um endereço!
-                    </h3>
+                    <h2 class="modal-title">
+                        Ação não permitida
+                    </h2>
 
-                    <p style="color: #6b7280; margin-bottom: 1.5rem;">
-                        Ocorreu um erro ao processar sua solicitação.
-                        Adicione um endereco para continuar.
+                    <p class="modal-text">
+                        Para continuar, você precisa:
                     </p>
 
-                    <button class="btn btn-danger" onclick="this.closest('div').parentElement.remove()">
+                    <ul class="modal-list">
+                        <li>Adicionar um endereço</li>
+                        <li>Ter produtos no carrinho</li>
+                    </ul>
+
+                    <p class="modal-subtext">
+                        Verifique os dados e tente novamente.
+                    </p>
+
+                    <button class="modal-button" onclick="this.closest('.modal-overlay').remove()">
                         Fechar
                     </button>
+
                 </div>
             </div>
         `;

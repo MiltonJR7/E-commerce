@@ -1,7 +1,9 @@
 
-            
 <link rel="stylesheet" href="/css/finalizarCompra.css">
+
 <main class="container py-4">
+
+    <!-- Step Indicator -->
     <div class="step-indicator mb-5">
         <div class="step-item">
             <div class="step-circle completed">
@@ -9,17 +11,19 @@
             </div>
             <span class="step-label">Carrinho</span>
         </div>
-        <div class="step-arrow">→</div>
+        <div class="step-line completed"></div>
         <div class="step-item">
-            <div class="step-circle active">2</div>
+            <div class="step-circle completed">
+                <i class="bi bi-check-lg"></i>
+            </div>
             <span class="step-label">Endereço</span>
         </div>
-        <div class="step-arrow">→</div>
+        <div class="step-line active"></div>
         <div class="step-item">
-            <div class="step-circle">3</div>
+            <div class="step-circle active">3</div>
             <span class="step-label">Pagamento</span>
         </div>
-        <div class="step-arrow">→</div>
+        <div class="step-line"></div>
         <div class="step-item">
             <div class="step-circle">4</div>
             <span class="step-label">Confirmação</span>
@@ -27,113 +31,341 @@
     </div>
 
     <div id="step-content" class="row g-4">
+
+        <!-- Coluna principal -->
         <div class="col-lg-8">
             <section id="payment-section">
                 <h2 class="section-title mb-4">Forma de pagamento</h2>
 
+                <!-- Métodos de pagamento -->
                 <div class="payment-methods mb-4">
+
+                    <!-- Cartão de Crédito -->
                     <div class="payment-method selected" data-method="credit">
-                        <div class="d-flex align-items-center gap-3">
+                        <div class="payment-method-header">
                             <div class="payment-radio">
                                 <div class="payment-radio-inner"></div>
                             </div>
-                            <i class="bi bi-credit-card payment-icon"></i>
+                            <div class="payment-method-icon-wrap credit">
+                                <i class="bi bi-credit-card-2-front"></i>
+                            </div>
                             <div class="flex-fill">
                                 <h4 class="payment-name">Cartão de Crédito</h4>
                                 <p class="payment-description">Em até 12x sem juros</p>
                             </div>
+                            <div class="payment-brands">
+                                <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/visa.svg" alt="Visa" title="Visa">
+                                <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/mastercard.svg" alt="Mastercard" title="Mastercard">
+                                <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/amex.svg" alt="Amex" title="American Express">
+                                <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/elo.svg" alt="Elo" title="Elo">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="payment-method" data-method="pix">
-                        <div class="d-flex align-items-center gap-3">
+                    <!-- Cartão de Débito -->
+                    <div class="payment-method" data-method="debit">
+                        <div class="payment-method-header">
                             <div class="payment-radio">
                                 <div class="payment-radio-inner"></div>
                             </div>
-                            <i class="bi bi-qr-code payment-icon"></i>
+                            <div class="payment-method-icon-wrap debit">
+                                <i class="bi bi-credit-card"></i>
+                            </div>
+                            <div class="flex-fill">
+                                <h4 class="payment-name">Cartão de Débito</h4>
+                                <p class="payment-description">Débito à vista na sua conta</p>
+                            </div>
+                            <div class="payment-brands">
+                                <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/visa.svg" alt="Visa" title="Visa Débito">
+                                <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/mastercard.svg" alt="Mastercard" title="Mastercard Débito">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PIX -->
+                    <div class="payment-method" data-method="pix">
+                        <div class="payment-method-header">
+                            <div class="payment-radio">
+                                <div class="payment-radio-inner"></div>
+                            </div>
+                            <div class="payment-method-icon-wrap pix">
+                                <i class="bi bi-qr-code"></i>
+                            </div>
                             <div class="flex-fill">
                                 <h4 class="payment-name">PIX</h4>
-                                <p class="payment-description">Aprovação instantânea</p>
+                                <p class="payment-description">Aprovação instantânea • 24h por dia</p>
                             </div>
+                            <span class="payment-tag tag-instant">Instantâneo</span>
                         </div>
                     </div>
 
+                    <!-- Boleto Bancário -->
                     <div class="payment-method" data-method="boleto">
-                        <div class="d-flex align-items-center gap-3">
+                        <div class="payment-method-header">
                             <div class="payment-radio">
                                 <div class="payment-radio-inner"></div>
                             </div>
-                            <i class="bi bi-file-earmark-text payment-icon"></i>
+                            <div class="payment-method-icon-wrap boleto">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
                             <div class="flex-fill">
                                 <h4 class="payment-name">Boleto Bancário</h4>
-                                <p class="payment-description">Vencimento em 3 dias</p>
+                                <p class="payment-description">Vencimento em 3 dias úteis</p>
+                            </div>
+                            <span class="payment-tag tag-boleto">3 dias</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ==============================
+                     PAINEL: CARTÃO (crédito/débito)
+                     ============================== -->
+                <div id="panel-credit" class="payment-panel active">
+
+                    <!-- Preview visual do cartão -->
+                    <div class="card-visual-wrapper mb-4">
+                        <div class="card-visual" id="cardVisual">
+                            <div class="card-visual-top">
+                                <div class="card-chip">
+                                    <div class="chip-line"></div>
+                                    <div class="chip-line"></div>
+                                    <div class="chip-line"></div>
+                                </div>
+                                <span class="card-visual-brand" id="cardBrandDisplay">
+                                    <i class="bi bi-credit-card-2-front"></i>
+                                </span>
+                            </div>
+                            <div class="card-visual-number" id="cardNumberDisplay">
+                                0000 0000 0000 0000
+                            </div>
+                            <div class="card-visual-bottom">
+                                <div>
+                                    <div class="card-visual-label">Nome</div>
+                                    <div class="card-visual-value" id="cardNameDisplay">SEU NOME</div>
+                                </div>
+                                <div>
+                                    <div class="card-visual-label">Validade</div>
+                                    <div class="card-visual-value" id="cardExpDisplay">MM/AA</div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="payment-method" data-method="wallet">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="payment-radio">
-                                <div class="payment-radio-inner"></div>
+                    <!-- Formulário do cartão -->
+                    <div class="checkout-card p-4 mb-4">
+                        <h3 class="payment-details-title mb-4">Dados do cartão</h3>
+
+                        <div class="mb-3">
+                            <label class="form-label">Número do cartão</label>
+                            <div class="input-with-icon">
+                                <i class="bi bi-credit-card input-icon"></i>
+                                <input id="card-number" type="text" class="form-control ps-5" placeholder="0000 0000 0000 0000">
+                                <span class="card-flag-icon" id="cardFlag"></span>
                             </div>
-                            <i class="bi bi-wallet2 payment-icon"></i>
-                            <div class="flex-fill">
-                                <h4 class="payment-name">Carteira Digital</h4>
-                                <p class="payment-description">PayPal, PicPay, Mercado Pago</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nome impresso no cartão</label>
+                            <div class="input-with-icon">
+                                <i class="bi bi-person input-icon"></i>
+                                <input id="card-name" type="text" class="form-control ps-5" placeholder="João Silva" oninput="updateCardName(this.value)">
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Validade</label>
+                                <div class="input-with-icon">
+                                    <i class="bi bi-calendar3 input-icon"></i>
+                                    <input id="card-exp" type="text" class="form-control ps-5" placeholder="MM/AA" oninput="updateCardExp(this.value)">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    CVV
+                                    <span class="cvv-tip" title="3 dígitos no verso do cartão (4 dígitos para Amex)">
+                                        <i class="bi bi-question-circle"></i>
+                                    </span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="bi bi-lock input-icon"></i>
+                                    <input id="card-cvv" type="text" class="form-control ps-5" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3" id="parcelas">
+                            <!-- Lógica de parcelas via finalizarCompra.js -->
+                        </div>
+
+                        <div class="card-security-note mt-3">
+                            <i class="bi bi-shield-lock-fill"></i>
+                            Seus dados são criptografados com SSL 256-bit
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================
+                     PAINEL: PIX
+                     ============================== -->
+                <div id="panel-pix" class="payment-panel">
+                    <div class="checkout-card p-4 mb-4">
+                        <div class="pix-panel">
+
+                            <div class="pix-header">
+                                <div class="pix-logo-wrap">
+                                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="pix-svg">
+                                        <path d="M22.07 24.13a4.38 4.38 0 0 1-3.1-1.29l-4.33-4.33a.87.87 0 0 0-1.21 0l-4.35 4.35a4.38 4.38 0 0 1-3.1 1.28H5.2l5.49 5.49a4.38 4.38 0 0 0 6.19 0l5.51-5.51h-.32ZM9.98 7.88a4.38 4.38 0 0 1 3.1 1.29l4.33 4.33c.33.34.88.34 1.21 0l4.33-4.33a4.38 4.38 0 0 1 3.1-1.29h.17L20.73 2.4a4.38 4.38 0 0 0-6.19 0L9.05 7.89h.93Z" fill="#32BCAD"/>
+                                        <path d="M29.6 11.27 26.7 8.37a.8.8 0 0 1-.25.04h-.38a3.13 3.13 0 0 0-2.22.92l-4.33 4.34a2.12 2.12 0 0 1-3 0l-4.35-4.34a3.13 3.13 0 0 0-2.22-.92H8.9a.8.8 0 0 1-.28-.05L5.68 11.3a4.38 4.38 0 0 0 0 6.19l2.94 2.94c.09-.02.18-.03.28-.03h1.06c.83 0 1.63-.33 2.22-.92l4.35-4.35a2.13 2.13 0 0 1 3 0l4.33 4.35c.59.59 1.39.92 2.22.92h.38c.1 0 .19.01.27.03l2.9-2.9a4.38 4.38 0 0 0-.03-6.26Z" fill="#32BCAD"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="pix-title">Pagamento via PIX</h3>
+                                    <p class="pix-subtitle">Rápido, seguro e disponível 24h</p>
+                                </div>
+                            </div>
+
+                            <div class="pix-steps">
+                                <div class="pix-step">
+                                    <div class="pix-step-number">1</div>
+                                    <p>Clique em <strong>"Gerar QR Code"</strong> para criar seu código de pagamento</p>
+                                </div>
+                                <div class="pix-step">
+                                    <div class="pix-step-number">2</div>
+                                    <p>Abra o app do seu banco e escaneie o QR Code ou copie o código PIX</p>
+                                </div>
+                                <div class="pix-step">
+                                    <div class="pix-step-number">3</div>
+                                    <p>Confirme o pagamento — aprovação <strong>instantânea</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="pix-qr-placeholder" id="pixQrArea">
+                                <div class="pix-qr-mock">
+                                    <i class="bi bi-qr-code"></i>
+                                    <span>QR Code gerado após confirmar</span>
+                                </div>
+                            </div>
+
+                            <div class="pix-info-row">
+                                <div class="pix-info-item">
+                                    <i class="bi bi-lightning-charge-fill"></i>
+                                    <span>Aprovação instantânea</span>
+                                </div>
+                                <div class="pix-info-item">
+                                    <i class="bi bi-clock"></i>
+                                    <span>Disponível 24h / 7 dias</span>
+                                </div>
+                                <div class="pix-info-item">
+                                    <i class="bi bi-shield-check"></i>
+                                    <span>100% seguro</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="payment-details" class="card checkout-card p-4 mb-4">
-                    <h3 class="payment-details-title mb-4">Dados do cartão</h3>
+                <!-- ==============================
+                     PAINEL: BOLETO
+                     ============================== -->
+                <div id="panel-boleto" class="payment-panel">
+                    <div class="checkout-card p-4 mb-4">
+                        <div class="boleto-panel">
 
-                    <div class="mb-3">
-                        <label class="form-label">Número do cartão</label>
-                        <input id="card-number" type="text" class="form-control" placeholder="0000 0000 0000 0000">
-                    </div>
+                            <div class="boleto-header">
+                                <div class="boleto-icon-wrap">
+                                    <i class="bi bi-file-earmark-text-fill"></i>
+                                </div>
+                                <div>
+                                    <h3 class="boleto-title">Boleto Bancário</h3>
+                                    <p class="boleto-subtitle">Gerado após confirmar o pedido</p>
+                                </div>
+                            </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Nome no cartão</label>
-                        <input id="card-name" type="text" class="form-control" placeholder="João Silva">
-                    </div>
+                            <div class="boleto-barcode-mock">
+                                <div class="barcode-lines">
+                                    <% for(let i = 0; i < 60; i++) { %>
+                                        <div class="barcode-line" style="width: <%= Math.random() > 0.5 ? '2px' : '1px' %>; background: var(--color-text);"></div>
+                                    <% } %>
+                                </div>
+                                <p class="barcode-number">00000.00000 00000.000000 00000.000000 0 00000000000000</p>
+                            </div>
 
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Validade</label>
-                            <input id="card-exp" type="text" class="form-control" placeholder="MM/AA">
+                            <div class="boleto-info-grid">
+                                <div class="boleto-info-item">
+                                    <i class="bi bi-calendar-event"></i>
+                                    <div>
+                                        <span class="boleto-info-label">Vencimento</span>
+                                        <span class="boleto-info-value">3 dias úteis após emissão</span>
+                                    </div>
+                                </div>
+                                <div class="boleto-info-item">
+                                    <i class="bi bi-bank"></i>
+                                    <div>
+                                        <span class="boleto-info-label">Onde pagar</span>
+                                        <span class="boleto-info-value">Qualquer banco, lotérica ou app</span>
+                                    </div>
+                                </div>
+                                <div class="boleto-info-item">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                    <div>
+                                        <span class="boleto-info-label">Processamento</span>
+                                        <span class="boleto-info-value">Até 2 dias úteis após pagamento</span>
+                                    </div>
+                                </div>
+                                <div class="boleto-info-item">
+                                    <i class="bi bi-info-circle"></i>
+                                    <div>
+                                        <span class="boleto-info-label">Atenção</span>
+                                        <span class="boleto-info-value">Pedido reservado por 3 dias</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="boleto-warning">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                O boleto será enviado para seu e-mail após a confirmação do pedido.
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">CVV</label>
-                            <input id="card-cvv" type="text" class="form-control" placeholder="123">
-                        </div>
-                    </div>
-
-                    <div class="mt-3" id="parcelas">
-                        <!-- Logica aplicada do script finalizarCompra -->
                     </div>
                 </div>
 
-                <button id="btn-back" class="btn btn-outline-primary">
-                    ← Voltar para endereço
+                <button id="btn-back" class="btn-back-checkout">
+                    <i class="bi bi-arrow-left"></i>
+                    Voltar para endereço
                 </button>
+
             </section>
         </div>
 
+        <!-- Resumo do pedido -->
         <div class="col-lg-4">
             <div class="order-summary">
                 <h3 class="summary-title mb-4">Resumo do pedido</h3>
 
                 <div class="summary-items mb-4" id="listaValores">
-                    <!-- Logica aplicada do script finalizarCompra -->
+                    <!-- Lógica via finalizarCompra.js -->
                 </div>
 
                 <button id="btn-pagamento" class="btn btn-primary btn-checkout w-100 mb-3">
+                    <i class="bi bi-lock-fill me-2"></i>
                     Finalizar Compra
                 </button>
 
                 <div class="security-badge">
+                    <i class="bi bi-shield-lock-fill me-2"></i>
                     Compra 100% segura e protegida
+                </div>
+
+                <div class="accepted-methods mt-3">
+                    <p class="accepted-label">Métodos aceitos</p>
+                    <div class="accepted-icons">
+                        <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/visa.svg" alt="Visa">
+                        <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/mastercard.svg" alt="Mastercard">
+                        <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/amex.svg" alt="Amex">
+                        <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/main/flat/elo.svg" alt="Elo">
+                    </div>
                 </div>
             </div>
         </div>
@@ -142,36 +374,74 @@
 
 <script src="https://cdn.jsdelivr.net/npm/cleave.js@1/dist/cleave.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const cleaveCard = new Cleave('#card-number', {
-            creditCard: true,
-            onCreditCardTypeChanged: function (type) {
-                console.log('Bandeira:', type);
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ---- Cleave masks ----
+    const cleaveCard = new Cleave('#card-number', {
+        creditCard: true,
+        onCreditCardTypeChanged: function (type) {
+            const display = document.getElementById('cardBrandDisplay');
+            const flagEl = document.getElementById('cardFlag');
+            const icons = {
+                visa: 'bi-credit-card-fill',
+                mastercard: 'bi-credit-card-2-back-fill',
+                amex: 'bi-credit-card-2-front-fill',
+                discover: 'bi-credit-card-fill',
+            };
+            display.innerHTML = `<i class="bi ${icons[type] || 'bi-credit-card-2-front'}"></i>`;
+            flagEl.className = 'card-flag-icon';
+            if (type && type !== 'unknown') {
+                flagEl.innerHTML = `<span class="flag-label">${type.toUpperCase()}</span>`;
             }
-        });
-
-        const cleaveExp = new Cleave('#card-exp', {
-            date: true,
-            datePattern: ['m', 'y']
-        });
-
-        const cleaveCvv = new Cleave('#card-cvv', {
-            numeral: true,
-            numeralIntegerScale: 4,
-            numeralPositiveOnly: true,
-            stripLeadingZeroes: false
-        });
+        }
     });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const methods = document.querySelectorAll('.payment-method');
-        methods.forEach(method => {
-            method.addEventListener('click', () => {
-                methods.forEach(m => m.classList.remove('selected'));
-                method.classList.add('selected');
-                const selectedMethod = method.dataset.method;
-            });
+    document.getElementById('card-number').addEventListener('input', function () {
+        document.getElementById('cardNumberDisplay').textContent = this.value || '0000 0000 0000 0000';
+    });
+
+    new Cleave('#card-exp', {
+        date: true,
+        datePattern: ['m', 'y']
+    });
+
+    new Cleave('#card-cvv', {
+        numeral: true,
+        numeralIntegerScale: 4,
+        numeralPositiveOnly: true,
+        stripLeadingZeroes: false
+    });
+
+    // ---- Seleção de método ----
+    const methods = document.querySelectorAll('.payment-method');
+    const panels = {
+        credit: document.getElementById('panel-credit'),
+        debit:  document.getElementById('panel-credit'), // mesmo painel de cartão
+        pix:    document.getElementById('panel-pix'),
+        boleto: document.getElementById('panel-boleto'),
+    };
+
+    methods.forEach(method => {
+        method.addEventListener('click', () => {
+            methods.forEach(m => m.classList.remove('selected'));
+            method.classList.add('selected');
+
+            const selected = method.dataset.method;
+
+            // esconde todos os painéis
+            document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
+
+            // mostra o painel certo
+            if (panels[selected]) panels[selected].classList.add('active');
         });
     });
+});
+
+function updateCardName(val) {
+    document.getElementById('cardNameDisplay').textContent = val.toUpperCase() || 'SEU NOME';
+}
+
+function updateCardExp(val) {
+    document.getElementById('cardExpDisplay').textContent = val || 'MM/AA';
+}
 </script>
-
