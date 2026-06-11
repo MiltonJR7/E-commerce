@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
     async function deletar(id, router) {
         let obj = id;
 
-        await finishOrder();
-        if(finishOrder === true) {
+        const confirmation = await finishOrder();
+        if(confirmation === true) {
             fetch(`${router}`, {
                 method: "DELETE",
                 headers: {
