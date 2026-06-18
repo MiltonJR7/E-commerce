@@ -14,6 +14,8 @@ const route = express.Router();
 route.get('/', authPublic, controller.homeView);
 route.get('/logout', auth, controllerUser.logout);
 route.get('/categoria', authPublic, controller.categoriaView);
+route.get('/privacidade', controller.privacidadeView);
+route.get('/termos', controller.termosView);
 route.get('/profile/:id', auth, controller.perfilView);
 
 route.put('/profile/:id', auth, upload.single('imagem'), controller.perfilAlterarDados);

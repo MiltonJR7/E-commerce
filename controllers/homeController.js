@@ -155,4 +155,34 @@ export default class HomeController {
             return res.status(500).json({ message: "Erro na requisção!" });
         }
     }
+
+    privacidadeView(req, res) {
+        try {
+            let id = null;
+            let perID = null;
+
+            if(req.user) id = req.user.id;
+            if(req.user) perID = req.user.perID;
+            
+            return res.status(200).render('FooterLinks/privacidade.ejs', { user: id, perID: perID });
+        } catch(err) {
+            console.log(err);
+            return res.status(500).json({ message: "Erro na requisção!", ok: false});
+        }
+    }
+
+    termosView(req, res) {
+        try {
+            let id = null;
+            let perID = null;
+
+            if(req.user) id = req.user.id;
+            if(req.user) perID = req.user.perID;
+
+            return res.status(200).render('FooterLinks/termos.ejs', { user: id, perID: perID });
+        } catch(err) {
+            console.log(err);
+            return res.status(500).json({ message: "Erro na requisção!", ok: false});
+        }
+    }
 }

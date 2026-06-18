@@ -1,0 +1,129 @@
+/* ===== TERMOS DE USO ===== */
+
+.termos-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Header */
+.termos-header {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+}
+
+.termos-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.termos-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 0.5rem;
+}
+
+.termos-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Card principal */
+.termos-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Seções */
+.termos-section {
+  padding-bottom: 1.75rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.termos-section--last {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.termos-section h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.termos-section h2::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: #2563eb;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.termos-section p {
+  color: #4b5563;
+  line-height: 1.75;
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+.termos-section p:last-child {
+  margin-bottom: 0;
+}
+
+.termos-section ul {
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0 0;
+}
+
+.termos-section ul li {
+  margin-bottom: 0.35rem;
+}
+
+/* Botão voltar */
+.termos-footer {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.termos-btn {
+  display: inline-block;
+  padding: 0.65rem 1.75rem;
+  background: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.termos-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .termos-card {
+    padding: 1.5rem;
+  }
+
+  .termos-header h1 {
+    font-size: 1.5rem;
+  }
+}
