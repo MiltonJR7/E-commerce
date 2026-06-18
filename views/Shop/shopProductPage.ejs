@@ -290,12 +290,79 @@
     </div>
 </div>
 
-<!-- ===== SCRIPT: LER MAIS / LER MENOS ===== -->
+<!-- ===== SCRIPTS DA PÁGINA ===== -->
 <script>
 (function () {
     'use strict';
 
-    // Altura máxima colapsada (em px). Abaixo disso o botão fica oculto.
+    /* -------------------------------------------------- */
+    /*  CARROSSEL DE PRODUTOS RELACIONADOS                 */
+    /* -------------------------------------------------- */
+
+    var carousels = {};
+
+    function initCarousel(trackId) {
+        var track     = document.getElementById(trackId);
+        if (!track) return;
+
+        var container = track.closest('.carousel-container');
+        var firstCard = track.querySelector('.product-card');
+        if (!firstCard) return;
+
+        carousels[trackId] = { index: 0 };
+
+        // Calcula quantos cards cabem por vez
+        function visibleCount() {
+            var cardW = firstCard.offsetWidth + 20; // 20 = gap
+            return Math.max(1, Math.floor(container.offsetWidth / cardW));
+        }
+
+        function totalCards() {
+            return track.querySelectorAll('.product-card').length;
+        }
+
+        function slide(direction) {
+            var state   = carousels[trackId];
+            var perView = visibleCount();
+            var total   = totalCards();
+            var maxIdx  = Math.max(0, total - perView);
+
+            state.index = Math.min(Math.max(state.index + direction, 0), maxIdx);
+
+            var cardW  = firstCard.offsetWidth + 20;
+            track.style.transform = 'translateX(-' + (state.index * cardW) + 'px)';
+        }
+
+        // Expõe para os botões inline onlick
+        window.slideProducts = window.slideProducts || function (id, dir) {
+            if (!carousels[id]) initCarousel(id);
+            var state   = carousels[id];
+            var track2  = document.getElementById(id);
+            if (!track2) return;
+            var container2 = track2.closest('.carousel-container');
+            var firstCard2 = track2.querySelector('.product-card');
+            if (!firstCard2) return;
+
+            var cardW2  = firstCard2.offsetWidth + 20;
+            var perView2 = Math.max(1, Math.floor(container2.offsetWidth / cardW2));
+            var total2   = track2.querySelectorAll('.product-card').length;
+            var maxIdx2  = Math.max(0, total2 - perView2);
+
+            state.index = Math.min(Math.max(state.index + dir, 0), maxIdx2);
+            track2.style.transform = 'translateX(-' + (state.index * cardW2) + 'px)';
+        };
+
+        // Reinicia ao redimensionar
+        window.addEventListener('resize', function () {
+            state.index = 0;
+            track.style.transform = 'translateX(0)';
+        });
+    }
+
+    /* -------------------------------------------------- */
+    /*  LER MAIS / LER MENOS                              */
+    /* -------------------------------------------------- */
+
     var COLLAPSED_HEIGHT = 200;
 
     var content  = document.getElementById('descriptionContent');
@@ -304,81 +371,74 @@
     var btn      = document.getElementById('btnReadMore');
     var btnLabel = btn ? btn.querySelector('.btn-read-more-label') : null;
 
-    if (!content || !btn) return;
+    function initReadMore() {
+        if (!content || !btn) return;
 
-    var isExpanded = false;
+        // Oculta fullDiv vazio (campo opcional do servidor)
+        if (fullDiv && fullDiv.innerHTML.trim() === '') {
+            fullDiv.style.display = 'none';
+        }
 
-    // --- Verifica se o conteúdo é alto o suficiente para justificar o botão ---
-    function init() {
-        // Esconde o fullDiv transitoriamente para medir a prévia
-        var fullHeight = content.scrollHeight;
-
-        if (fullHeight <= COLLAPSED_HEIGHT) {
-            // Descrição curta: sem botão, sem fade
-            btn.style.display  = 'none';
+        if (content.scrollHeight <= COLLAPSED_HEIGHT) {
+            btn.style.display = 'none';
             if (fade) fade.style.display = 'none';
             return;
         }
 
-        // Aplica altura máxima colapsada
         content.style.maxHeight = COLLAPSED_HEIGHT + 'px';
         content.style.overflow  = 'hidden';
         content.classList.add('is-collapsible');
-
-        // Se há conteúdo extra no fullDiv e ele está vazio, oculta-o
-        if (fullDiv && fullDiv.innerHTML.trim() === '') {
-            fullDiv.style.display = 'none';
-        }
     }
 
-    // --- Alterna entre expandido / colapsado ---
-    function toggle() {
+    var isExpanded = false;
+
+    function toggleReadMore() {
         isExpanded = !isExpanded;
 
         if (isExpanded) {
-            // Expande: anima para a altura real do conteúdo
             content.style.maxHeight = content.scrollHeight + 'px';
             content.classList.add('is-expanded');
             if (fade)     fade.classList.add('hidden');
-            if (btn)      btn.classList.add('active');
-            if (btn)      btn.setAttribute('aria-expanded', 'true');
+            btn.classList.add('active');
+            btn.setAttribute('aria-expanded', 'true');
             if (btnLabel) btnLabel.textContent = 'Recolher descrição';
 
-            // Após a transição, remove o limite para que redimensionamentos funcionem
             content.addEventListener('transitionend', function onEnd() {
                 if (isExpanded) content.style.maxHeight = 'none';
                 content.removeEventListener('transitionend', onEnd);
             });
-
         } else {
-            // Colapsa: define altura real antes de animar para colapsada
             content.style.maxHeight = content.scrollHeight + 'px';
-            // Força reflow para a transição funcionar
-            content.offsetHeight; // eslint-disable-line no-unused-expressions
+            content.offsetHeight; // força reflow
             content.style.maxHeight = COLLAPSED_HEIGHT + 'px';
             content.classList.remove('is-expanded');
             if (fade)     fade.classList.remove('hidden');
-            if (btn)      btn.classList.remove('active');
-            if (btn)      btn.setAttribute('aria-expanded', 'false');
+            btn.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
             if (btnLabel) btnLabel.textContent = 'Ler descrição completa';
 
-            // Rola suavemente de volta ao topo da seção
-            var section = document.querySelector('.product-description');
-            if (section) {
-                setTimeout(function () {
-                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 320);
-            }
+            setTimeout(function () {
+                var section = document.querySelector('.product-description');
+                if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 320);
         }
     }
 
-    btn.addEventListener('click', toggle);
+    /* -------------------------------------------------- */
+    /*  INIT                                              */
+    /* -------------------------------------------------- */
 
-    // Inicializa após o DOM estar pronto
+    function init() {
+        initCarousel('monitors-products');
+        initReadMore();
+        if (btn) btn.addEventListener('click', toggleReadMore);
+    }
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
+
 }());
 </script>

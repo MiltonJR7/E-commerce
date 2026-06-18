@@ -110,6 +110,7 @@ body {
     align-items: center;
     justify-content: center;
     background: #fff;
+    padding: 16px 16px 0;   /* padding topo e laterais; base zero para colar ao info */
 }
 
 .product-image-mini img {
@@ -493,6 +494,9 @@ body {
 
 .product-card-info {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;           /* ocupa o espaço restante do card */
 }
 
 .product-card-info h3 {
@@ -501,6 +505,12 @@ body {
     color: var(--color-text);
     margin-bottom: 10px;
     line-height: 1.4;
+    /* Limita a 2 linhas em todos os cards */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: calc(1.4em * 2); /* reserva espaço para 2 linhas sempre */
 }
 
 .product-card-price {
@@ -835,7 +845,7 @@ body[data-theme="dark"] .moon-icon {
     margin: 2px 0 14px;
 }
 
-/* Botão do card */
+/* Botão "Ver produto" sempre empurrado para o fundo do card */
 .product-card-btn {
     display: flex;
     align-items: center;
@@ -851,7 +861,7 @@ body[data-theme="dark"] .moon-icon {
     font-size: 0.88rem;
     font-weight: 600;
     transition: var(--transition);
-    margin-top: auto;
+    margin-top: auto;   /* empurra sempre para baixo independente de quantas linhas tem o título */
 }
 
 .product-card-btn:hover {
