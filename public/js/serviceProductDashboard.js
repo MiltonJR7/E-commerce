@@ -7,10 +7,29 @@ document.addEventListener('DOMContentLoaded', ()=> {
     btnClear.addEventListener('click', limparFormulario);
     let isSubmitting = false;
 
+    const quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Digite a descrição do produto...',
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline'],
+                [{ header: [1, 2, 3, false] }],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                ['link'],
+                ['clean']
+            ]
+        }
+    });
+
+    const descricaoOriginal = window.descricaoProduto;
+    if(descricaoOriginal){
+        quill.root.innerHTML = descricaoOriginal;
+    }
+
     function salvarAlteracao() {
 
         const nome = document.getElementById('nome');
-        const descricao = document.getElementById('descricao');
+        const descricao = quill.root.innerHTML;
         const precoInicial = document.getElementById('preco');
         const codigoBarras = document.getElementById('codigoBarras');
         const status = document.getElementById('status');
@@ -48,7 +67,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
             const formData = new FormData();
 
             formData.append("nome", nome.value);
-            formData.append("descricao", descricao.value);
+            formData.append("descricao", descricao);
             formData.append("preco", preco);
             formData.append("codigoBarras", codigoBarras.value);
             formData.append("status", statusBoolean);
@@ -74,6 +93,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
             })
             .finally(()=> {
                 isSubmitting = false;
+                quill.root.innerHTML = '';
             })
 
         } else {
@@ -86,7 +106,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     function limparFormulario(){
         const nome = document.getElementById('nome').value = "";
-        const descricao = document.getElementById('descricao').value = "";
+        quill.root.innerHTML = '';
         const precoInicial = document.getElementById('preco').value = "";
         const codigoBarras = document.getElementById('codigoBarras').value = "";
         const status = document.getElementById('status').value = "";

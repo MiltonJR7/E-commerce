@@ -448,10 +448,16 @@
                                             <div class="order-card-header">
                                                 <div class="order-id-group">
                                                     <span class="order-label">Pedido</span>
-                                                    <span class="order-id">#<%= pedido.ven_id %></span>
+                                                    <span class="order-id">
+                                                        Pedido:
+                                                        <i class="bi bi-caret-right-fill"></i>
+                                                        <span style="color: green;">
+                                                            #<%= pedido.ven_id %>
+                                                        </span>
+                                                    </span>
                                                 </div>
-                                                <span class="order-status-badge status-<%= pedido.ped_status %>">
-                                                    <span class="status-dot"></span>
+                                                <span class="order-status-badge status-<%= pedido.ped_status %>" style="color: green;">
+                                                    <span class="status-dot" style="background-color: green; color: green;"></span>
                                                     <%= pedido.ven_status %>
                                                 </span>
                                             </div>
@@ -466,12 +472,15 @@
                                                         </svg>
                                                         <span><%= pedido.ven_data %></span>
                                                     </div>
-                                                    <div class="order-meta-item">
-                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                            <line x1="12" y1="1" x2="12" y2="23"/>
-                                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                                                        </svg>
-                                                        <span class="order-value">R$ <%= pedido.ven_valor %></span>
+                                                    <div class="order-meta-item" style="padding-left: 30px;">
+                                                        <span class="order-value">
+                                                            <%=  
+                                                                Number(pedido.ven_valor).toLocaleString("pt-BR", {
+                                                                    style: "currency",
+                                                                    currency: "BRL"
+                                                                })
+                                                            %>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>

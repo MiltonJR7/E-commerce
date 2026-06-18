@@ -1,31 +1,42 @@
-
-
 <link rel="stylesheet" href="/css/shop.css">
 
 <div class="page-wrapper">
     <div class="container py-4 py-md-5">
-        <!-- Seção Principal do Produto -->
-        <section class="product-main mb-5">
-            <div class="row g-4 g-lg-5">
 
-                <!-- Imagem do Produto -->
+        <!-- ===== SEÇÃO PRINCIPAL DO PRODUTO ===== -->
+        <section class="product-main mb-5">
+            <div class="row g-4 g-lg-5 align-items-start">
+
+                <!-- Coluna: Imagem -->
                 <div class="col-lg-6">
                     <a href="/" class="btn-back">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
-                        Voltar
+                        Voltar à loja
                     </a>
-                    <div class="product-image-container" id="imgProduct" data-imagem-product="<%= listaProduct.pro_imagem %>">
+                    <div class="product-image-container" id="imgProduct"
+                        data-imagem-product="<%= listaProduct.pro_imagem %>">
                         <img src="<%= listaProduct.pro_imagem %>"
                             alt="<%= listaProduct.cat_nome %>" class="product-image" />
                     </div>
                 </div>
 
-                <!-- Informações do Produto -->
+                <!-- Coluna: Informações -->
                 <div class="col-lg-6">
-                        <h1 class="product-title" id="nomeProduto" data-nome-product="<%= listaProduct.pro_nome %>"><%= listaProduct.pro_nome %></h1>
+                    <div class="product-info">
 
+                        <!-- Categoria + Título -->
+                        <div class="product-header">
+                            <span class="product-category-label"><%= listaProduct.cat_nome %></span>
+                            <h1 class="product-title" id="nomeProduto"
+                                data-nome-product="<%= listaProduct.pro_nome %>">
+                                <%= listaProduct.pro_nome %>
+                            </h1>
+                        </div>
+
+                        <!-- Avaliação -->
                         <div class="product-rating">
                             <div class="stars">
                                 <span class="star filled">★</span>
@@ -34,91 +45,111 @@
                                 <span class="star filled">★</span>
                                 <span class="star filled">★</span>
                             </div>
-                            <span class="rating-text">(228 avaliações)</span>
+                            <span class="rating-text">5,0 · <strong>228 avaliações</strong></span>
                         </div>
 
+                        <!-- Preço -->
                         <div class="product-pricing">
+                            <div class="pricing-discount-badge">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.79 2.21L2.21 12.79a1 1 0 0 0 0 1.42l7.58 7.58a1 1 0 0 0 1.42 0L21.79 11.21a1 1 0 0 0 .21-.64V4a2 2 0 0 0-2-2h-6.57a1 1 0 0 0-.64.21zM17 7a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                </svg>
+                                Oferta especial
+                            </div>
                             <div class="price-wrapper">
                                 <span class="price-old">
                                     <% let precoAlto =+ listaProduct.pro_preco + 400; %>
-
-                                    <%= Number(precoAlto).toLocaleString("pt-BR", {
-                                        style: "currency",
-                                        currency: "BRL"
-                                    }) %>
-                                </span> 
-                                <span class="price-current" id="precoProduto" data-preco-product="<%= listaProduct.pro_preco %>">
-                                    <%= Number(listaProduct.pro_preco).toLocaleString("pt-BR", {
-                                        style: "currency",
-                                        currency: "BRL"
-                                    }) %>
+                                    <%= Number(precoAlto).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) %>
+                                </span>
+                                <span class="price-current" id="precoProduto"
+                                    data-preco-product="<%= listaProduct.pro_preco %>">
+                                    <%= Number(listaProduct.pro_preco).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) %>
                                 </span>
                             </div>
                             <p class="price-installment">
-                                ou 12x de  
+                                ou <strong>12x</strong> de
                                 <% let precoQuebrado =+ listaProduct.pro_preco / 12; %>
-
-                                <%= Number(precoQuebrado).toLocaleString("pt-BR", {
-                                    style: "currency",
-                                    currency: "BRL"
-                                }) %>
+                                <strong><%= Number(precoQuebrado).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) %></strong>
                                 sem juros
-                            </p><hr>
+                            </p>
 
-                            <% if(listaEstoque.est_quantidade > 0) { %>
-                                <p class="price-installment" id="estoqueProduto" data-estoque-product="<%= listaEstoque.est_quantidade %>"><%= listaEstoque.est_quantidade %> Unidades disponivel</p>
-                            <% } else { %>
-                                <p class="price-installment">Produto indisponivel!< /p>
-                            <% } %>
-                            
                             <div class="payment-badges">
-                                <span class="badge-payment">5% OFF no PIX</span>
-                                <span class="badge-payment">Frete Grátis</span>
+                                <span class="badge-payment">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px;vertical-align:-2px">
+                                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V10h16v8zm0-10H4V6h16v2z"/>
+                                    </svg>
+                                    5% OFF no PIX
+                                </span>
+                                <span class="badge-payment">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;vertical-align:-2px">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                    Frete Grátis
+                                </span>
                             </div>
                         </div>
 
-                        <div class="product-stock">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Em estoque - Envio imediato</span>
+                        <!-- Estoque -->
+                        <div class="product-stock-wrapper">
+                            <% if(listaEstoque.est_quantidade > 0) { %>
+                                <div class="product-stock">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2.5">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Em estoque</span>
+                                </div>
+                                <span class="stock-count" id="estoqueProduto"
+                                    data-estoque-product="<%= listaEstoque.est_quantidade %>">
+                                    <%= listaEstoque.est_quantidade %> unidades disponíveis
+                                </span>
+                            <% } else { %>
+                                <div class="product-stock stock-unavailable">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2.5">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                    <span>Produto indisponível</span>
+                                </div>
+                            <% } %>
                         </div>
 
+                        <!-- Ações -->
                         <div class="product-actions">
                             <button class="btn-add-cart" id="btnAddCart">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <circle cx="9" cy="21" r="1"></circle>
                                     <circle cx="20" cy="21" r="1"></circle>
-                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
-                                    </path>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                                 </svg>
                                 Adicionar ao Carrinho
                             </button>
                             <button class="btn-buy-now" id="btnCompreAgora">Comprar Agora</button>
                         </div>
 
+                        <!-- Garantias -->
                         <div class="product-features">
                             <div class="feature-item">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
-                                <span>Entrega para todo Brasil</span>
+                                <span>Entrega para todo o Brasil</span>
                             </div>
                             <div class="feature-item">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                 </svg>
                                 <span>Compra 100% segura</span>
                             </div>
                             <div class="feature-item">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <polyline points="23 4 23 10 17 10"></polyline>
                                     <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
                                 </svg>
@@ -128,70 +159,226 @@
 
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- Descrição do Produto -->
+        <!-- ===== DESCRIÇÃO DO PRODUTO ===== -->
         <section class="product-description mb-5">
             <div class="description-card">
-                <h2 class="section-title">Descrição do Produto</h2>
+                <div class="description-layout">
 
-                <div class="description-content">
-                    <div class="description-preview">
-                        <p>
-                            <%= listaProduct.pro_descricao %>
-                        </p>
+                    <!-- Coluna Principal: Conteúdo com Ler mais -->
+                    <div class="description-main">
+                        <h2 class="section-title">Descrição do Produto</h2>
+
+                        <div class="description-content" id="descriptionContent">
+
+                            <!-- Prévia sempre visível -->
+                            <div class="description-preview">
+                                <%- listaProduct.pro_descricao %>
+                            </div>
+
+                            <!-- Conteúdo oculto inicialmente (pode ser preenchido com dados extras do servidor) -->
+                            <div class="description-full" id="descriptionFull">
+                                <%- listaProduct.pro_descricao_completa || '' %>
+                            </div>
+
+                            <!-- Fade de leitura (some quando expandido) -->
+                            <div class="description-fade" id="descriptionFade"></div>
+                        </div>
+
+                        <!-- Botão Ler mais / Ler menos -->
+                        <button class="btn-read-more" id="btnReadMore" type="button" aria-expanded="false" aria-controls="descriptionFull">
+                            <span class="btn-read-more-label">Ler descrição completa</span>
+                            <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
                     </div>
+
+                    <!-- Coluna Lateral: Resumo rápido -->
+                    <aside class="description-sidebar">
+                        <div class="sidebar-block">
+                            <h3 class="sidebar-block-title">Resumo</h3>
+                            <ul class="sidebar-highlights">
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    Produto original com garantia
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    Nota fiscal inclusa
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    Suporte técnico disponível
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    Embalagem reforçada para envio
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sidebar-block sidebar-cta">
+                            <p class="sidebar-price-label">Seu preço hoje</p>
+                            <p class="sidebar-price-value">
+                                <%= Number(listaProduct.pro_preco).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) %>
+                            </p>
+                            <button class="btn-buy-now" type="button" onclick="document.getElementById('btnCompreAgora').click()">
+                                Comprar Agora
+                            </button>
+                        </div>
+                    </aside>
+
                 </div>
             </div>
         </section>
 
-        <!-- Produtos Relacionados -->
-        <div class="products-slider">
-            <button class="slider-btn prev" onclick="slideProducts('monitors', -1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
+        <!-- ===== PRODUTOS RELACIONADOS ===== -->
+        <section class="related-products mb-5">
+            <h2 class="section-title">Produtos Relacionados</h2>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn carousel-btn-prev" onclick="slideProducts('monitors', -1)" aria-label="Anterior">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
 
-            <div class="products-container" id="monitors-products">
-                <% listaOutros.forEach((produto)=> { %>
-                    <% if(produto.catNome === listaProduct.cat_nome) { %>
-                        <div class="product-card">
-                            <div class="product-image-mini">
-                                <img src="<%= produto.proImagem %>"
-                                    alt="Monitor">
-                            </div>
-                            <div class="product-info">
-                                <h3><%= produto.proNome %></h3>
-                                <p class="product-price">
-                                    <%= Number(produto.proPreco).toLocaleString("pt-BR", {
-                                        style: "currency",
-                                        currency: "BRL"
-                                    }) %>
-                                </p>
-                                <p class="product-installment">
-                                    ou 12x de  
-                                    <% let precoQuebrado =+ produto.proPreco / 12; %>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="monitors-products">
+                        <% listaOutros.forEach((produto) => { %>
+                            <% if(produto.catNome === listaProduct.cat_nome) { %>
+                                <div class="product-card">
+                                    <div class="product-image-mini">
+                                        <img src="<%= produto.proImagem %>" alt="<%= produto.proNome %>">
+                                    </div>
+                                    <div class="product-card-info">
+                                        <h3><%= produto.proNome %></h3>
+                                        <p class="product-card-price">
+                                            <%= Number(produto.proPreco).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) %>
+                                        </p>
+                                        <p class="product-card-installment">
+                                            12x de
+                                            <% let precoQuebrado =+ produto.proPreco / 12; %>
+                                            <%= Number(precoQuebrado).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) %>
+                                        </p>
+                                        <a href="/shop/shopProduct/<%= produto.proID %>" class="product-card-btn">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="9" cy="21" r="1"></circle>
+                                                <circle cx="20" cy="21" r="1"></circle>
+                                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                            </svg>
+                                            Ver produto
+                                        </a>
+                                    </div>
+                                </div>
+                            <% } %>
+                        <% }) %>
+                    </div>
+                </div>
 
-                                    <%= Number(precoQuebrado).toLocaleString("pt-BR", {
-                                        style: "currency",
-                                        currency: "BRL"
-                                    }) %>
-                                    sem juros
-                                </p>
-                                <a href="/shop/shopProduct/<%= produto.proID %>" class="btn-buy">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    Comprar
-                                </a>
-                            </div>
-                        </div>
-                    <% } %>
-                <% }) %>
+                <button class="carousel-btn carousel-btn-next" onclick="slideProducts('monitors', 1)" aria-label="Próximo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
             </div>
+        </section>
 
-            <button class="slider-btn next" onclick="slideProducts('monitors', 1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
     </div>
 </div>
+
+<!-- ===== SCRIPT: LER MAIS / LER MENOS ===== -->
+<script>
+(function () {
+    'use strict';
+
+    // Altura máxima colapsada (em px). Abaixo disso o botão fica oculto.
+    var COLLAPSED_HEIGHT = 200;
+
+    var content  = document.getElementById('descriptionContent');
+    var fullDiv  = document.getElementById('descriptionFull');
+    var fade     = document.getElementById('descriptionFade');
+    var btn      = document.getElementById('btnReadMore');
+    var btnLabel = btn ? btn.querySelector('.btn-read-more-label') : null;
+
+    if (!content || !btn) return;
+
+    var isExpanded = false;
+
+    // --- Verifica se o conteúdo é alto o suficiente para justificar o botão ---
+    function init() {
+        // Esconde o fullDiv transitoriamente para medir a prévia
+        var fullHeight = content.scrollHeight;
+
+        if (fullHeight <= COLLAPSED_HEIGHT) {
+            // Descrição curta: sem botão, sem fade
+            btn.style.display  = 'none';
+            if (fade) fade.style.display = 'none';
+            return;
+        }
+
+        // Aplica altura máxima colapsada
+        content.style.maxHeight = COLLAPSED_HEIGHT + 'px';
+        content.style.overflow  = 'hidden';
+        content.classList.add('is-collapsible');
+
+        // Se há conteúdo extra no fullDiv e ele está vazio, oculta-o
+        if (fullDiv && fullDiv.innerHTML.trim() === '') {
+            fullDiv.style.display = 'none';
+        }
+    }
+
+    // --- Alterna entre expandido / colapsado ---
+    function toggle() {
+        isExpanded = !isExpanded;
+
+        if (isExpanded) {
+            // Expande: anima para a altura real do conteúdo
+            content.style.maxHeight = content.scrollHeight + 'px';
+            content.classList.add('is-expanded');
+            if (fade)     fade.classList.add('hidden');
+            if (btn)      btn.classList.add('active');
+            if (btn)      btn.setAttribute('aria-expanded', 'true');
+            if (btnLabel) btnLabel.textContent = 'Recolher descrição';
+
+            // Após a transição, remove o limite para que redimensionamentos funcionem
+            content.addEventListener('transitionend', function onEnd() {
+                if (isExpanded) content.style.maxHeight = 'none';
+                content.removeEventListener('transitionend', onEnd);
+            });
+
+        } else {
+            // Colapsa: define altura real antes de animar para colapsada
+            content.style.maxHeight = content.scrollHeight + 'px';
+            // Força reflow para a transição funcionar
+            content.offsetHeight; // eslint-disable-line no-unused-expressions
+            content.style.maxHeight = COLLAPSED_HEIGHT + 'px';
+            content.classList.remove('is-expanded');
+            if (fade)     fade.classList.remove('hidden');
+            if (btn)      btn.classList.remove('active');
+            if (btn)      btn.setAttribute('aria-expanded', 'false');
+            if (btnLabel) btnLabel.textContent = 'Ler descrição completa';
+
+            // Rola suavemente de volta ao topo da seção
+            var section = document.querySelector('.product-description');
+            if (section) {
+                setTimeout(function () {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 320);
+            }
+        }
+    }
+
+    btn.addEventListener('click', toggle);
+
+    // Inicializa após o DOM estar pronto
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+}());
+</script>

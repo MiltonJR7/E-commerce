@@ -1,6 +1,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="/css/product.css">
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 
 <main class="main-content">
     <div class="perfil-page">
@@ -170,14 +171,13 @@
                             <label for="descricao" class="perfil-form-label">
                                 Descrição
                             </label>
-                            <textarea
-                                id="descricao"
-                                name="descricao"
-                                class="perfil-form-control product-textarea"
-                                placeholder="Digite uma descrição detalhada do produto"
-                                rows="4"
-                            ><%= lista.pro_descricao %></textarea>
+                            <div id="editor"></div>
+                            <input type="hidden" id="descricao">
                         </div>
+
+                        <script>
+                            window.descricaoProduto = `<%- lista.pro_descricao %>`;
+                        </script>
 
                         <div class="prodimg-upload-section">
                             <label class="prodimg-label">Imagem do Produto</label>
@@ -261,3 +261,4 @@
         input.value = value;
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>

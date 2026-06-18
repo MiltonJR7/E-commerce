@@ -677,3 +677,303 @@ body[data-theme="dark"] .moon-icon {
         font-size: 2.25rem;
     }
 }
+
+/* ========================================
+   NOVOS COMPONENTES — REFATORAÇÃO
+   ======================================== */
+
+/* Cabeçalho do produto: categoria + título */
+.product-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product-category-label {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    padding: 4px 12px;
+    border-radius: 20px;
+    width: fit-content;
+}
+
+/* Badge "Oferta especial" acima do preço */
+.pricing-discount-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--color-success);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    width: fit-content;
+}
+
+/* Estoque: wrapper para status + contador lado a lado */
+.product-stock-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.stock-count {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.stock-unavailable {
+    color: #ef4444;
+}
+
+/* ========================================
+   DESCRIÇÃO — LAYOUT DE DUAS COLUNAS
+   ======================================== */
+
+.description-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 40px;
+    align-items: start;
+}
+
+.description-main {
+    min-width: 0;
+}
+
+/* Sidebar da descrição */
+.description-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar-block {
+    background-color: var(--color-background-page);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+}
+
+.sidebar-block-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    margin-bottom: 14px;
+}
+
+.sidebar-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-highlights li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+.sidebar-highlights li svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--color-success);
+}
+
+/* CTA na sidebar */
+.sidebar-cta {
+    text-align: center;
+}
+
+.sidebar-price-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+}
+
+.sidebar-price-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-success);
+    margin-bottom: 14px;
+}
+
+.sidebar-cta .btn-buy-now {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   CARDS DE PRODUTOS RELACIONADOS
+   ======================================== */
+
+/* Parcelamento no card */
+.product-card-installment {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    margin: 2px 0 14px;
+}
+
+/* Botão do card */
+.product-card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 16px;
+    background-color: var(--color-primary);
+    color: #fff;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: var(--transition);
+    margin-top: auto;
+}
+
+.product-card-btn:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: #fff;
+}
+
+/* ========================================
+   RESPONSIVIDADE — NOVOS COMPONENTES
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 991px) {
+    .description-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .description-sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .product-category-label {
+        font-size: 0.72rem;
+    }
+
+    .description-sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .product-stock-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+
+/* ========================================
+   LER MAIS / LER MENOS — DESCRIPTION
+   ======================================== */
+
+/* Wrapper de conteúdo colapsável */
+#descriptionContent {
+    position: relative;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Estado colapsado já definido inline pelo JS,
+   mas o overflow e a transição ficam aqui */
+#descriptionContent.is-collapsible {
+    overflow: hidden;
+}
+
+/* Fade na borda inferior (gradiente de leitura) */
+#descriptionFade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--color-card-background) 100%
+    );
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#descriptionFade.hidden {
+    opacity: 0;
+}
+
+/* Botão Ler mais — sobrescreve o estilo base do .btn-read-more existente */
+.btn-read-more {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 18px;
+    margin-top: 16px;
+    transition: var(--transition);
+    width: fit-content;
+}
+
+.btn-read-more:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 8%, transparent);
+    border-color: var(--color-primary);
+    color: var(--color-primary-hover);
+}
+
+/* Ícone chevron — rotaciona quando ativo */
+.btn-read-more .chevron-icon {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.btn-read-more.active .chevron-icon {
+    transform: rotate(180deg);
+}
+
+/* Compatibilidade: .description-full não oculta mais por padrão
+   (o JS cuida do collapse via max-height no container pai) */
+.description-full {
+    max-height: none !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    margin-top: 0 !important;
+}
