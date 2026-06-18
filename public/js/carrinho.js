@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const idParams = Number(parts[parts.length - 1]);
 
     const btn = document.getElementById('btnAddCart');
+    const btnBuy = document.getElementById('btnCompreAgora');
     const nomeElemento = document.getElementById('nomeProduto');
     const precoElemento = document.getElementById('precoProduto');
     const imagemElemento = document.getElementById('imgProduct');
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const estrutura = document.getElementById('estruturaCompleta');
     const estruturaPrecoTotal = document.getElementById('precoFinal');
     const abrirCarrinho = document.getElementById('abrirCarrinho');
+    const idUser = document.getElementById('finalizarCompra').dataset.userId;
 
     let estoque = 0;
 
@@ -29,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btn) {
         btn.addEventListener('click', () => {
-
             let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
             let product = {
@@ -50,6 +51,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             salvarCarrinho(carrinho);
+        });
+    }
+
+    if (btnBuy) {
+        btnBuy.addEventListener('click', ()=> {
+            let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+            let product = {
+                id: idParams,
+                nome: nomeProduto,
+                preco: precoProduto,
+                imagem: imagemProduto,
+                quantidade: quantidadeInicial,
+                estoque: estoqueDefinido
+            };
+
+            const index = carrinho.findIndex(p => p.id === product.id);
+
+            if (index !== -1) {
+                carrinho[index].quantidade += 1;
+            } else {
+                carrinho.push(product);
+            }
+
+            salvarCarrinho(carrinho);
+            window.location.href = `/shop/checkout/${idUser}`;
         });
     }
 

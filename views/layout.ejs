@@ -69,7 +69,7 @@
                                 Continuar Comprando
                             </button>
                             <% if(user !== null) { %>
-                                <a href="/shop/checkout/<%= user %>" class="carrinho-acao carrinho-finalizar" id="finalizarCompra">
+                                <a href="/shop/checkout/<%= user %>" class="carrinho-acao carrinho-finalizar" data-user-ID="<%= user %>" id="finalizarCompra">
                                     <i class="bi bi-check-circle"></i>
                                     Finalizar Compra
                                 </a>
